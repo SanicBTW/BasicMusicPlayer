@@ -7,15 +7,22 @@ var playButt = document.getElementById("playButton");
 var text = document.getElementById("textarea");
 var element = document.getElementById("text");
 
-var jaja = funnyRead('./music/listMusic.txt', true);
+var thefunnypath = './music/';
+var thefunnyext = '.mp3';
+
+var jaja = funnyRead(thefunnypath + 'listMusic.txt', true);
 var funnyIdx = 0;
+
+var fileArray = [];
+for(var i in jaja)
+{
+    var thefunny = thefunnypath + jaja[i] + thefunnyext;
+    fileArray.push(thefunny);
+}
 
 function nextButtonFct()
 {
-    funnyIdx ++;
-
-    text.value = fileArray;
-
+    alert(fileArray.length)
     if(funnyIdx == fileArray.length){
         element.innerHTML = ("theres no next song");   
     }
@@ -23,12 +30,11 @@ function nextButtonFct()
 
 function prevButtonFct()
 {
- if(funnyIdx == 0){
-    element.innerHTML = ("theres no previous song");
- }else{
-    funnyIdx --;
- }
-
+    if(funnyIdx == 0){
+        element.innerHTML = ("theres no previous song");
+    }else{
+        funnyIdx --;
+    }
 }
 
 function playSong()
@@ -61,4 +67,13 @@ function funnyRead(file, turnIntoFunnyArray)
     }
     rawFile.send(null);
     return allText;
+}
+
+function pauseSong()
+{
+    daMusicPlayerBoii.pause();
+}
+function resumeSong()
+{
+    daMusicPlayerBoii.play();
 }
