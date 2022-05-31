@@ -1,9 +1,7 @@
 var daMusicPlayerBoii = document.getElementById("audioPlayer")
 var daMPsource = document.getElementById("audioPlayerSRC")
 var daFunnyInfo = document.getElementById("curplayinginfo")
-var nextButt = document.getElementById("nextButton");
-var prevButt = document.getElementById("prevButton");
-var playButt = document.getElementById("playButton");
+
 var text = document.getElementById("textarea");
 var element = document.getElementById("text");
 
@@ -14,17 +12,30 @@ var jaja = funnyRead(thefunnypath + 'listMusic.txt', true);
 var funnyIdx = 0;
 
 var fileArray = [];
+var fileNameArray = [];
+
+var repeat = false;
+
+daMusicPlayerBoii.onended = function() {
+    if(repeat == true){
+        playSong();
+    }
+}
+
 for(var i in jaja)
 {
     var thefunny = thefunnypath + jaja[i] + thefunnyext;
     fileArray.push(thefunny);
+    fileNameArray.push(jaja[i]);
 }
 
 function nextButtonFct()
 {
-    alert(fileArray.length)
-    if(funnyIdx == fileArray.length){
+    if(funnyIdx == fileArray.length -1){
         element.innerHTML = ("theres no next song");   
+    } else {
+        funnyIdx +1;
+        daMPsource.src = fileArray[funnyIdx];
     }
 }
 
@@ -33,7 +44,8 @@ function prevButtonFct()
     if(funnyIdx == 0){
         element.innerHTML = ("theres no previous song");
     }else{
-        funnyIdx --;
+        funnyIdx -1;
+        daMPsource.src = fileArray[funnyIdx];
     }
 }
 
@@ -42,7 +54,7 @@ function playSong()
     daMPsource.src = fileArray[funnyIdx];
     daMusicPlayerBoii.load();
     daMusicPlayerBoii.play();
-    daFunnyInfo.innerText = "Currently playing " + daMusicPlayerBoii.currentSrc;
+    daFunnyInfo.innerText = "Currently playing " + fileNameArray[funnyIdx];
 }
 
 function funnyRead(file, turnIntoFunnyArray)
@@ -76,4 +88,15 @@ function pauseSong()
 function resumeSong()
 {
     daMusicPlayerBoii.play();
+}
+
+function setRepeat()
+{
+    repeat = !repeat;
+    var thefunnybutton = document.getElementById("funnyRepeatButton");
+    if(repeat == true){
+        thefunnybutton.innerText = "Repeat On";
+    } else {
+        thefunnybutton.innerText = "Repeat Off";
+    }
 }
