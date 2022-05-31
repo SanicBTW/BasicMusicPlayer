@@ -1,0 +1,11 @@
+{
+  "name": "musicplayer",
+  "version": "1.0.0",
+  "description": "some project i wanted to work on for my funny iphone cuz no spotify lol",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "SanicBTW",
+  "license": "ISC"
+}
