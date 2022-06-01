@@ -159,7 +159,11 @@ async function readFileJSON(file)
 {
     var allText = null;
     var rawFile = await fetch(file);
-    allText = JSON.parse((await rawFile.text()))
+    try{
+        allText = JSON.parse(await rawFile.text())
+    } catch (exp){
+        alert(exp)
+    }
     return allText;
 }
 
@@ -177,10 +181,10 @@ async function setupFiles() {
         }
         for(var i in listMusic)
         {
-            var dir1 = musicPath + listMusic[i] + "/";
-            var musicDir = dir1 +  listMusic[i] + musicExt;
-            var dataDir = dir1 + listMusic[i] + dataExt;
+            var mainDir = musicPath + listMusic[i] + "/"
+            var dataDir = mainDir + listMusic[i] + dataExt;
             var theJson = await readFileJSON(dataDir);
+            var musicDir = mainDir + theJson['fileName']
             musicArray.push(musicDir);
             musicNameArray.push(theJson['name']);
             daList.innerText = daList.innerText + "\n" + musicNameArray[i];
