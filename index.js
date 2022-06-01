@@ -126,7 +126,7 @@ function setServer(){
             } else { //if it does end with a slash we just add music
                 musicPath = daInput.value + "music/"
             }
-        } else if(!musicPath.value.endsWith("/")){ //we check if the current music path which was set earlier doesnt end with a slash
+        } else if(!musicPath.endsWith("/")){ //we check if the current music path which was set earlier doesnt end with a slash
             musicPath = musicPath + "/";
         } else { //if it meets all the requirements we go without anycheck ig
             musicPath = daInput.value;
