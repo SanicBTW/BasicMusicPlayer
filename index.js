@@ -8,7 +8,9 @@ var funnyinfo = document.getElementById("info");
 
 //helper vars
 var thefunnypath = './music/';
+var thefunnydatapath = thefunnypath + "data/";
 var thefunnyext = '.mp3';
+var thefunnydataext = ".json"; //???
 
 var listMusic = funnyRead('listMusic.txt', true);
 var funnyIdx = 0;
@@ -87,7 +89,7 @@ function doTheThing(){
 }
 
 //file funcs
-function funnyRead(file, turnIntoFunnyArray)
+function funnyRead(file, turnIntoFunnyArray, isJson)
 {
     var allText = null;
     var rawFile = new XMLHttpRequest();
@@ -100,6 +102,8 @@ function funnyRead(file, turnIntoFunnyArray)
             {
                 if(turnIntoFunnyArray == true){
                     allText = rawFile.responseText.trim().split('\n');
+                } else if (isJson == true){
+                    allText = JSON.parse(rawFile.responseText)
                 } else {
                     allText = rawFile.responseText;
                 }
@@ -115,7 +119,9 @@ function setupFiles() {
     for(var i in listMusic)
     {
         var thefunny = thefunnypath + listMusic[i] + thefunnyext;
+        var thefunnydata = thefunnydatapath + listMusic[i] + "_data" + thefunnydataext;
+        var jsonText = funnyRead(thefunnydata, false, true);
         fileArray.push(thefunny);
-        fileNameArray.push(listMusic[i]);
+        fileNameArray.push(jsonText['name']);
     }    
 }
