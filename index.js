@@ -36,6 +36,7 @@ function nextButtonFct()
     if(funnyIdx == fileArray.length -1){
         document.getElementById("nextButton").hidden = true;
         funnyinfo.innerText = "There's no next song";
+        doTheThing();
     } else {
         document.getElementById("prevButton").hidden = false;
         funnyIdx += 1;
@@ -48,6 +49,7 @@ function prevButtonFct()
     if(funnyIdx == 0){
         document.getElementById("prevButton").hidden = true;
         funnyinfo.innerText = "There's no previous song";
+        doTheThing();
     }else{
         document.getElementById("nextButton").hidden = false;
         funnyIdx -= 1;
@@ -105,4 +107,10 @@ function setRepeat()
     } else {
         thefunnybutton.innerText = "Repeat Off";
     }
+}
+
+function doTheThing(){
+    setInterval(function(){
+        funnyinfo.innerText = "";
+    }, 2000);
 }
