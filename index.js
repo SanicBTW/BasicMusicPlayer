@@ -4,6 +4,7 @@ var daMPsource = document.getElementById("audioPlayerSRC")
 var daFunnyInfo = document.getElementById("curplayinginfo")
 var daButton = document.getElementById("playButton")
 var daList = document.getElementById("funnyList")
+var musiclistLabel = document.getElementById("funnyListInfo")
 
 //server stuff
 var daInput = document.getElementById("funnyServer");
@@ -11,6 +12,7 @@ var daInput = document.getElementById("funnyServer");
 //info
 var funnyinfo = document.getElementById("info");
 var daVersion = document.getElementById("version"); //why??
+var logArea = document.getElementById("logs")
 
 //helper vars
 var musicPath = './music/';
@@ -127,16 +129,16 @@ function doTheThing(){
 function setServer(){
     if(daInput.value.length > 0){
         if(!daInput.value.endsWith("/")){
-            thefunnypath = daInput.value + "/";
+            musicPath = daInput.value + "/";
         } else {
-            thefunnypath = daInput.value;
+            musicPath = daInput.value;
         }
         doneSearchingFiles = false;
         changedMusicPath = true;
         cleanArrays(); //just in case
         setupFiles();
     } else {
-        thefunnypath = "./music/";
+        musicPath = "./music/";
         doneSearchingFiles = false;
         cleanArrays();
         setupFiles();
@@ -145,79 +147,64 @@ function setServer(){
 }
 
 //file funcs
-function readFile(file, isOnline, TurnIntoArray)
+async function readFile(file, TurnIntoArray)
 {
-    if(isOnline == false){
-        var allText = null;
-        var rawFile = new XMLHttpRequest();
-        rawFile.open("GET", file, false);
-        rawFile.onreadystatechange = function ()
-        {
-            if(rawFile.readyState === 4)
-            {
-                if(rawFile.status === 200 || rawFile.status == 0)
-                {
-                    if(TurnIntoArray == true){
-                        allText = rawFile.responseText.trim().split('\n');
-                    } else {
-                        allText = rawFile.responseText;
-                    }
-                }
-            }
-        }
-        rawFile.send(null);
-        return allText;
+    var allText = null;
+    var rawFile = await fetch(file);
+    if(TurnIntoArray == true){
+        allText = (await rawFile.text()).trim().split('\n')
     } else {
-        
+        allText = (await rawFile.text())
     }
+    return allText;
 }
 
-function readFileJSON(file, isOnline)
+async function readFileJSON(file)
 {
-    if(isOnline == false){
-        var allText = null;
-        var rawFile = new XMLHttpRequest();
-        rawFile.open("GET", file, false);
-        rawFile.onreadystatechange = function ()
-        {
-            if(rawFile.readyState === 4)
-            {
-                if(rawFile.status === 200 || rawFile.status == 0)
-                {
-                    allText = JSON.parse(rawFile.responseText)
-                }
-            }
-        }
-        rawFile.send(null);
-        return allText;
-    }
+    var allText = null;
+    var rawFile = await fetch(file);
+    allText = JSON.parse((await rawFile.text())) //necessary?
+    return allText;
 }
 
-function setupFiles() {
+async function setupFiles() {
     cleanArrays();
 
-
-    if(doneSearchingFiles == false && musicPath == "./music/" && changedMusicPath == false){
-        var listMusic = readFile(musicPath + listMusicFile, false, true)
+    if(doneSearchingFiles == false){
+        var listMusic = null;
+        try{
+            listMusic = await readFile(musicPath + listMusicFile, true)
+        } catch(exc){
+            log("There was an error, setting local path and retrying" + exc)
+            musicPath = "./music/"
+            await setupFiles();
+        }
         for(var i in listMusic)
         {
             var dir1 = musicPath + listMusic[i] + "/";
             var musicDir = dir1 +  listMusic[i] + musicExt;
             var dataDir = dir1 + listMusic[i] + dataExt;
-            var theJson = readFileJSON(dataDir, false);
+            var theJson = await readFileJSON(dataDir);
             musicArray.push(musicDir);
             musicNameArray.push(theJson['name']);
             daList.innerText = daList.innerText + "\n" + musicNameArray[i];
         }
         doneSearchingFiles = true;
-    }
+    } 
 }
 
 function cleanArrays(){
+    daList.innerText = "Source: " + musicPath;
+    musiclistLabel.innerText = "Available music: "
     if(musicArray.length > 0){
         musicArray = [];
     }
     if(musicNameArray.length > 0){
         musicNameArray = [];
     }
+}
+
+//temp
+function log(text){
+    logArea.innerText += logArea.innerText + text;
 }

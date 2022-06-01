@@ -22,7 +22,11 @@
             <button class="setcustom" onclick="setServer()">Set Custom Server</button>
         </div>
         
-        <p id="funnyList">Available music: (SEARCHING)</p>
+        <label for="funnyList" id="funnyListInfo">Available music: </label>
+        <p id="funnyList" ></p>
+
+
+        <textarea id="logs" class="logger" readonly="true"></textarea>
 
         <audio id="audioPlayer">
             <source id="audioPlayerSRC" type='audio/mpeg'>  
