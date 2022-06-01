@@ -4,6 +4,10 @@ var daMPsource = document.getElementById("audioPlayerSRC")
 var daFunnyInfo = document.getElementById("curplayinginfo")
 var daButton = document.getElementById("playButton")
 
+//upload stuff
+var daUploadButton = document.getElementById("uploadButton")
+let uploadedFile;
+
 //info
 var funnyinfo = document.getElementById("info");
 var daVersion = document.getElementById("version"); //why??
@@ -22,6 +26,7 @@ var musicNameArray = [];
 var repeat = false;
 var playing = false;
 var paused = false;
+var srcSetFromExtSource = false;
 
 daMusicPlayerBoii.onended = function() {
     playing = false;
@@ -44,6 +49,13 @@ daMusicPlayerBoii.onpause = function() {
     daButton.innerText = "Resume";
     daFunnyInfo.innerText = "Currently playing: " + musicNameArray[funnyIdx] + " (PAUSED)";
 }
+
+daUploadButton.addEventListener('click', async () => {
+    [uploadedFile] = await window.showOpenFilePicker();
+    const file = await uploadedFile.getFile();
+    alert(file);
+    writeURLToFile(file, )
+})
 
 setupFiles();
 
@@ -77,7 +89,9 @@ function setState(state)
 {
     switch (state){
         case "play":
-            daMPsource.src = musicArray[funnyIdx];
+            if(srcSetFromExtSource == false){
+                daMPsource.src = musicArray[funnyIdx];
+            }
             daMusicPlayerBoii.load();
             daMusicPlayerBoii.play();
             daFunnyInfo.innerText = "Currently playing: " + musicNameArray[funnyIdx];
@@ -117,6 +131,16 @@ function doTheThing(){
     }, 2000);
 }
 
+/*
+function upload(){
+    const fileInput = document.querySelector('#uploadedFiles')
+    const files = fileInput.files;
+    const fileListLength = files.length;
+    for (let i = 0; i < fileListLength; i++) {
+        alert(`${files.item(i).name}`);
+    }
+}*/
+
 //file funcs
 function funnyRead(file, turnIntoFunnyArray, isJson)
 {
@@ -154,4 +178,22 @@ function setupFiles() {
         musicArray.push(musicDir);
         musicNameArray.push(theJson['name']);
     }    
+}
+
+/*
+function read(file){
+    const help = new FileReader();
+    help.addEventListener('load', (event) => {
+        daMPsource.src = event.target.result;
+        srcSetFromExtSource = true;
+    });
+    help.readAsDataURL(file)
+    setState('check');
+}*/
+
+//taken from some place
+async function writeURLToFile(fileHandle, url) {
+    const writable = await fileHandle.createWritable();
+    const response = await fetch(url);
+    await response.body.pipeTo(writable);
 }

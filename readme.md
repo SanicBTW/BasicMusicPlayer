@@ -3,4 +3,4 @@
 Will soon explain the usage of this
 
 Huge thanks to [Bonndubz](https://github.com/bonndevoff) for the help
-# v0.1
+# v0.2
