@@ -50,13 +50,6 @@ daMusicPlayerBoii.onpause = function() {
     daFunnyInfo.innerText = "Currently playing: " + musicNameArray[funnyIdx] + " (PAUSED)";
 }
 
-daUploadButton.addEventListener('click', async () => {
-    [uploadedFile] = await window.showOpenFilePicker();
-    const file = await uploadedFile.getFile();
-    alert(file);
-    writeURLToFile(file, )
-})
-
 setupFiles();
 
 function nextButtonFct()
@@ -131,16 +124,6 @@ function doTheThing(){
     }, 2000);
 }
 
-/*
-function upload(){
-    const fileInput = document.querySelector('#uploadedFiles')
-    const files = fileInput.files;
-    const fileListLength = files.length;
-    for (let i = 0; i < fileListLength; i++) {
-        alert(`${files.item(i).name}`);
-    }
-}*/
-
 //file funcs
 function funnyRead(file, turnIntoFunnyArray, isJson)
 {
@@ -178,22 +161,4 @@ function setupFiles() {
         musicArray.push(musicDir);
         musicNameArray.push(theJson['name']);
     }    
-}
-
-/*
-function read(file){
-    const help = new FileReader();
-    help.addEventListener('load', (event) => {
-        daMPsource.src = event.target.result;
-        srcSetFromExtSource = true;
-    });
-    help.readAsDataURL(file)
-    setState('check');
-}*/
-
-//taken from some place
-async function writeURLToFile(fileHandle, url) {
-    const writable = await fileHandle.createWritable();
-    const response = await fetch(url);
-    await response.body.pipeTo(writable);
 }
