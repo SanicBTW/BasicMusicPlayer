@@ -5,6 +5,7 @@ var daFunnyInfo = document.getElementById("curplayinginfo")
 
 //info
 var funnyinfo = document.getElementById("info");
+var daVersion = document.getElementById("version"); //why??
 
 //helper vars
 var thefunnypath = './music/';
@@ -24,6 +25,8 @@ var paused = false;
 
 daMusicPlayerBoii.onended = function() {
     playing = false;
+    paused = false;
+    daFunnyInfo.innerText = "Currently playing: nothing (ENDED)";
     if(repeat == true){
         setState("play");
     }
