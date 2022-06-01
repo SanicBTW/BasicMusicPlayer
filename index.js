@@ -3,10 +3,10 @@ var daMusicPlayerBoii = document.getElementById("audioPlayer")
 var daMPsource = document.getElementById("audioPlayerSRC")
 var daFunnyInfo = document.getElementById("curplayinginfo")
 var daButton = document.getElementById("playButton")
+var daList = document.getElementById("funnyList")
 
-//upload stuff
-var daUploadButton = document.getElementById("uploadButton")
-let uploadedFile;
+//server stuff
+var daInput = document.getElementById("funnyServer");
 
 //info
 var funnyinfo = document.getElementById("info");
@@ -17,7 +17,7 @@ var thefunnypath = './music/';
 var thefunnyext = '.mp3';
 var thefunnydataext = ".json";
 
-var listMusic = funnyRead('listMusic.txt', true);
+var listMusic = funnyRead(thefunnypath + 'listMusic.txt', true);
 var funnyIdx = 0;
 
 var musicArray = [];
@@ -26,7 +26,8 @@ var musicNameArray = [];
 var repeat = false;
 var playing = false;
 var paused = false;
-var srcSetFromExtSource = false;
+
+var doneSearchingFiles = false;
 
 daMusicPlayerBoii.onended = function() {
     playing = false;
@@ -82,9 +83,7 @@ function setState(state)
 {
     switch (state){
         case "play":
-            if(srcSetFromExtSource == false){
-                daMPsource.src = musicArray[funnyIdx];
-            }
+            daMPsource.src = musicArray[funnyIdx];
             daMusicPlayerBoii.load();
             daMusicPlayerBoii.play();
             daFunnyInfo.innerText = "Currently playing: " + musicNameArray[funnyIdx];
@@ -124,6 +123,25 @@ function doTheThing(){
     }, 2000);
 }
 
+function setServer(){
+    if(daInput.value.length > 0){
+        if(!daInput.value.endsWith("/")){
+            thefunnypath = daInput.value + "/";
+        } else {
+            thefunnypath = daInput.value;
+        }
+        doneSearchingFiles = false;
+        cleanArrays(); //just in case
+        setupFiles();
+    } else {
+        thefunnypath = "./music/";
+        doneSearchingFiles = false;
+        cleanArrays();
+        setupFiles();
+    }
+
+}
+
 //file funcs
 function funnyRead(file, turnIntoFunnyArray, isJson)
 {
@@ -150,15 +168,33 @@ function funnyRead(file, turnIntoFunnyArray, isJson)
     return allText;
 }
 
-function setupFiles() {
 
-    for(var i in listMusic)
-    {
-        var dir1 = thefunnypath + listMusic[i] + "/";
-        var musicDir = dir1 +  listMusic[i] + thefunnyext;
-        var dataDir = dir1 + listMusic[i] + thefunnydataext;
-        var theJson = funnyRead(dataDir, false, true);
-        musicArray.push(musicDir);
-        musicNameArray.push(theJson['name']);
-    }    
+function setupFiles() {
+    //clean arrays 
+    cleanArrays();
+
+    daList.innerText = "Available music: "
+
+    if(doneSearchingFiles == false){
+        for(var i in listMusic)
+        {
+            var dir1 = thefunnypath + listMusic[i] + "/";
+            var musicDir = dir1 +  listMusic[i] + thefunnyext;
+            var dataDir = dir1 + listMusic[i] + thefunnydataext;
+            var theJson = funnyRead(dataDir, false, true);
+            musicArray.push(musicDir);
+            musicNameArray.push(theJson['name']);
+            daList.innerText = daList.innerText + "\n" + musicNameArray[i];
+        }
+        doneSearchingFiles = true;
+    }
+}
+
+function cleanArrays(){
+    if(musicArray.length > 0){
+        musicArray = [];
+    }
+    if(musicNameArray.length > 0){
+        musicNameArray = [];
+    }
 }
