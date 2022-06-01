@@ -10,7 +10,7 @@ var funnyinfo = document.getElementById("info");
 var thefunnypath = './music/';
 var thefunnyext = '.mp3';
 
-var jaja = funnyRead(thefunnypath + 'listMusic.txt', true);
+var listMusic = funnyRead('listMusic.txt', true);
 var funnyIdx = 0;
 
 var fileArray = [];
@@ -24,12 +24,7 @@ daMusicPlayerBoii.onended = function() {
     }
 }
 
-for(var i in jaja)
-{
-    var thefunny = thefunnypath + jaja[i] + thefunnyext;
-    fileArray.push(thefunny);
-    fileNameArray.push(jaja[i]);
-}
+setupFiles();
 
 function nextButtonFct()
 {
@@ -56,30 +51,6 @@ function prevButtonFct()
         setState("play");
     }
 }
-
-function funnyRead(file, turnIntoFunnyArray)
-{
-    var allText = null;
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
-                if(turnIntoFunnyArray == true){
-                    allText = rawFile.responseText.trim().split('\n');
-                } else {
-                    allText = rawFile.responseText;
-                }
-            }
-        }
-    }
-    rawFile.send(null);
-    return allText;
-}
-
 function setState(state)
 {
     switch (state){
@@ -113,4 +84,38 @@ function doTheThing(){
     setInterval(function(){
         funnyinfo.innerText = "";
     }, 2000);
+}
+
+//file funcs
+function funnyRead(file, turnIntoFunnyArray)
+{
+    var allText = null;
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                if(turnIntoFunnyArray == true){
+                    allText = rawFile.responseText.trim().split('\n');
+                } else {
+                    allText = rawFile.responseText;
+                }
+            }
+        }
+    }
+    rawFile.send(null);
+    return allText;
+}
+
+function setupFiles() {
+
+    for(var i in listMusic)
+    {
+        var thefunny = thefunnypath + listMusic[i] + thefunnyext;
+        fileArray.push(thefunny);
+        fileNameArray.push(listMusic[i]);
+    }    
 }
