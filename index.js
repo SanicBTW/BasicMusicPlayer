@@ -1,10 +1,12 @@
+//audio stuff
 var daMusicPlayerBoii = document.getElementById("audioPlayer")
 var daMPsource = document.getElementById("audioPlayerSRC")
 var daFunnyInfo = document.getElementById("curplayinginfo")
 
-var text = document.getElementById("textarea");
-var element = document.getElementById("text");
+//info
+var funnyinfo = document.getElementById("info");
 
+//helper vars
 var thefunnypath = './music/';
 var thefunnyext = '.mp3';
 
@@ -18,7 +20,7 @@ var repeat = false;
 
 daMusicPlayerBoii.onended = function() {
     if(repeat == true){
-        playSong();
+        setState("play");
     }
 }
 
@@ -32,29 +34,25 @@ for(var i in jaja)
 function nextButtonFct()
 {
     if(funnyIdx == fileArray.length -1){
-        element.innerHTML = ("theres no next song");   
+        document.getElementById("nextButton").hidden = true;
+        funnyinfo.innerText = "There's no next song";
     } else {
-        funnyIdx +1;
-        daMPsource.src = fileArray[funnyIdx];
+        document.getElementById("prevButton").hidden = false;
+        funnyIdx += 1;
+        setState("play");
     }
 }
 
 function prevButtonFct()
 {
     if(funnyIdx == 0){
-        element.innerHTML = ("theres no previous song");
+        document.getElementById("prevButton").hidden = true;
+        funnyinfo.innerText = "There's no previous song";
     }else{
-        funnyIdx -1;
-        daMPsource.src = fileArray[funnyIdx];
+        document.getElementById("nextButton").hidden = false;
+        funnyIdx -= 1;
+        setState("play");
     }
-}
-
-function playSong()
-{
-    daMPsource.src = fileArray[funnyIdx];
-    daMusicPlayerBoii.load();
-    daMusicPlayerBoii.play();
-    daFunnyInfo.innerText = "Currently playing " + fileNameArray[funnyIdx];
 }
 
 function funnyRead(file, turnIntoFunnyArray)
@@ -73,7 +71,6 @@ function funnyRead(file, turnIntoFunnyArray)
                 } else {
                     allText = rawFile.responseText;
                 }
-                return allText;
             }
         }
     }
@@ -81,13 +78,22 @@ function funnyRead(file, turnIntoFunnyArray)
     return allText;
 }
 
-function pauseSong()
+function setState(state)
 {
-    daMusicPlayerBoii.pause();
-}
-function resumeSong()
-{
-    daMusicPlayerBoii.play();
+    switch (state){
+        case "play":
+            daMPsource.src = fileArray[funnyIdx];
+            daMusicPlayerBoii.load();
+            daMusicPlayerBoii.play();
+            daFunnyInfo.innerText = "Currently playing: " + fileNameArray[funnyIdx];
+            break;
+        case "pause":
+            daMusicPlayerBoii.pause();
+            break;
+        case "resume":
+            daMusicPlayerBoii.play();
+            break;
+    }
 }
 
 function setRepeat()
