@@ -2,6 +2,7 @@
 var daMusicPlayerBoii = document.getElementById("audioPlayer")
 var daMPsource = document.getElementById("audioPlayerSRC")
 var daFunnyInfo = document.getElementById("curplayinginfo")
+var daButton = document.getElementById("playButton")
 
 //info
 var funnyinfo = document.getElementById("info");
@@ -9,15 +10,14 @@ var daVersion = document.getElementById("version"); //why??
 
 //helper vars
 var thefunnypath = './music/';
-var thefunnydatapath = thefunnypath + "data/";
 var thefunnyext = '.mp3';
-var thefunnydataext = ".json"; //???
+var thefunnydataext = ".json";
 
 var listMusic = funnyRead('listMusic.txt', true);
 var funnyIdx = 0;
 
-var fileArray = [];
-var fileNameArray = [];
+var musicArray = [];
+var musicNameArray = [];
 
 var repeat = false;
 var playing = false;
@@ -35,19 +35,21 @@ daMusicPlayerBoii.onended = function() {
 daMusicPlayerBoii.onplaying = function() {
     playing = true;
     paused = false;
+    daButton.innerText = "Pause"
 }
 
 daMusicPlayerBoii.onpause = function() {
     paused = true;
     playing = false;
-    daFunnyInfo.innerText = "Currently playing: " + fileNameArray[funnyIdx] + " (PAUSED)";
+    daButton.innerText = "Resume";
+    daFunnyInfo.innerText = "Currently playing: " + musicNameArray[funnyIdx] + " (PAUSED)";
 }
 
 setupFiles();
 
 function nextButtonFct()
 {
-    if(funnyIdx == fileArray.length -1){
+    if(funnyIdx == musicArray.length -1){
         document.getElementById("nextButton").hidden = true;
         funnyinfo.innerText = "There's no next song";
         doTheThing();
@@ -70,21 +72,22 @@ function prevButtonFct()
         setState("play");
     }
 }
+
 function setState(state)
 {
     switch (state){
         case "play":
-            daMPsource.src = fileArray[funnyIdx];
+            daMPsource.src = musicArray[funnyIdx];
             daMusicPlayerBoii.load();
             daMusicPlayerBoii.play();
-            daFunnyInfo.innerText = "Currently playing: " + fileNameArray[funnyIdx];
+            daFunnyInfo.innerText = "Currently playing: " + musicNameArray[funnyIdx];
             break;
         case "pause":
             daMusicPlayerBoii.pause();
             break;
         case "resume":
             daMusicPlayerBoii.play();
-            daFunnyInfo.innerText = "Currently playing: " + fileNameArray[funnyIdx];
+            daFunnyInfo.innerText = "Currently playing: " + musicNameArray[funnyIdx];
             break;
         case "check":
             if(playing == true && paused == false){
@@ -144,10 +147,11 @@ function setupFiles() {
 
     for(var i in listMusic)
     {
-        var thefunny = thefunnypath + listMusic[i] + thefunnyext;
-        var thefunnydata = thefunnydatapath + listMusic[i] + "_data" + thefunnydataext;
-        var jsonText = funnyRead(thefunnydata, false, true);
-        fileArray.push(thefunny);
-        fileNameArray.push(jsonText['name']);
+        var dir1 = thefunnypath + listMusic[i] + "/";
+        var musicDir = dir1 +  listMusic[i] + thefunnyext;
+        var dataDir = dir1 + listMusic[i] + thefunnydataext;
+        var theJson = funnyRead(dataDir, false, true);
+        musicArray.push(musicDir);
+        musicNameArray.push(theJson['name']);
     }    
 }
