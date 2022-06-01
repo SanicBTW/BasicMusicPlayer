@@ -13,11 +13,11 @@ var funnyinfo = document.getElementById("info");
 var daVersion = document.getElementById("version"); //why??
 
 //helper vars
-var thefunnypath = './music/';
-var thefunnyext = '.mp3';
-var thefunnydataext = ".json";
+var musicPath = './music/';
+var musicExt = '.mp3';
+var dataExt = ".json";
+var listMusicFile = 'listMusic.txt';
 
-var listMusic = funnyRead(thefunnypath + 'listMusic.txt', true);
 var funnyIdx = 0;
 
 var musicArray = [];
@@ -28,6 +28,7 @@ var playing = false;
 var paused = false;
 
 var doneSearchingFiles = false;
+var changedMusicPath = false;
 
 daMusicPlayerBoii.onended = function() {
     playing = false;
@@ -131,6 +132,7 @@ function setServer(){
             thefunnypath = daInput.value;
         }
         doneSearchingFiles = false;
+        changedMusicPath = true;
         cleanArrays(); //just in case
         setupFiles();
     } else {
@@ -143,45 +145,66 @@ function setServer(){
 }
 
 //file funcs
-function funnyRead(file, turnIntoFunnyArray, isJson)
+function readFile(file, isOnline, TurnIntoArray)
 {
-    var allText = null;
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
+    if(isOnline == false){
+        var allText = null;
+        var rawFile = new XMLHttpRequest();
+        rawFile.open("GET", file, false);
+        rawFile.onreadystatechange = function ()
         {
-            if(rawFile.status === 200 || rawFile.status == 0)
+            if(rawFile.readyState === 4)
             {
-                if(turnIntoFunnyArray == true){
-                    allText = rawFile.responseText.trim().split('\n');
-                } else if (isJson == true){
-                    allText = JSON.parse(rawFile.responseText)
-                } else {
-                    allText = rawFile.responseText;
+                if(rawFile.status === 200 || rawFile.status == 0)
+                {
+                    if(TurnIntoArray == true){
+                        allText = rawFile.responseText.trim().split('\n');
+                    } else {
+                        allText = rawFile.responseText;
+                    }
                 }
             }
         }
+        rawFile.send(null);
+        return allText;
+    } else {
+        
     }
-    rawFile.send(null);
-    return allText;
 }
 
+function readFileJSON(file, isOnline)
+{
+    if(isOnline == false){
+        var allText = null;
+        var rawFile = new XMLHttpRequest();
+        rawFile.open("GET", file, false);
+        rawFile.onreadystatechange = function ()
+        {
+            if(rawFile.readyState === 4)
+            {
+                if(rawFile.status === 200 || rawFile.status == 0)
+                {
+                    allText = JSON.parse(rawFile.responseText)
+                }
+            }
+        }
+        rawFile.send(null);
+        return allText;
+    }
+}
 
 function setupFiles() {
-    //clean arrays 
     cleanArrays();
 
-    daList.innerText = "Available music: "
 
-    if(doneSearchingFiles == false){
+    if(doneSearchingFiles == false && musicPath == "./music/" && changedMusicPath == false){
+        var listMusic = readFile(musicPath + listMusicFile, false, true)
         for(var i in listMusic)
         {
-            var dir1 = thefunnypath + listMusic[i] + "/";
-            var musicDir = dir1 +  listMusic[i] + thefunnyext;
-            var dataDir = dir1 + listMusic[i] + thefunnydataext;
-            var theJson = funnyRead(dataDir, false, true);
+            var dir1 = musicPath + listMusic[i] + "/";
+            var musicDir = dir1 +  listMusic[i] + musicExt;
+            var dataDir = dir1 + listMusic[i] + dataExt;
+            var theJson = readFileJSON(dataDir, false);
             musicArray.push(musicDir);
             musicNameArray.push(theJson['name']);
             daList.innerText = daList.innerText + "\n" + musicNameArray[i];
