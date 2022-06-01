@@ -19,11 +19,25 @@ var fileArray = [];
 var fileNameArray = [];
 
 var repeat = false;
+var playing = false;
+var paused = false;
 
 daMusicPlayerBoii.onended = function() {
+    playing = false;
     if(repeat == true){
         setState("play");
     }
+}
+
+daMusicPlayerBoii.onplaying = function() {
+    playing = true;
+    paused = false;
+}
+
+daMusicPlayerBoii.onpause = function() {
+    paused = true;
+    playing = false;
+    daFunnyInfo.innerText = "Currently playing: " + fileNameArray[funnyIdx] + " (PAUSED)";
 }
 
 setupFiles();
@@ -67,7 +81,20 @@ function setState(state)
             break;
         case "resume":
             daMusicPlayerBoii.play();
+            daFunnyInfo.innerText = "Currently playing: " + fileNameArray[funnyIdx];
             break;
+        case "check":
+            switch(playing){
+                case true:
+                    setState("pause");
+                    if(paused == true) {
+                        setState('resume');
+                    }
+                    break;
+                case false:
+                    setState("play");
+                    break;
+            }
     }
 }
 
