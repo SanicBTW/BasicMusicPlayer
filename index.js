@@ -1,43 +1,36 @@
-//audio stuff
+//elements
 var daMusicPlayerBoii = document.getElementById("audioPlayer")
 var daMPsource = document.getElementById("audioPlayerSRC")
 var daFunnyInfo = document.getElementById("curplayinginfo")
 var daButton = document.getElementById("playButton")
 var daList = document.getElementById("funnyList")
 var musiclistLabel = document.getElementById("funnyListInfo")
-
-//server stuff
 var daInput = document.getElementById("funnyServer");
-
-//info
 var funnyinfo = document.getElementById("info");
-var daVersion = document.getElementById("version"); //why??
 var logArea = document.getElementById("logs")
 
-//helper vars
+//helper variables
 var musicPath = './music/';
 var musicExt = '.mp3';
 var dataExt = ".json";
 var listMusicFile = 'listMusic.txt';
-
 var funnyIdx = 0;
-
 var musicArray = [];
 var musicNameArray = [];
-
 var repeat = false;
 var playing = false;
 var paused = false;
-
 var doneSearchingFiles = false;
 var changedMusicPath = false;
 
+//events
 daMusicPlayerBoii.onended = function() {
     playing = false;
     paused = false;
-    daFunnyInfo.innerText = "Currently playing: nothing (ENDED)";
     if(repeat == true){
         setState("play");
+    } else {
+        daFunnyInfo.innerText = "Currently playing: nothing (ENDED)";
     }
 }
 
@@ -54,34 +47,10 @@ daMusicPlayerBoii.onpause = function() {
     daFunnyInfo.innerText = "Currently playing: " + musicNameArray[funnyIdx] + " (PAUSED)";
 }
 
+//sets up the files (songs and data)
 setupFiles();
 
-function nextButtonFct()
-{
-    if(funnyIdx == musicArray.length -1){
-        document.getElementById("nextButton").hidden = true;
-        funnyinfo.innerText = "There's no next song";
-        doTheThing();
-    } else {
-        document.getElementById("prevButton").hidden = false;
-        funnyIdx += 1;
-        setState("play");
-    }
-}
-
-function prevButtonFct()
-{
-    if(funnyIdx == 0){
-        document.getElementById("prevButton").hidden = true;
-        funnyinfo.innerText = "There's no previous song";
-        doTheThing();
-    }else{
-        document.getElementById("nextButton").hidden = false;
-        funnyIdx -= 1;
-        setState("play");
-    }
-}
-
+//functions
 function setState(state)
 {
     switch (state){
@@ -106,6 +75,29 @@ function setState(state)
             } else if (playing == false && paused == false){
                 setState("play");
             }
+            break;
+        case "prev":
+            if(funnyIdx == 0){
+                document.getElementById("prevButton").hidden = true;
+                funnyinfo.innerText = "There's no previous song";
+                doTheThing();
+            }else{
+                document.getElementById("nextButton").hidden = false;
+                funnyIdx -= 1;
+                setState("play");
+            }
+            break;
+        case "next":
+            if(funnyIdx == musicArray.length -1){
+                document.getElementById("nextButton").hidden = true;
+                funnyinfo.innerText = "There's no next song";
+                doTheThing();
+            } else {
+                document.getElementById("prevButton").hidden = false;
+                funnyIdx += 1;
+                setState("play");
+            }
+            break;
     }
 }
 
@@ -128,9 +120,15 @@ function doTheThing(){
 
 function setServer(){
     if(daInput.value.length > 0){
-        if(!daInput.value.endsWith("/")){
-            musicPath = daInput.value + "/";
-        } else {
+        if (!daInput.value.includes("music")){ //first check if it includes music
+            if(!daInput.value.endsWith("/")){ //if the current url doesnt ends with a slash we add the slash and the music string
+                musicPath = daInput.value + "/music/"
+            } else { //if it does end with a slash we just add music
+                musicPath = daInput.value + "music/"
+            }
+        } else if(!musicPath.value.endsWith("/")){ //we check if the current music path which was set earlier doesnt end with a slash
+            musicPath = musicPath + "/";
+        } else { //if it meets all the requirements we go without anycheck ig
             musicPath = daInput.value;
         }
         doneSearchingFiles = false;
@@ -143,10 +141,8 @@ function setServer(){
         cleanArrays();
         setupFiles();
     }
-
 }
 
-//file funcs
 async function readFile(file, TurnIntoArray)
 {
     var allText = null;
@@ -163,7 +159,7 @@ async function readFileJSON(file)
 {
     var allText = null;
     var rawFile = await fetch(file);
-    allText = JSON.parse((await rawFile.text())) //necessary?
+    allText = JSON.parse((await rawFile.text()))
     return allText;
 }
 
@@ -202,9 +198,4 @@ function cleanArrays(){
     if(musicNameArray.length > 0){
         musicNameArray = [];
     }
-}
-
-//temp
-function log(text){
-    logArea.innerText += logArea.innerText + text;
 }
