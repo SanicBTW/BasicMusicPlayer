@@ -84,16 +84,12 @@ function setState(state)
             daFunnyInfo.innerText = "Currently playing: " + fileNameArray[funnyIdx];
             break;
         case "check":
-            switch(playing){
-                case true:
-                    setState("pause");
-                    if(paused == true) {
-                        setState('resume');
-                    }
-                    break;
-                case false:
-                    setState("play");
-                    break;
+            if(playing == true && paused == false){
+                setState("pause");
+            } else if (playing == false && paused == true){
+                setState('resume');
+            } else if (playing == false && paused == false){
+                setState("play");
             }
     }
 }
