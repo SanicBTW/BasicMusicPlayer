@@ -119,7 +119,11 @@ function doTheThing(){
 }
 
 function setServer(){
-    if(daInput.value.length > 0){
+    paused = false;
+    playing = false;
+    daButton.innerText = "Play";
+
+    if(daInput.value.length > 0 && daInput.value.startsWith("https://")){ //to avoid any error, should i make it http compatible?? idk if its possible
         if (!daInput.value.includes("music")){ //first check if it includes music
             if(!daInput.value.endsWith("/")){ //if the current url doesnt ends with a slash we add the slash and the music string
                 musicPath = daInput.value + "/music/"
@@ -175,14 +179,13 @@ async function setupFiles() {
         try{
             listMusic = await readFile(musicPath + listMusicFile, true)
         } catch(exc){
-            log("There was an error, setting local path and retrying" + exc)
             musicPath = "./music/"
             await setupFiles();
         }
         for(var i in listMusic)
         {
             var mainDir = musicPath + listMusic[i] + "/"
-            var dataDir = mainDir + listMusic[i] + dataExt;
+            var dataDir = mainDir + "data" + dataExt;
             var theJson = await readFileJSON(dataDir);
             var musicDir = mainDir + theJson['fileName']
             musicArray.push(musicDir);
