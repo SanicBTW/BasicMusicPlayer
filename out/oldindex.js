@@ -202,6 +202,15 @@ function cleanArrays(){
 }
 
 function checkPath(path){
+    //check v3
+    var daCheck = null;
+    try{
+        daCheck = await readFile(path + listMusicFile) //tries to fetch the list music file within the given path
+
+    } catch(excp){
+        alert(excp)
+    }
+
     //compatible with v2 check
     if (!path.includes("music")){ //first check if it includes music
         if(!path.endsWith("/")){ //if the current url doesnt ends with a slash we add the slash and the music string

@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "typescript": "^4.7.2"
+  },
+  "scripts": {
+    "compile": "npx tsc",
+    "compileAndTest": "npx tsc && http-server -c-1 --cors",
+    "runServer": "http-server -c-1 --cors"
+  },
+  "dependencies": {
+    "requirejs": "^2.3.6"
+  }
+}
