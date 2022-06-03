@@ -124,16 +124,10 @@ function setServer(){
     daButton.innerText = "Play";
 
     if(daInput.value.length > 0 && daInput.value.startsWith("https://")){ //to avoid any error, should i make it http compatible?? idk if its possible
-        if (!daInput.value.includes("music")){ //first check if it includes music
-            if(!daInput.value.endsWith("/")){ //if the current url doesnt ends with a slash we add the slash and the music string
-                musicPath = daInput.value + "/music/"
-            } else { //if it does end with a slash we just add music
-                musicPath = daInput.value + "music/"
-            }
-        } else if(!musicPath.endsWith("/")){ //we check if the current music path which was set earlier doesnt end with a slash
-            musicPath = musicPath + "/";
-        } else { //if it meets all the requirements we go without anycheck ig
-            musicPath = daInput.value;
+        if(checkPath(daInput.value)){
+            alert("seems fine")
+        } else {
+            alert("something happened")
         }
         doneSearchingFiles = false;
         changedMusicPath = true;
@@ -205,4 +199,22 @@ function cleanArrays(){
     if(musicNameArray.length > 0){
         musicNameArray = [];
     }
+}
+
+function checkPath(path){
+    //compatible with v2 check
+    if (!path.includes("music")){ //first check if it includes music
+        if(!path.endsWith("/")){ //if the current url doesnt ends with a slash we add the slash and the music string
+            musicPath = path + "/music/"
+        } else { //if it does end with a slash we just add music
+            musicPath = path + "music/"
+        }
+    } else if(!musicPath.endsWith("/")){ //we check if the current music path which was set earlier doesnt end with a slash
+        musicPath = musicPath + "/";
+    } else { //if it meets all the requirements we go without anycheck ig
+        musicPath = path;
+        alert("done chekin")
+        return true;
+    }
+    return false;
 }
