@@ -1,8 +1,7 @@
 //type definitions my beloved
 //simplified index? yessir
-import docElements from "./docElements";
+import {musicPlayer, mpSource, curPlayingInfo, playButton, songList, songListLabel, customServerInput, infoThingy} from "./docElements";
 import editableVars from './helperVariables';
-import {readFile, readFileJSON} from './fileSysOperations';
+import {readFile, readFileJSON, setupFiles} from './fileSysOperations';
 
-alert("hello from file")
-docElements.curPlayingInfo!.innerText = "wassup";
+setupFiles();

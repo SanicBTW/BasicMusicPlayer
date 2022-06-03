@@ -1,7 +1,8 @@
-define(["require", "exports"], function (require, exports) {
+define(["require", "exports", "./docElements"], function (require, exports, docElements_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var musicPath = './music/';
+    exports.cleanArrays = void 0;
+    var musicPath = './music/'; //old support???
     var dataExt = ".json";
     var listMusicFile = "listMusic.txt";
     var curIdx = 0; //might use a custom index in the index file instead of this one, idk
@@ -12,6 +13,17 @@ define(["require", "exports"], function (require, exports) {
     var musicPaused = false;
     var doneSearchingFiles = false;
     var changedMusicPath = false;
-    //make them editable, exported vars are not changeable for some reason, lets just export them to default
     exports.default = { musicPath, dataExt, listMusicFile, curIdx, musicArray, musicNameArray, repeatMusic, musicPlaying, musicPaused, doneSearchingFiles, changedMusicPath };
+    //why not, lets just put it here
+    function cleanArrays() {
+        docElements_1.songList.innerText = "Source: " + musicPath;
+        docElements_1.songListLabel.innerText = "Available music: ";
+        if (musicArray.length > 0) {
+            musicArray = [];
+        }
+        if (musicNameArray.length > 0) {
+            musicNameArray = [];
+        }
+    }
+    exports.cleanArrays = cleanArrays;
 });

@@ -1,14 +1,12 @@
 //gonna test if this works, just exports the required doc elements
-var musicPlayer = document.getElementById("audioPlayer");
-var mpSource = document.getElementById("audioPlayerSRC");
-var curPlayingInfo = document.getElementById("curplayinginfo");
-var playButton = document.getElementById("playButton");
-var songList = document.getElementById("funnyList");
-var songListLabel = document.getElementById("funnyListInfo");
-var customServerInput = document.getElementById("funnyServer");
-var infoThingy = document.getElementById("info"); //idk how to name this one lol
-
-export default {musicPlayer, mpSource, curPlayingInfo, playButton, songList, songListLabel, customServerInput, infoThingy};
+export var musicPlayer = document.getElementById("audioPlayer");
+export var mpSource = document.getElementById("audioPlayerSRC");
+export var curPlayingInfo = document.getElementById("curplayinginfo");
+export var playButton = document.getElementById("playButton");
+export var songList = document.getElementById("funnyList");
+export var songListLabel = document.getElementById("funnyListInfo");
+export var customServerInput = document.getElementById("funnyServer");
+export var infoThingy = document.getElementById("info"); //idk how to name this one lol
 
 import editableVars from './helperVariables';
 
