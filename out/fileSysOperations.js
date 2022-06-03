@@ -15,6 +15,7 @@ define(["require", "exports", "./helperVariables", "./helperVariables", "./docEl
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.setupFiles = exports.readFileJSON = exports.readFile = void 0;
     helperVariables_2 = __importDefault(helperVariables_2);
+    docElements_1 = __importDefault(docElements_1);
     function readFile(file, turnIntoArray = false) {
         return __awaiter(this, void 0, void 0, function* () {
             var allText = "";
@@ -38,10 +39,7 @@ define(["require", "exports", "./helperVariables", "./helperVariables", "./docEl
     exports.readFile = readFile;
     function readFileJSON(file) {
         return __awaiter(this, void 0, void 0, function* () {
-            var allText = {
-                "name": "hola",
-                "fileName": "hola"
-            };
+            var allText;
             var raw = yield fetch(file);
             try {
                 allText = JSON.parse(yield raw.text()); //??
@@ -56,8 +54,7 @@ define(["require", "exports", "./helperVariables", "./helperVariables", "./docEl
     function setupFiles() {
         return __awaiter(this, void 0, void 0, function* () {
             (0, helperVariables_1.cleanArrays)();
-            if (!helperVariables_2.default.doneSearchingFiles) //if false ig
-             {
+            if (helperVariables_2.default.doneSearchingFiles == false) {
                 var listMusic = [];
                 try {
                     listMusic = yield readFile(helperVariables_2.default.musicPath + helperVariables_2.default.listMusicFile, true);
@@ -72,10 +69,12 @@ define(["require", "exports", "./helperVariables", "./helperVariables", "./docEl
                     var mainDir = helperVariables_2.default.musicPath + listMusic[i] + "/"; //format it just in case
                     var dataDir = mainDir + "data" + helperVariables_2.default.dataExt; //yo i just had an idea, what if we just specify the details in the listMusic file (song:songname:filename) it should be epic
                     var theJSON = yield readFileJSON(dataDir);
-                    var musicDir = mainDir + theJSON.fileName;
+                    alert(theJSON);
+                    var musicDir = mainDir + theJSON['fileName'];
+                    alert(musicDir);
                     helperVariables_2.default.musicArray.push(musicDir);
-                    helperVariables_2.default.musicNameArray.push(theJSON.name);
-                    docElements_1.songList.innerText = docElements_1.songList.innerText + "\n" + helperVariables_2.default.musicNameArray[i];
+                    helperVariables_2.default.musicNameArray.push(theJSON['name']);
+                    docElements_1.default.songList.innerText = docElements_1.default.songList.innerText + "\n" + helperVariables_2.default.musicNameArray[i];
                 }
                 helperVariables_2.default.doneSearchingFiles = true;
             }

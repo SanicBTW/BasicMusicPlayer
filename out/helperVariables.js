@@ -1,7 +1,11 @@
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 define(["require", "exports", "./docElements"], function (require, exports, docElements_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.cleanArrays = void 0;
+    docElements_1 = __importDefault(docElements_1);
     var musicPath = './music/'; //old support???
     var dataExt = ".json";
     var listMusicFile = "listMusic.txt";
@@ -16,8 +20,8 @@ define(["require", "exports", "./docElements"], function (require, exports, docE
     exports.default = { musicPath, dataExt, listMusicFile, curIdx, musicArray, musicNameArray, repeatMusic, musicPlaying, musicPaused, doneSearchingFiles, changedMusicPath };
     //why not, lets just put it here
     function cleanArrays() {
-        docElements_1.songList.innerText = "Source: " + musicPath;
-        docElements_1.songListLabel.innerText = "Available music: ";
+        docElements_1.default.songList.innerText = "Source: " + musicPath;
+        docElements_1.default.songListLabel.innerText = "Available music: ";
         if (musicArray.length > 0) {
             musicArray = [];
         }

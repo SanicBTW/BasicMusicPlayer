@@ -1,6 +1,6 @@
 import { cleanArrays } from "./helperVariables";
 import editableVars from './helperVariables';
-import {songList} from "./docElements";
+import docElements from "./docElements";
 
 
 export async function readFile(file:string, turnIntoArray:boolean = false):Promise<any> { //lets just change it to any, kind of lazy to deal with type shit lol
@@ -21,11 +21,8 @@ export async function readFile(file:string, turnIntoArray:boolean = false):Promi
     return allText;
 }
 
-export async function readFileJSON(file:string):Promise<JSONData> {
-    var allText:JSONData = { //dummy
-        "name": "hola",
-        "fileName": "hola"
-    }
+export async function readFileJSON(file:string):Promise<any> {
+    var allText:any;
     var raw:Response = await fetch(file);
     try
     {
@@ -41,7 +38,7 @@ export async function readFileJSON(file:string):Promise<JSONData> {
 export async function setupFiles(){
     cleanArrays();
 
-    if(!editableVars.doneSearchingFiles) //if false ig
+    if(editableVars.doneSearchingFiles == false)
     {
         var listMusic:Array<string> = [];
         try
@@ -59,19 +56,14 @@ export async function setupFiles(){
             //music path should come formatted already
             var mainDir = editableVars.musicPath + listMusic[i] + "/"; //format it just in case
             var dataDir = mainDir + "data" + editableVars.dataExt; //yo i just had an idea, what if we just specify the details in the listMusic file (song:songname:filename) it should be epic
-            var theJSON:JSONData = await readFileJSON(dataDir);
-            var musicDir = mainDir + theJSON.fileName;
+            var theJSON = await readFileJSON(dataDir);
+            alert(theJSON)
+            var musicDir = mainDir + theJSON['fileName'];
+            alert(musicDir);
             editableVars.musicArray.push(musicDir);
-            editableVars.musicNameArray.push(theJSON.name);
-            songList!.innerText = songList!.innerText + "\n" + editableVars.musicNameArray[i];
+            editableVars.musicNameArray.push(theJSON['name']);
+            docElements.songList!.innerText = docElements.songList!.innerText + "\n" + editableVars.musicNameArray[i];
         }
         editableVars.doneSearchingFiles = true;
     }
-}
-
-//ily typescript
-type JSONData =
-{
-    name: string,
-    fileName: string
 }

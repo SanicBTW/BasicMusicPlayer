@@ -13,12 +13,12 @@ var changedMusicPath:boolean = false;
 export default {musicPath, dataExt, listMusicFile, curIdx, musicArray, musicNameArray, repeatMusic, musicPlaying, musicPaused, doneSearchingFiles, changedMusicPath};
 
 //we importing after exportin lmfaoo
-import { songList, songListLabel } from "./docElements";
+import docElements from "./docElements";
 
 //why not, lets just put it here
 export function cleanArrays(){
-    songList!.innerText = "Source: " + musicPath;
-    songListLabel!.innerText = "Available music: ";
+    docElements.songList!.innerText = "Source: " + musicPath;
+    docElements.songListLabel!.innerText = "Available music: ";
     if(musicArray.length > 0){
         musicArray = [];
     }

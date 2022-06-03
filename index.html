@@ -12,22 +12,18 @@
 
         <h1 id="info"></h1>
 
-        <button id="prevButton" onclick="setState('prev')">Previous</button> 
-        <button id="playButton" onclick="setState('check')">Play</button> 
-        <button id="nextButton" onclick="setState('next')">Next</button>
-        <button id="funnyRepeatButton" onclick="setRepeat()">Repeat Off</button>
+        <button id="prevButton">Previous</button> 
+        <button id="playButton" onclick="setPlayerState('play')">Play</button> 
+        <button id="nextButton">Next</button>
+        <button id="funnyRepeatButton">Repeat Off</button>
 
         <div>
             <input id="funnyServer" type="text"/>
-            <button class="setcustom" onclick="setServer()">Set Custom Server</button>
+            <button class="setcustom" onclick="setServer()">Reload player and use custom server files</button>
         </div>
         
         <label for="funnyList" id="funnyListInfo">Available music: </label>
         <p id="funnyList" ></p>
-
-        <audio id="audioPlayer">
-            <source id="audioPlayerSRC" type='audio/mpeg'>  
-        </audio>
 
         <p id="version">Made with love by <a href="https://github.com/SanicBTW">SanicBTW</a> and <a href="https://github.com/bonndevoff">Bonndubz</a> (v0.3)<p>
         <script data-main="out/index.js" src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
