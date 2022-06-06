@@ -1,150 +1,120 @@
-//elements
-var daMusicPlayerBoii = document.getElementById("audioPlayer")
-var daMPsource = document.getElementById("audioPlayerSRC")
-var daFunnyInfo = document.getElementById("curplayinginfo")
-var daButton = document.getElementById("playButton")
-var daList = document.getElementById("funnyList")
-var musiclistLabel = document.getElementById("funnyListInfo")
-var daInput = document.getElementById("funnyServer");
-var funnyinfo = document.getElementById("info");
-var logArea = document.getElementById("logs")
-
-//helper variables
-var musicPath = './';
-var musicExt = '.mp3';
-var dataExt = ".json";
-var listMusicFile = 'listMusic.txt';
-var funnyIdx = 0;
+//yessir new clean and fresh index sheesh
+//doc elements
+var audioPlayer = document.getElementById("audioPlayer");
+var mpSource = document.getAnimations("audioPlayerSRC");
+var curPlayingInfo = document.getElementById("curplayinginfo");
+var playButton = document.getElementById("playButton");
+var songList = document.getElementById("funnyList");
+var songListLabel = document.getElementById("funnyListInfo");
+var customServerInput = document.getElementById("funnyServer");
+var infoThingy = document.getElementById("info"); //idk how to name this one lol
+//vars
 var musicArray = [];
 var musicNameArray = [];
-var repeat = false;
-var playing = false;
-var paused = false;
+var customURL = './';
+var musicListFile = "musicList.txt";
+var curIdx = 0;
+var repeatMusic = false;
+var musicPlaying = false;
+var musicPaused = false;
 var doneSearchingFiles = false;
-var changedMusicPath = false;
+var changedCustomURL = false;
 
 //events
-daMusicPlayerBoii.onended = function() 
+audioPlayer.onended = function() 
 {
-    playing = false;
-    paused = false;
-    if(repeat == true){
-        setState("play");
+    musicPlaying = false;
+    musicPaused = false;
+    if(repeatMusic == true){
+        setPlayerState("play");
     } else {
-        daFunnyInfo.innerText = "Currently playing: nothing (ENDED)";
+        curPlayingInfo.innerText = "Currently playing: nothing (ENDED)";
     }
 }
 
-daMusicPlayerBoii.onplaying = function() 
+audioPlayer.onplaying = function() 
 {
-    playing = true;
-    paused = false;
-    daButton.innerText = "Pause"
+    musicPlaying = true;
+    musicPaused = false;
+    playButton.innerText = "Pause"
 }
 
-daMusicPlayerBoii.onpause = function() 
+audioPlayer.onpause = function() 
 {
-    paused = true;
-    playing = false;
-    daButton.innerText = "Resume";
-    daFunnyInfo.innerText = "Currently playing: " + musicNameArray[funnyIdx] + " (PAUSED)";
+    musicPaused = true;
+    musicPlaying = false;
+    playButton.innerText = "Resume";
+    curPlayingInfo.innerText = "Currently playing: " + musicNameArray[curIdx] + " (PAUSED)";
 }
 
 //sets up the files (songs and data)
 setupFiles();
 
 //functions
-function setState(state)
+function setPlayerState(state)
 {
     switch (state){
         case "play":
-            daMPsource.src = musicArray[funnyIdx];
-            daMusicPlayerBoii.load();
-            daMusicPlayerBoii.play();
-            daFunnyInfo.innerText = "Currently playing: " + musicNameArray[funnyIdx];
+            mpSource.src = musicArray[curIdx];
+            audioPlayer.load();
+            audioPlayer.play();
+            curPlayingInfo.innerText = "Currently playing: " + musicNameArray[curIdx];
             break;
         case "pause":
-            daMusicPlayerBoii.pause();
+            audioPlayer.pause();
             break;
         case "resume":
-            daMusicPlayerBoii.play();
-            daFunnyInfo.innerText = "Currently playing: " + musicNameArray[funnyIdx];
+            audioPlayer.play();
+            curPlayingInfo.innerText = "Currently playing: " + musicNameArray[curIdx];
             break;
         case "check":
-            if(playing == true && paused == false){
-                setState("pause");
-            } else if (playing == false && paused == true){
-                setState('resume');
-            } else if (playing == false && paused == false){
-                setState("play");
+            if(musicPlaying == true && musicPaused == false){
+                setPlayerState("pause");
+            } else if (musicPlaying == false && musicPaused == true){
+                setPlayerState('resume');
+            } else if (musicPlaying == false && musicPaused == false){
+                setPlayerState("play");
             }
             break;
         case "prev":
-            if(funnyIdx == 0){
+            if(curIdx == 0){
                 document.getElementById("prevButton").hidden = true;
-                funnyinfo.innerText = "There's no previous song";
+                infoThingy.innerText = "There's no previous song";
                 doTheThing();
             }else{
                 document.getElementById("nextButton").hidden = false;
-                funnyIdx -= 1;
-                setState("play");
+                curIdx -= 1;
+                setPlayerState("play");
             }
             break;
         case "next":
-            if(funnyIdx == musicArray.length -1){
+            if(curIdx == musicArray.length -1){
                 document.getElementById("nextButton").hidden = true;
-                funnyinfo.innerText = "There's no next song";
+                infoThingy.innerText = "There's no next song";
                 doTheThing();
             } else {
                 document.getElementById("prevButton").hidden = false;
-                funnyIdx += 1;
-                setState("play");
+                curIdx += 1;
+                setPlayerState("play");
             }
             break;
-    }
-}
-
-function setRepeat()
-{
-    repeat = !repeat;
-    var thefunnybutton = document.getElementById("funnyRepeatButton");
-    if(repeat == true){
-        thefunnybutton.innerText = "Repeat On";
-    } else {
-        thefunnybutton.innerText = "Repeat Off";
+        case "repeat":
+            repeatMusic = !repeatMusic;
+            var thefunnybutton = document.getElementById("funnyRepeatButton");
+            if(repeatMusic == true){
+                thefunnybutton.innerText = "Repeat On";
+            } else {
+                thefunnybutton.innerText = "Repeat Off";
+            }
+            break;
     }
 }
 
 function doTheThing()
 {
     setInterval(function(){
-        funnyinfo.innerText = "";
+        infoThingy.innerText = "";
     }, 2000);
-}
-
-function setServer()
-{
-    paused = false;
-    playing = false;
-    daButton.innerText = "Play";
-
-    /*
-    if(daInput.value.length > 0 && daInput.value.startsWith("https://")){ //to avoid any error, should i make it http compatible?? idk if its possible
-        if(checkPath(daInput.value)){
-            alert("seems fine")
-        } else {
-            alert("something happened")
-        }
-        doneSearchingFiles = false;
-        changedMusicPath = true;
-        cleanArrays(); //just in case
-        setupFiles();
-    } else {
-        musicPath = "./music/";
-        doneSearchingFiles = false;
-        cleanArrays();
-        setupFiles();
-    }*/
 }
 
 async function readFile(file, TurnIntoArray)
@@ -167,7 +137,8 @@ async function setupFiles()
         var listMusic = null;
         try
         {
-            listMusic = await readFile(musicPath + listMusicFile, true)
+            listMusic = await readFile(customURL + musicListFile, true)
+            alert(listMusic);
         } 
         catch(exc)
         {
@@ -175,20 +146,21 @@ async function setupFiles()
         }
         for(var i in listMusic)
         {
-            //music path should come formatted already
             var advancedDetails = listMusic[i].split("|");
-            var musicDir = musicPath + advancedDetails[0];
+            var musicDir = customURL + advancedDetails[0];
+            alert(advancedDetails[0]);
+            alert(musicDir);
             musicArray.push(musicDir);
             musicNameArray.push(advancedDetails[1]);
-            daList.innerText = daList.innerText + "\n" + musicNameArray[i];
+            songList.innerText = songList.innerText + "\n" + musicNameArray[i];
         }
         doneSearchingFiles = true;
     } 
 }
 
 function cleanArrays(){
-    daList.innerText = "Source: " + musicPath;
-    musiclistLabel.innerText = "Available music: "
+    songList.innerText = "Source: " + customURL;
+    songListLabel.innerText = "Available music: "
     if(musicArray.length > 0){
         musicArray = [];
     }
@@ -197,20 +169,21 @@ function cleanArrays(){
     }
 }
 
+/*
 function checkPath(path){
     //compatible with v2 check
     if (!path.includes("music")){ //first check if it includes music
         if(!path.endsWith("/")){ //if the current url doesnt ends with a slash we add the slash and the music string
-            musicPath = path + "/music/"
+            customURL = path + "/music/"
         } else { //if it does end with a slash we just add music
-            musicPath = path + "music/"
+            customURL = path + "music/"
         }
-    } else if(!musicPath.endsWith("/")){ //we check if the current music path which was set earlier doesnt end with a slash
-        musicPath = musicPath + "/";
+    } else if(!customURL.endsWith("/")){ //we check if the current music path which was set earlier doesnt end with a slash
+        customURL = customURL + "/";
     } else { //if it meets all the requirements we go without anycheck ig
-        musicPath = path;
+        customURL = path;
         alert("done chekin")
         return true;
     }
     return false;
-}
+}*/

@@ -12,15 +12,16 @@
 
         <h1 id="info"></h1>
 
-        <button id="prevButton" onclick="setState('prev')">Previous</button> 
-        <button id="playButton" onclick="setState('check')">Play</button> 
-        <button id="nextButton" onclick="setState('next')">Next</button>
-        <button id="funnyRepeatButton" onclick="setRepeat()">Repeat Off</button>
+        <button id="prevButton" onclick="setPlayerState('prev')">Previous</button> 
+        <button id="playButton" onclick="setPlayerState('check')">Play</button> 
+        <button id="nextButton" onclick="setPlayerState('next')">Next</button>
+        <button id="funnyRepeatButton" onclick="setPlayerState('repeat')">Repeat Off</button>
 
+        <!--
         <div>
             <input id="funnyServer" type="text"/>
             <button class="setcustom" onclick="setServer()">Set Custom Server</button>
-        </div>
+        </div>-->
         
         <label for="funnyList" id="funnyListInfo">Available music: </label>
         <p id="funnyList" ></p>
