@@ -5,30 +5,103 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Basic Music Player</title>
-        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     </head>
-    <body>
-        <h1 id="curplayinginfo">Currently playing: nothing</h1>
+    <body style="
+    background-color: black;
+    color: white;
+    "> <!--dark mode???-->
 
-        <h1 id="info"></h1>
+        <fieldset style="
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        top: 0;
+        width: 50rem;
+        margin-bottom: 6.3rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        margin-top: 1rem;
+        ">
+            <legend>Music Info</legend>
+            <p id="curplayinginfo">Currently playing: nothing</p>
 
-        <button id="prevButton" onclick="setPlayerState('prev')">Previous</button> 
-        <button id="playButton" onclick="setPlayerState('check')">Play</button> 
-        <button id="nextButton" onclick="setPlayerState('next')">Next</button>
-        <button id="funnyRepeatButton" onclick="setPlayerState('repeat')">Repeat Off</button>
+            <p id="info"></p>
 
-        <!--
-        <div>
-            <input id="funnyServer" type="text"/>
-            <button class="setcustom" onclick="setServer()">Set Custom Server</button>
-        </div>-->
-        
-        <label for="funnyList" id="funnyListInfo">Available music: </label>
-        <p id="funnyList" ></p>
+            <p id="source">Source: </p>
+            <div class="collection" id="funnyList">
+            </div>
+
+            <fieldset style="
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin-bottom: 0.5rem;
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+            ">
+                <legend>Server stuff</legend>
+                <input id="funnyServer" type="text" style="color: white;"/>
+                <a class="waves-effect waves-light btn" onclick="setPlayerState('server')">Set Custom Server</a>
+    
+            </fieldset>
+
+        </fieldset>
+
+        <fieldset style="
+        position:absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin-bottom: 1rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        ">
+            <legend>Player controls</legend>
+            <div style="
+            margin-left: 37rem;
+            ">
+                <a id="prevButton" class="waves-effect waves-light btn" onclick="setPlayerState('prev')">Previous</a> 
+                <a id="playButton" class="waves-effect waves-light btn" onclick="setPlayerState('check')">Play</a> 
+                <a id="nextButton" class="waves-effect waves-light btn" onclick="setPlayerState('next')">Next</a>
+                <a id="funnyRepeatButton" class="waves-effect waves-light btn" onclick="setPlayerState('repeat')">Repeat Off</a>
+            </div>
+        </fieldset>
 
         <audio id="audioPlayer"></audio>
 
-        <p id="version">Made with love by <a href="https://github.com/SanicBTW">SanicBTW</a> and <a href="https://github.com/bonndevoff">Bonndubz</a> (v0.3)<g/p>
+        <fieldset style="
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        margin-bottom: 6.3rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        width: 448px;
+        ">
+            <legend>Credits and changelog</legend>
+            <p>Made by <a href="https://github.com/SanicBTW">SanicBTW</a> and <a href="https://github.com/bonndevoff">Bonndubz</a></p>
+
+            <ul>What's new? (v1 Rewrite)
+                <li>Funny UI redesign </li>
+                <li>Last changes to the File System (Too much work for it lol)</li>
+                <li>- File System Related</li>
+                <li>-- Now everything is driven by only one file</li>
+                <li>Will soon make a Github Wiki in order to do stuff or something</li>
+                <li>A better check was implemented (Not really, just simplified)</li>
+                <li>Song Playlist now displays which song is currently being played</li>
+            </ul>
+
+            <ul>Known bugs
+                <li>List Items (Song playlist) might not work as intended when displaying song entries</li>
+                <li>Currently the song playlist can display up to a few items (I forgot the amount)</li>
+                <li>The song playlist may display wrongly the current item, I have to improve the code for that sorry</li>
+                <li>UI doesn't display properly in mobile targets (LMFAO I saw that one coming)</li>
+            </ul>
+        </fieldset>
 	    <script src="index.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     </body>
 </html>
