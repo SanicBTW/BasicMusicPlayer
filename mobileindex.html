@@ -15,13 +15,11 @@
 
         <fieldset style="
         position: absolute;
-        left: 0;
         bottom: 0;
         top: 0;
-        width: 50rem;
+        width: 380px;
         margin-bottom: 6.3rem;
         margin-left: 1rem;
-        margin-right: 1rem;
         margin-top: 1rem;
         ">
             <legend>Music Info</legend>
@@ -36,11 +34,9 @@
             <fieldset style="
             position: absolute;
             bottom: 0;
-            left: 0;
-            right: 0;
-            margin-bottom: 0.5rem;
-            margin-left: 0.5rem;
-            margin-right: 0.5rem;
+            margin-bottom: 0.6rem;
+            margin-left: -0.1rem;
+            width: 358px;
             ">
                 <legend>Server stuff</legend>
                 <input id="funnyServer" type="text" style="color: white;"/>
@@ -51,49 +47,24 @@
         </fieldset>
 
         <fieldset style="
-        position:absolute;
+        position:fixed;
         bottom: 0;
-        left: 0;
-        right: 0;
         margin-bottom: 1rem;
         margin-left: 1rem;
         margin-right: 1rem;
-        ">
+        width: 380px;
+        "> <!--width 362.0625px-->
             <legend>Player controls</legend>
-            <div style="
-            margin-left: 37rem;
-            ">
-                <a id="prevButton" class="waves-effect waves-light btn" onclick="setPlayerState('prev')">Previous</a> 
-                <a id="playButton" class="waves-effect waves-light btn" onclick="setPlayerState('check')">Play</a> 
-                <a id="nextButton" class="waves-effect waves-light btn" onclick="setPlayerState('next')">Next</a>
-                <a id="funnyRepeatButton" class="waves-effect waves-light btn" onclick="setPlayerState('repeat')">Repeat Off</a>
+            <div>
+                <a id="prevButton" class="waves-effect waves-teal btn-flat" style="color:white;" onclick="setPlayerState('prev')"><i class="material-icons">navigate_before</i></a> 
+                <a id="playButton" class="waves-effect waves-teal btn-flat" style="color:white;" onclick="setPlayerState('check')"><i class="material-icons">arrow_right</i></a> 
+                <a id="nextButton" class="waves-effect waves-teal btn-flat" style="color:white;" onclick="setPlayerState('next')"><i class="material-icons">navigate_next</i></a>
+                <a id="funnyRepeatButton" class="waves-effect waves-teal btn-flat" style="color:white;" onclick="setPlayerState('repeat')">Repeat Off</a>
             </div>
         </fieldset>
 
         <audio id="audioPlayer"></audio>
 
-        <fieldset style="
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        margin-bottom: 6.3rem;
-        margin-left: 1rem;
-        margin-right: 1rem;
-        width: 448px;
-        ">
-            <legend>Credits and changelog</legend>
-            <p>Made by <a href="https://github.com/SanicBTW">SanicBTW</a> and <a href="https://github.com/bonndevoff">Bonndubz</a></p>
-
-            <ul>What's new? (v1.1 Rewrite)
-                <li>Mobile UI fixed</li>
-            </ul>
-
-            <ul>Known bugs
-                <li>List Items (Song playlist) might not work as intended when displaying song entries</li>
-                <li>Currently the song playlist can display up to a few items (I forgot the amount)</li>
-                <li>The song playlist may display wrongly the current item, I have to improve the code for that sorry</li>
-            </ul>
-        </fieldset>
 	    <script src="index.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     </body>

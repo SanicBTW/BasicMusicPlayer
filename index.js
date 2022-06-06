@@ -40,14 +40,14 @@ audioPlayer.onplaying = function()
 {
     musicPlaying = true;
     musicPaused = false;
-    playButton.innerText = "Pause"
+    //playButton.innerText = "Pause"
 }
 
 audioPlayer.onpause = function() 
 {
     musicPaused = true;
     musicPlaying = false;
-    playButton.innerText = "Resume";
+    //playButton.innerText = "Resume";
     curPlayingInfo.innerText = "Currently playing: " + musicNameArray[curIdx] + " (PAUSED)";
 }
 
@@ -123,7 +123,7 @@ function setPlayerState(state)
             setPlayerState("pause");
             musicPaused = false;
             musicPlaying = false;
-            playButton.innerText = "Play";
+            //playButton.innerText = "Play";
 
             if(customServerInput.value.length > 0 && customServerInput.value.startsWith("https://")){
                 if(!check(customServerInput.value))
