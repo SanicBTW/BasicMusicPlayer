@@ -1,12 +1,11 @@
 //yessir new clean and fresh index sheesh
 //doc elements
 var audioPlayer = document.getElementById("audioPlayer");
-var mpSource = document.getAnimations("audioPlayerSRC");
 var curPlayingInfo = document.getElementById("curplayinginfo");
 var playButton = document.getElementById("playButton");
 var songList = document.getElementById("funnyList");
 var songListLabel = document.getElementById("funnyListInfo");
-var customServerInput = document.getElementById("funnyServer");
+//var customServerInput = document.getElementById("funnyServer");
 var infoThingy = document.getElementById("info"); //idk how to name this one lol
 //vars
 var musicArray = [];
@@ -55,7 +54,7 @@ function setPlayerState(state)
 {
     switch (state){
         case "play":
-            mpSource.src = musicArray[curIdx];
+            audioPlayer.src = musicArray[curIdx];
             audioPlayer.load();
             audioPlayer.play();
             curPlayingInfo.innerText = "Currently playing: " + musicNameArray[curIdx];
@@ -138,7 +137,6 @@ async function setupFiles()
         try
         {
             listMusic = await readFile(customURL + musicListFile, true)
-            alert(listMusic);
         } 
         catch(exc)
         {
@@ -148,9 +146,9 @@ async function setupFiles()
         {
             var advancedDetails = listMusic[i].split("|");
             var musicDir = customURL + advancedDetails[0];
-            alert(advancedDetails[0]);
-            alert(musicDir);
-            musicArray.push(musicDir);
+            if((await fetch(musicDir)).ok){
+                musicArray.push(musicDir);
+            }
             musicNameArray.push(advancedDetails[1]);
             songList.innerText = songList.innerText + "\n" + musicNameArray[i];
         }
@@ -168,22 +166,3 @@ function cleanArrays(){
         musicNameArray = [];
     }
 }
-
-/*
-function checkPath(path){
-    //compatible with v2 check
-    if (!path.includes("music")){ //first check if it includes music
-        if(!path.endsWith("/")){ //if the current url doesnt ends with a slash we add the slash and the music string
-            customURL = path + "/music/"
-        } else { //if it does end with a slash we just add music
-            customURL = path + "music/"
-        }
-    } else if(!customURL.endsWith("/")){ //we check if the current music path which was set earlier doesnt end with a slash
-        customURL = customURL + "/";
-    } else { //if it meets all the requirements we go without anycheck ig
-        customURL = path;
-        alert("done chekin")
-        return true;
-    }
-    return false;
-}*/
