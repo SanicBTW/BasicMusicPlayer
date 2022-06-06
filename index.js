@@ -176,7 +176,7 @@ async function setupFiles()
         for(var i in listMusic)
         {
             //music path should come formatted already
-            var advancedDetails = details[i].split("|");
+            var advancedDetails = listMusic[i].split("|");
             var musicDir = musicPath + advancedDetails[0];
             musicArray.push(musicDir);
             musicNameArray.push(advancedDetails[1]);
