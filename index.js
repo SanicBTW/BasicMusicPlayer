@@ -157,7 +157,7 @@ async function setupFiles()
 }
 
 function cleanArrays(){
-    songList.innerText = "Source: " + customURL;
+    songList.innerText = "Source: " + (customURL == "./" || customURL == "./music/" /*what*/ ? "LOCAL" : customURL)
     songListLabel.innerText = "Available music: "
     if(musicArray.length > 0){
         musicArray = [];
