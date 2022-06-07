@@ -12,18 +12,7 @@
     background-color: black;
     color: white;
     "> <!--dark mode???-->
-
-        <fieldset style="
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        top: 0;
-        width: 50rem;
-        margin-bottom: 6.3rem;
-        margin-left: 1rem;
-        margin-right: 1rem;
-        margin-top: 1rem;
-        ">
+        <fieldset id="musicInfoField" style=>
             <legend>Music Info</legend>
             <p id="curplayinginfo">Currently playing: nothing</p>
 
@@ -33,36 +22,17 @@
             <div class="collection" id="funnyList">
             </div>
 
-            <fieldset style="
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin-bottom: 0.5rem;
-            margin-left: 0.5rem;
-            margin-right: 0.5rem;
-            ">
+            <fieldset id="serverField" style=>
                 <legend>Server stuff</legend>
                 <input id="funnyServer" type="text" style="color: white;"/>
                 <a class="waves-effect waves-light btn" onclick="setPlayerState('server')">Set Custom Server</a>
-    
             </fieldset>
 
         </fieldset>
 
-        <fieldset style="
-        position:absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin-bottom: 1rem;
-        margin-left: 1rem;
-        margin-right: 1rem;
-        ">
+        <fieldset id="playerControlsField">
             <legend>Player controls</legend>
-            <div style="
-            margin-left: 37rem;
-            ">
+            <div id="playerControlsDiv">
                 <a id="prevButton" class="waves-effect waves-light btn" onclick="setPlayerState('prev')">Previous</a> 
                 <a id="playButton" class="waves-effect waves-light btn" onclick="setPlayerState('check')">Play</a> 
                 <a id="nextButton" class="waves-effect waves-light btn" onclick="setPlayerState('next')">Next</a>
@@ -72,20 +42,13 @@
 
         <audio id="audioPlayer"></audio>
 
-        <fieldset style="
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        margin-bottom: 6.3rem;
-        margin-left: 1rem;
-        margin-right: 1rem;
-        width: 448px;
-        ">
+        <fieldset id="changelogField">
             <legend>Credits and changelog</legend>
             <p>Made by <a href="https://github.com/SanicBTW">SanicBTW</a> and <a href="https://github.com/bonndevoff">Bonndubz</a></p>
 
-            <ul>What's new? (v1.1 Rewrite)
-                <li>Mobile UI fixed</li>
+            <ul>What's new? (v1.2 Rewrite)
+                <li>Mobile UI improved to be in the javascript file and not different HTML files</li>
+                <li>Gotta clean the javascript file or see if i can do it in different files</li>
             </ul>
 
             <ul>Known bugs

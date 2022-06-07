@@ -1,4 +1,4 @@
-//yessir new clean and fresh index sheesh
+//yessir new clean and fresh index sheesh, nah gotta clean it again
 //doc elements
 var audioPlayer = document.getElementById("audioPlayer");
 var curPlayingInfo = document.getElementById("curplayinginfo");
@@ -23,6 +23,8 @@ var changedCustomURL = false;
 //helper for the set active list item
 var firstTime = true;
 var clean = false;
+var selectedFromList = false;
+var platform = "";
 
 //events
 audioPlayer.onended = function() 
@@ -47,9 +49,20 @@ audioPlayer.onpause = function()
 {
     musicPaused = true;
     musicPlaying = false;
+    if(platform == "")
     //playButton.innerText = "Resume";
     curPlayingInfo.innerText = "Currently playing: " + musicNameArray[curIdx] + " (PAUSED)";
 }
+
+//checks for the platform
+//from https://www.w3resource.com/javascript-exercises/fundamental/javascript-fundamental-exercise-72.php
+const detectDeviceType = () =>
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    ? 'Mobile'
+    : 'Desktop';
+platform = detectDeviceType();
+
+setupStyles();
 
 //sets up the files (songs and data)
 setupFiles();
@@ -66,6 +79,10 @@ function setPlayerState(state)
             curPlayingInfo.innerText = "Currently playing: " + musicNameArray[curIdx];
             if(firstTime == false){
                 setActiveButton();
+            }
+            if(firstTime == true && selectedFromList == false){
+                var idx0fromlist = document.getElementById("0");
+                idx0fromlist.className = "collection-item active"
             }
             firstTime = false;
             break;
@@ -236,11 +253,7 @@ function check(path)
 function setupNewListItem(newId) //newid its literally the i from the for function of the setup files
 {
     var newSongListItem = document.createElement("a");
-    if(newId == 0){
-        newSongListItem.className = "collection-item active";
-    } else {
-        newSongListItem.className = "collection-item";
-    }
+    newSongListItem.className = "collection-item";
     newSongListItem.textContent = musicNameArray[newId];
     newSongListItem.id = newId;
     newSongListItem.addEventListener("click", () => {
@@ -262,8 +275,32 @@ function setActiveButton()
 function listItemClickEvent(itemId)
 {
     //alert("ONLY MEANT FOR DEBUGGING, clicked, button id " + itemId + " trying to play cur song");
+    selectedFromList = true;
     oldIdx = curIdx;
     curIdx = itemId;
     setActiveButton();
     setPlayerState("play");
+}
+
+function setupStyles()
+{
+    var controlsfield = document.getElementById("playerControlsField");
+    var controlsdiv = document.getElementById("playerControlsDiv");
+    var changelogfield = document.getElementById("changelogField");
+    var serverfield = document.getElementById("serverField");
+    var musicinfofield = document.getElementById("musicInfoField");
+    if(platform == "Mobile")
+    {
+        controlsfield.style = "position:fixed; bottom: 0; margin-bottom: 1rem; margin-left: 1rem; margin-right: 1rem; width: 380px;";
+        serverfield.style = "position: absolute; bottom: 0; margin-bottom: 0.6rem; margin-left: -0.1rem; width: 358px";
+        musicinfofield.style = "position: absolute; bottom: 0; top: 0; width: 380px; margin-bottom: 6.3rem; margin-left: 1rem; margin-top: 1rem;";
+    }
+    else
+    {
+        controlsfield.style = "position:absolute; bottom: 0; left: 0; right: 0; margin-bottom: 1rem; margin-left: 1rem; margin-right: 1rem;";
+        controlsdiv.style = "margin-left: 37rem";
+        changelogfield.style = "position: absolute; right: 0; bottom: 0; margin-bottom: 6.3rem; margin-left: 1rem; margin-right: 1rem; width: 448px;";
+        serverfield.style = "position: absolute; bottom: 0; left: 0; right: 0; margin-bottom: 0.5rem; margin-left: 0.5rem; margin-right: 0.5rem;";
+        musicinfofield.style = "position: absolute; left: 0; bottom: 0; top: 0; width: 50rem; margin-bottom: 6.3rem; margin-left: 1rem; margin-right: 1rem; margin-top: 1rem;";
+    }
 }
