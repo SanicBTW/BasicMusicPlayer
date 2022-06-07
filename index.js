@@ -25,33 +25,6 @@ var firstTime = true;
 var clean = false;
 var selectedFromList = false;
 
-//events
-audioPlayer.onended = function() 
-{
-    musicPlaying = false;
-    musicPaused = false;
-    if(repeatMusic == true){
-        setPlayerState("play");
-    } else {
-        curPlayingInfo.innerText = "Currently playing: nothing (ENDED)";
-    }
-}
-
-audioPlayer.onplaying = function() 
-{
-    musicPlaying = true;
-    musicPaused = false;
-    //playButton.innerText = "Pause"
-}
-
-audioPlayer.onpause = function() 
-{
-    musicPaused = true;
-    musicPlaying = false;
-    //playButton.innerText = "Resume";
-    curPlayingInfo.innerText = "Currently playing: " + musicNameArray[curIdx] + " (PAUSED)";
-}
-
 //sets up the files (songs and data)
 setupFiles();
 
@@ -92,11 +65,12 @@ function setPlayerState(state)
             break;
         case "prev":
             if(curIdx == 0){
-                document.getElementById("prevButton").hidden = true;
-                infoThingy.innerText = "There's no previous song";
-                doTheThing();
+                //get the old value of current index before changing it
+                oldIdx = curIdx;
+                //is it gonna work properly?
+                curIdx = musicArray.length -1;
+                setPlayerState("play");
             }else{
-                document.getElementById("nextButton").hidden = false;
                 oldIdx = curIdx;
                 curIdx -= 1;
                 setPlayerState("play");
@@ -104,11 +78,11 @@ function setPlayerState(state)
             break;
         case "next":
             if(curIdx == musicArray.length -1){
-                document.getElementById("nextButton").hidden = true;
-                infoThingy.innerText = "There's no next song";
-                doTheThing();
+                oldIdx = curIdx;
+                //it goes to the item 0 of the playlist
+                curIdx = 0;
+                setPlayerState("play");
             } else {
-                document.getElementById("prevButton").hidden = false;
                 oldIdx = curIdx;
                 curIdx += 1;
                 setPlayerState("play");
@@ -128,12 +102,17 @@ function setPlayerState(state)
             setPlayerState("pause");
             musicPaused = false;
             musicPlaying = false;
+            //we set the indexes to 0 in order to aoid problems with new list items
+            //idk if it works
+            oldIdx = 0;
+            curIdx = 0;
+            firstTime = true;
             //playButton.innerText = "Play";
 
             if(customServerInput.value.length > 0 && customServerInput.value.startsWith("https://")){
                 if(!check(customServerInput.value))
                 {
-                    alert("There was an error checking the URL, check it and try again");
+                    alert("There was an error while checking the URL, check it and try again, ");
                 }
                 doneSearchingFiles = false;
                 changedCustomURL = true;
@@ -151,26 +130,6 @@ function setPlayerState(state)
             }
             break;
     }
-}
-
-function doTheThing()
-{
-    setInterval(function(){
-        infoThingy.innerText = "";
-    }, 2000);
-}
-
-async function readFile(file, TurnIntoArray)
-{
-    var allText = null;
-    var rawFile = await fetch(file);
-    if(TurnIntoArray == true)
-    {
-        allText = (await rawFile.text()).trim().split('\n')
-    } else {
-        allText = (await rawFile.text())
-    }
-    return allText;
 }
 
 async function setupFiles() 
@@ -215,57 +174,4 @@ function cleanArrays()
             songList.removeChild(child);
         });
     }
-}
-
-function check(path)
-{
-    if(path.startsWith("https://"))
-    {
-        if(!path.endsWith("/"))
-        {
-            customURL = path + "/";
-            return true;
-        }
-        else
-        {
-            customURL = path;
-            return true;
-        }
-    }
-    else
-    {
-        return false;
-    }
-}
-
-function setupNewListItem(newId) //newid its literally the i from the for function of the setup files
-{
-    var newSongListItem = document.createElement("a");
-    newSongListItem.className = "collection-item";
-    newSongListItem.textContent = musicNameArray[newId];
-    newSongListItem.id = newId;
-    newSongListItem.addEventListener("click", () => {
-        listItemClickEvent(newSongListItem.id);
-    })
-    songList.appendChild(newSongListItem);
-}
-
-function setActiveButton()
-{
-    var currentActive = document.getElementById(curIdx);
-    currentActive.className = "collection-item active";
-    if(firstTime == false){
-        var previtem = document.getElementById(oldIdx);
-        previtem.className = "collection-item";
-    }
-}
-
-function listItemClickEvent(itemId)
-{
-    //alert("ONLY MEANT FOR DEBUGGING, clicked, button id " + itemId + " trying to play cur song");
-    selectedFromList = true;
-    oldIdx = curIdx;
-    curIdx = itemId;
-    setActiveButton();
-    setPlayerState("play");
 }

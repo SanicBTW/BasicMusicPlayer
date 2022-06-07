@@ -5,4 +5,3 @@ Will soon explain the usage of this
 Some functions need CORS in order to work (dumb me lol, why did i choose to do this :sob:)
 
 Huge thanks to [Bonndubz](https://github.com/bonndevoff) for the help
-# v0.3
