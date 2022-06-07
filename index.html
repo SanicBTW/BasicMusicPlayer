@@ -33,10 +33,10 @@
         <fieldset id="playerControlsField">
             <legend>Player controls</legend>
             <div id="playerControlsDiv">
-                <a id="prevButton" class="waves-effect waves-light btn" onclick="setPlayerState('prev')">Previous</a> 
-                <a id="playButton" class="waves-effect waves-light btn" onclick="setPlayerState('check')">Play</a> 
-                <a id="nextButton" class="waves-effect waves-light btn" onclick="setPlayerState('next')">Next</a>
-                <a id="funnyRepeatButton" class="waves-effect waves-light btn" onclick="setPlayerState('repeat')">Repeat Off</a>
+                <a id="prevButton" onclick="setPlayerState('prev')"></a> 
+                <a id="playButton" onclick="setPlayerState('check')"></a> 
+                <a id="nextButton" onclick="setPlayerState('next')"></a>
+                <a id="funnyRepeatButton" onclick="setPlayerState('repeat')">Repeat Off</a>
             </div>
         </fieldset>
 
@@ -46,9 +46,10 @@
             <legend>Credits and changelog</legend>
             <p>Made by <a href="https://github.com/SanicBTW">SanicBTW</a> and <a href="https://github.com/bonndevoff">Bonndubz</a></p>
 
-            <ul>What's new? (v1.2 Rewrite)
-                <li>Mobile UI improved to be in the javascript file and not different HTML files</li>
-                <li>Gotta clean the javascript file or see if i can do it in different files</li>
+            <ul>What's new? (v1.2.1 Rewrite)
+                <li>Mobile UI fixed (Now its on a different JS file)</li>
+                <li>Gotta clean the javascript file or see if i can do it in different files (Pending)</li>
+                <li>Correct use of the versioning (Sorry I love using my custom versions lol)</li>
             </ul>
 
             <ul>Known bugs
@@ -58,6 +59,7 @@
             </ul>
         </fieldset>
 	    <script src="index.js"></script>
+        <script src="setStyles.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     </body>
 </html>
