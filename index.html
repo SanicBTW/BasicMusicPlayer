@@ -5,63 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Basic Music Player</title>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     </head>
-    <body style="
-    background-color: black;
-    color: white;
-    "> <!--dark mode???-->
-        <fieldset id="musicInfoField" style=>
-            <legend>Music Info</legend>
-            <p id="curplayinginfo">Currently playing: nothing</p>
-
-            <p id="info"></p>
-
-            <p id="source">Source: </p>
-            <div class="collection" id="funnyList">
-            </div>
-
-            <fieldset id="serverField" style=>
-                <legend>Server stuff</legend>
-                <input id="funnyServer" type="text" style="color: white;"/>
-                <a class="waves-effect waves-light btn" onclick="setPlayerState('server')">Set Custom Server</a>
-            </fieldset>
-
-        </fieldset>
-
-        <fieldset id="playerControlsField">
-            <legend>Player controls</legend>
-            <div id="playerControlsDiv">
-                <a id="prevButton" onclick="setPlayerState('prev')"></a> 
-                <a id="playButton" onclick="setPlayerState('check')"></a> 
-                <a id="nextButton" onclick="setPlayerState('next')"></a>
-                <a id="funnyRepeatButton" onclick="setPlayerState('repeat')">Repeat Off</a>
-            </div>
-        </fieldset>
-
-        <audio id="audioPlayer"></audio>
-
-        <fieldset id="changelogField">
-            <legend>Credits and changelog</legend>
-            <p>Made by <a href="https://github.com/SanicBTW">SanicBTW</a> and <a href="https://github.com/bonndevoff">Bonndubz</a></p>
-
-            <ul>What's new? (v1.2.2 Rewrite)
-                <li>Now the code is in different files for cleaner index sheesh</li>
-                <li>Song playlist now has a bunch of issues, I may end up discontinuing this function</li>
-            </ul>
-
-            <ul>Known bugs
-                <li>MOST OF THE BUGS ARE RELATED TO THE SONG PLAYLIST</li>
-                <li><a href="https://github.com/SanicBTW/BasicMusicPlayer/issues/1">Moved to Github Issues</a></li>
-            </ul>
-        </fieldset>
-        <!--do i import them like this?-->
-        <script src="setStyles.js"></script>
-        <script src="filesys.js"></script>
-	    <script src="index.js"></script>
-        <script src="events.js"></script>
-        <script src="songListHandler.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <body>
+        
+        <script src="index.js"></script>
     </body>
 </html>
