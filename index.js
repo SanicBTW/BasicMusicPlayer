@@ -1,0 +1,1 @@
+var basicDebugger = new Debugger(true);
