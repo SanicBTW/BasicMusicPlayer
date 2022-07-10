@@ -88,7 +88,6 @@ function updateProgress()
     var songPercent = (audioPlayer.currentTime / audioPlayer.duration);
     var curMin = Math.floor(audioPlayer.currentTime / 60) >= 10 ? Math.floor(audioPlayer.currentTime / 60) : "0" + Math.floor(audioPlayer.currentTime / 60);
     var curSecs = Math.floor(audioPlayer.currentTime % 60) >= 10 ? Math.floor(audioPlayer.currentTime % 60) : "0" + Math.floor(audioPlayer.currentTime % 60);
-    elements.changeText("audioTime", curMin + ":" + curSecs + "/" + lengthMin + ":" + lengthSecs);
 
     //this is for the time left ig
     var songCalc = (audioPlayer.duration - audioPlayer.currentTime);
@@ -128,7 +127,6 @@ function updateProgress()
         }
     }
 
-    //NOW IT WORKS???
     if(getValue("Window.update window title"))
     {
         var newTitle = "";
@@ -148,6 +146,15 @@ function updateProgress()
             }
         }
         window.document.title = newTitle;
+    }
+
+    if(getValue("timedisplay.display time left instead of cur time"))
+    {
+        elements.changeText("audioTime", minLeft + ":" + secsLeft + "/" + lengthMin + ":" + lengthSecs);
+    }
+    else
+    {
+        elements.changeText("audioTime", curMin + ":" + curSecs + "/" + lengthMin + ":" + lengthSecs);
     }
 
     if(getValue("TimeBar.display time left instead of cur time"))
