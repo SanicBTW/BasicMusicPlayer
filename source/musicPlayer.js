@@ -1,4 +1,4 @@
-elements.addAudio(null, false, "audioPlayer");
+elements.addAudio("./source/empty.mp3", false, "audioPlayer");
 var audioPlayer = elements.getElement("audioPlayer");
 audioPlayer.preload = "auto";
 
