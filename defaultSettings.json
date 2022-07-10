@@ -1,5 +1,5 @@
 {
-    "categories": ["TimeBar", "TimeDisplay", "Window"],
+    "categories": ["TimeBar", "TimeDisplay", "Window", "AudioPlayer"],
     "configuration":
     {
         "TimeBar":
@@ -7,18 +7,22 @@
             "backgroundColor": [112, 128, 144],
             "Color": [30, 144, 255],
             "Width": 100,
-            "Height": 20,
-            "display time left instead of cur time": true
+            "Height": 15,
+            "display time left instead of cur time": false
         },
         "TimeDisplay":
         {
-            "display time left instead of cur time": true
+            "display time left instead of cur time": false
         },
         "Window":
         {
-            "update window title": true,
+            "update window title": false,
             "display song name": true,
             "display time left": true
+        },
+        "AudioPlayer":
+        {
+            "playback rates": [0.5, 1, 1.5, 2.0]
         }
     }
 }

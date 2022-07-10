@@ -2,6 +2,8 @@ elements.addAudio(null, false, "audioPlayer");
 var audioPlayer = elements.getElement("audioPlayer");
 audioPlayer.preload = "auto";
 
+var config = new ConfigHelper();
+
 elements.addButton("stop", function()
 {
     audioPlayer.pause();
@@ -11,16 +13,6 @@ elements.addButton("resume", function()
 {
     audioPlayer.play();
 }, "resumeButton");
-
-elements.addButton("set speed rate", function()
-{
-    audioPlayer.playbackRate = 5.0;
-}, "speedrateButton");
-
-elements.addButton("default speed rate", function()
-{
-    audioPlayer.playbackRate = 1.0;
-}, "defaultspeedrateButton");
 
 elements.addHeader("", "h1", "audioTime");
 
@@ -32,7 +24,7 @@ elements.onKeydown(function(key)
     if(key.key == "1")
     {
         audioPlayer.src = "./Fight_or_flight.mp3";
-        setNewValue("fileName", "Fight or flight");
+        config.setNewValue("fileName", "Fight or flight");
         audioPlayer.load();
         audioPlayer.play();
         audioPlayer.loop = true;
@@ -40,7 +32,7 @@ elements.onKeydown(function(key)
     if(key.key == "2")
     {
         audioPlayer.src = "./fallgays.mp3";
-        setNewValue("fileName", "Fall Guys");
+        config.setNewValue("fileName", "Fall Guys");
         audioPlayer.load();
         audioPlayer.play();
     }
@@ -127,16 +119,16 @@ function updateProgress()
         }
     }
 
-    if(getValue("Window.update window title"))
+    if(config.getValue("Window.update window title"))
     {
         var newTitle = "";
-        if(getValue("Window.display song name"))
+        if(config.getValue("Window.display song name"))
         {
-            newTitle = getValue("fileName");
+            newTitle = config.getValue("fileName");
         }
-        if(getValue("Window.display time left"))
+        if(config.getValue("Window.display time left"))
         {
-            if(getValue("Window.display song name")) 
+            if(config.getValue("Window.display song name")) 
             {
                 newTitle += " - " + minLeft + ":" + secsLeft;
             }
@@ -148,7 +140,7 @@ function updateProgress()
         window.document.title = newTitle;
     }
 
-    if(getValue("timedisplay.display time left instead of cur time"))
+    if(config.getValue("timedisplay.display time left instead of cur time"))
     {
         elements.changeText("audioTime", minLeft + ":" + secsLeft + "/" + lengthMin + ":" + lengthSecs);
     }
@@ -157,7 +149,7 @@ function updateProgress()
         elements.changeText("audioTime", curMin + ":" + curSecs + "/" + lengthMin + ":" + lengthSecs);
     }
 
-    if(getValue("TimeBar.display time left instead of cur time"))
+    if(config.getValue("TimeBar.display time left instead of cur time"))
     {
         setProgress(100 - (songPercent * 100));
     }
@@ -166,3 +158,11 @@ function updateProgress()
         setProgress(songPercent * 100);
     }
 }
+
+//var playBackSpeeds = document.createElement("select");
+
+/*for(var i in getValue("audioplayer.playback rates"))
+{
+    basicDebugger.log(i);
+}
+*/

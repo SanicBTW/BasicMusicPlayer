@@ -28,22 +28,29 @@ file.then((resp) =>
     });
 });
 
-function getValue(index)
+//i only needed to order the imports but guess ill just leave it like this
+class ConfigHelper 
 {
-    return Configuration[index.toLowerCase()];
+    getValue(index)
+    {
+        console.log("returning: " + Configuration[index.toLowerCase()]);
+        return Configuration[index.toLowerCase()];
+    }
+
+    setNewValue(index, value)
+    {
+        Configuration[index.toLowerCase()] = value;
+    }
 }
 
-function setNewValue(index, value)
-{
-    Configuration[index.toLowerCase()] = value;
-}
+var daHelper = new ConfigHelper();
 
 function setupStuff()
 {
-    styles.setStyle("timeProgress", "background-color: rgb(" +  getValue("TimeBar.backgroundColor").toString() + ")");
-    styles.setStyle("timeBar", "background-color: rgb(" +  getValue("TimeBar.Color").toString() + ")");
+    styles.setStyle("timeProgress", "background-color: rgb(" +  daHelper.getValue("TimeBar.backgroundColor").toString() + ")");
+    styles.setStyle("timeBar", "background-color: rgb(" +  daHelper.getValue("TimeBar.Color").toString() + ")");
 
-    styles.setStyle("timeProgress", "width: " + getValue("TimeBar.Width") + "%");
-    styles.setStyle("timeBar", "height: " + getValue("TimeBar.Height") + "px");
+    styles.setStyle("timeProgress", "width: " + daHelper.getValue("TimeBar.Width") + "%");
+    styles.setStyle("timeBar", "height: " + daHelper.getValue("TimeBar.Height") + "px");
     setProgress(0);
 }
