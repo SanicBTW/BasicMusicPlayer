@@ -129,16 +129,16 @@ function updateProgress()
     }
 
     //NOW IT WORKS???
-    if(getValue("updateWindowTitle"))
+    if(getValue("Window.update window title"))
     {
         var newTitle = "";
-        if(getValue("displaySongName"))
+        if(getValue("Window.display song name"))
         {
             newTitle = getValue("fileName");
         }
-        if(getValue("displayTimeLeft"))
+        if(getValue("Window.display time left"))
         {
-            if(getValue("displaySongName")) 
+            if(getValue("Window.display song name")) 
             {
                 newTitle += " - " + minLeft + ":" + secsLeft;
             }
@@ -150,5 +150,12 @@ function updateProgress()
         window.document.title = newTitle;
     }
 
-    setProgress(songPercent * 100);
+    if(getValue("TimeBar.display time left instead of cur time"))
+    {
+        setProgress(100 - (songPercent * 100));
+    }
+    else
+    {
+        setProgress(songPercent * 100);
+    }
 }

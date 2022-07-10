@@ -7,13 +7,14 @@
             "backgroundColor": [112, 128, 144],
             "Color": [30, 144, 255],
             "Width": 100,
-            "Height": 20
+            "Height": 20,
+            "display time left instead of cur time": true
         },
         "Window":
         {
-            "updateWindowTitle": true,
-            "displaySongName": true,
-            "displayTimeLeft": true
+            "update window title": true,
+            "display song name": true,
+            "display time left": true
         }
     }
 }
