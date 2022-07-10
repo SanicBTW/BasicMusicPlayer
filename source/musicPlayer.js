@@ -1,4 +1,4 @@
-elements.addAudio("./source/empty.mp3", false, "audioPlayer");
+elements.addAudio(null, false, "audioPlayer");
 var audioPlayer = elements.getElement("audioPlayer");
 audioPlayer.preload = "auto";
 
@@ -22,7 +22,7 @@ elements.addButton("default speed rate", function()
     audioPlayer.playbackRate = 1.0;
 }, "defaultspeedrateButton");
 
-elements.addHeader("Time Elapsed ", "h1", "audioTime");
+elements.addHeader("", "h1", "audioTime");
 
 audioPlayer.addEventListener("durationchange", () => setProgress(0));
 audioPlayer.addEventListener("timeupdate", () => updateProgress());

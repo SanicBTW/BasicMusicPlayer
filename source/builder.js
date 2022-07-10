@@ -1,7 +1,7 @@
 var addedChilds = 0;
 var platform = "";
 var basicDebuggerVersion = "1.0";
-var elementsHandlerVersion = "1.2";
+var elementsHandlerVersion = "1.2.1";
 var stylesHandlerVersion = "1.0";
 //yes im adding a handler to each thing i start adding (events for example lmao)
 var animationsHandlerVersion = "1.0";
@@ -42,88 +42,7 @@ class Base
 
     checkVersion()
     {
-        var versionsFileGithub = fetch('https://raw.githubusercontent.com/SanicBTW/PageBuilder/master/versions.txt ');
-        versionsFileGithub.then((resp) => {
-            resp.text().then((text) => {
-                var entries = text.trim().split("\n");
-                for(var i in entries)
-                {
-                    if(printedVersions == false)
-                    {
-                        var gitBasicDebuggerVersion = entries[0];
-                        var gitElementsHandlerVersion = entries[1];
-                        var gitStylesHandlerVersion = entries[2];
-                        var gitAnimationsHandlerVersion = entries[3];
-        
-                        console.log("GITHUB BASIC DEBUGGER VERSION: " + gitBasicDebuggerVersion);
-                        console.log("CURRENT BASIC DEBUGGER VERSION: " + basicDebuggerVersion);
-        
-                        if(basicDebuggerVersion > gitBasicDebuggerVersion)
-                        {
-                            console.warn("[WARNING - Version checker - Basic Debugger]\nCurrent version is newer than the old version\nPush commit or check the Github version");
-                        }
-                        if(basicDebuggerVersion == gitBasicDebuggerVersion)
-                        {
-                            console.info("[INFO - Version checker - Basic Debugger]\nUp to date");
-                        }
-                        if(basicDebuggerVersion < gitBasicDebuggerVersion)
-                        {
-                            console.error("[ERROR - Version checker - Basic Debugger]\nGithub version is newer\nCheck the current version and check the Github version");
-                        }
-        
-                        console.log("GITHUB ELEMENTS HANDLER VERSION: " + gitElementsHandlerVersion);
-                        console.log("CURRENT ELEMENTS HANDLER VERSION: " + elementsHandlerVersion);
-        
-                        if(elementsHandlerVersion > gitElementsHandlerVersion)
-                        {
-                            console.warn("[WARNING - Version checker - Elements Handler]\nCurrent version is newer than the old version\nPush commit or check the Github version");
-                        }
-                        if(elementsHandlerVersion == gitElementsHandlerVersion)
-                        {
-                            console.info("[INFO - Version checker - Elements Handler]\nUp to date");
-                        }
-                        if(elementsHandlerVersion < gitElementsHandlerVersion)
-                        {
-                            console.error("[ERROR - Version checker - Elements Handler]\nGithub version is newer\nCheck the current version and check the Github version");
-                        }
-        
-                        console.log("GITHUB STYLES HANDLER VERSION: " + gitStylesHandlerVersion);
-                        console.log("CURRENT STYLES HANDLER VERSION: " + stylesHandlerVersion);
-        
-                        if(stylesHandlerVersion > gitStylesHandlerVersion)
-                        {
-                            console.warn("[WARNING - Version checker - Styles Handler]\nCurrent version is newer than the old version\nPush commit or check the Github version");
-                        }
-                        if(stylesHandlerVersion == gitStylesHandlerVersion)
-                        {
-                            console.info("[INFO - Version checker - Styles Handler]\nUp to date");
-                        }
-                        if(stylesHandlerVersion < gitStylesHandlerVersion)
-                        {
-                            console.error("[ERROR - Version checker - Styles Handler]\nGithub version is newer\nCheck the current version and check the Github version");
-                        }
-
-                        console.log("GITHUB ANIMATION HANDLER VERSION: " + gitAnimationsHandlerVersion);
-                        console.log("CURRENT ANIMATION HANDLER VERSION: " + animationsHandlerVersion);
-        
-                        if(animationsHandlerVersion > gitAnimationsHandlerVersion)
-                        {
-                            console.warn("[WARNING - Version checker - Animations Handler]\nCurrent version is newer than the old version\nPush commit or check the Github version");
-                        }
-                        if(animationsHandlerVersion == gitAnimationsHandlerVersion)
-                        {
-                            console.info("[INFO - Version checker - Animations Handler]\nUp to date");
-                        }
-                        if(animationsHandlerVersion < gitAnimationsHandlerVersion)
-                        {
-                            console.error("[ERROR - Version checker - Animations Handler]\nGithub version is newer\nCheck the current version and check the Github version");
-                        }
-        
-                        printedVersions = true;
-                    }
-                }
-            })
-        });    
+        console.log("WARNING, USING A MODIFIED VERSION, NOT CHECKING UPDATES");
     }
 
     /**
@@ -286,12 +205,12 @@ class ElementsHandler extends Base
      * @param {boolean} showControls Toggle controls
      * @param {string} id The Element ID
      */
-    addAudio(path, showControls, id)
+    addAudio(path = null, showControls, id)
     {
         addedChilds++;
 
         var audio = document.createElement("audio");
-        audio.src = path;
+        if(path != null){ audio.src = path; }
         audio.controls = showControls;
         defaultElementID = `element${addedChilds}`;
         audio.id = `${id != null ? id : defaultElementID}`;
