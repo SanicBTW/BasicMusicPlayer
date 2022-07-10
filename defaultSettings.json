@@ -12,7 +12,8 @@
         "Window":
         {
             "updateWindowTitle": true,
-            "displaySongName": true
+            "displaySongName": true,
+            "displayTimeLeft": true
         }
     }
 }

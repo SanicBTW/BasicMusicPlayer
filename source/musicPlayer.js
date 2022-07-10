@@ -32,6 +32,7 @@ elements.onKeydown(function(key)
     if(key.key == "1")
     {
         audioPlayer.src = "./Fight_or_flight.mp3";
+        setNewValue("fileName", "Fight or flight");
         audioPlayer.load();
         audioPlayer.play();
         audioPlayer.loop = true;
@@ -39,6 +40,7 @@ elements.onKeydown(function(key)
     if(key.key == "2")
     {
         audioPlayer.src = "./fallgays.mp3";
+        setNewValue("fileName", "Fall Guys");
         audioPlayer.load();
         audioPlayer.play();
     }
@@ -129,7 +131,23 @@ function updateProgress()
     //NOW IT WORKS???
     if(getValue("updateWindowTitle"))
     {
-        window.document.title = minLeft + ":" + secsLeft;
+        var newTitle = "";
+        if(getValue("displaySongName"))
+        {
+            newTitle = getValue("fileName");
+        }
+        if(getValue("displayTimeLeft"))
+        {
+            if(getValue("displaySongName")) 
+            {
+                newTitle += " - " + minLeft + ":" + secsLeft;
+            }
+            else
+            {
+                newTitle = minLeft + ":" + secsLeft;
+            }
+        }
+        window.document.title = newTitle;
     }
 
     setProgress(songPercent * 100);
