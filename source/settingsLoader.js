@@ -1,4 +1,6 @@
 //thanks stack overflow
+//gotta rework this one too
+/*
 var input = document.createElement("input");
 input.type = 'file';
 input.accept = "application/json";
@@ -19,11 +21,13 @@ input.addEventListener("change", (e) => {
         var content = readerEvent.target.result;
         var daParsedFile = JSON.parse(content);
 
-        //i have to implement checks and stuff just in casa something breaks
+        //i have to implement checks and stuff just in case something breaks, maybe for the next commit lol
         var timeBarBackColor = daParsedFile.TimeBar.backgroundColor.toString();
         var timeBarColor = daParsedFile.TimeBar.Color.toString();
         var timeBarWidth = daParsedFile.TimeBar.Width.toString() + "%";
         var timeBarHeight = daParsedFile.TimeBar.Height.toString() + "px";
+
+        var updateWindowTitle = daParsedFile.Window.updateWindowTitle;
 
         styles.setStyle("myProgress", "background-color: rgb(" + timeBarBackColor + ");");
         styles.setStyle("myBar", "background-color: rgb(" + timeBarColor + ");");
@@ -35,4 +39,4 @@ input.addEventListener("change", (e) => {
         daButton.hidden = true;
 
     });
-});
+});*/

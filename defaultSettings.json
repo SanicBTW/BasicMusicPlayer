@@ -1,9 +1,18 @@
 {
-    "TimeBar":
+    "categories": ["TimeBar", "Window"],
+    "configuration":
     {
-        "backgroundColor": [112, 128, 144],
-        "Color": [30, 144, 255],
-        "Width": 100,
-        "Height": 20
+        "TimeBar":
+        {
+            "backgroundColor": [112, 128, 144],
+            "Color": [30, 144, 255],
+            "Width": 100,
+            "Height": 20
+        },
+        "Window":
+        {
+            "updateWindowTitle": true,
+            "displaySongName": true
+        }
     }
 }
