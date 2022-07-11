@@ -14,6 +14,21 @@ elements.addButton("resume", function()
     audioPlayer.play();
 }, "resumeButton");
 
+var playbackRates = document.createElement("select");
+playbackRates.addEventListener("change", (selected) => { audioPlayer.playbackRate = selected.target.value; });
+
+var rates = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0];
+
+for(var i in rates)
+{
+    var opt = document.createElement("option");
+    opt.value = rates[i];
+    opt.text = "Playback rate: " + rates[i] + "x";
+    if(i == 1) opt.selected = true;
+    playbackRates.append(opt);
+}
+document.body.appendChild(playbackRates);
+
 elements.addHeader("", "h1", "audioTime");
 
 audioPlayer.addEventListener("durationchange", () => setProgress(0));
@@ -158,11 +173,3 @@ function updateProgress()
         setProgress(songPercent * 100);
     }
 }
-
-//var playBackSpeeds = document.createElement("select");
-
-/*for(var i in getValue("audioplayer.playback rates"))
-{
-    basicDebugger.log(i);
-}
-*/

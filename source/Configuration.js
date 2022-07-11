@@ -14,17 +14,17 @@ file.then((resp) =>
             var catSets = daParsedText.configuration[category];
             for(var j in catSets)
             {
-                //just in case some formatting error or i fuck up
-                var setting = j.toLowerCase();
-                var settingValue = catSets[j]; //idk if to lower case works here
-                var indexer = `${category}.${setting}`.toLowerCase(); 
+                var setting = j;
+                var settingValue = catSets[j];
+                var indexer = `${category}.${setting}`;
+
+                console.log(formatString(indexer));
                 
-                Configuration[indexer] = settingValue;
+                Configuration[formatString(indexer)] = settingValue;
             }
         }
         //works here
         setupStuff();
-
     });
 });
 
@@ -33,13 +33,13 @@ class ConfigHelper
 {
     getValue(index)
     {
-        console.log("returning: " + Configuration[index.toLowerCase()]);
-        return Configuration[index.toLowerCase()];
+        console.log("returning: " + Configuration[formatString(index)]);
+        return Configuration[formatString(index)];
     }
 
     setNewValue(index, value)
     {
-        Configuration[index.toLowerCase()] = value;
+        Configuration[formatString(index)] = value;
     }
 }
 
@@ -53,4 +53,9 @@ function setupStuff()
     styles.setStyle("timeProgress", "width: " + daHelper.getValue("TimeBar.Width") + "%");
     styles.setStyle("timeBar", "height: " + daHelper.getValue("TimeBar.Height") + "px");
     setProgress(0);
+}
+
+function formatString(toFormat)
+{
+    return toFormat.toLowerCase().split(" ").join("-");
 }
