@@ -16,6 +16,7 @@ elements.addButton("resume", function()
 
 var playbackRates = document.createElement("select");
 playbackRates.addEventListener("change", (selected) => { audioPlayer.playbackRate = selected.target.value; });
+playbackRates.id = "helpme";
 
 var rates = [1.0, 1.5, 2.0];
 
@@ -30,6 +31,9 @@ for(var i in rates)
 document.body.appendChild(playbackRates);
 
 elements.addHeader("", "h1", "audioTime");
+
+styles.setStyle(["resumeButton", "helpme"], "margin-left: 1rem;")
+elements.appendTo(["stopButton", "resumeButton", "helpme", "audioTime"], "mainDiv");
 
 audioPlayer.addEventListener("durationchange", () => setProgress(0));
 audioPlayer.addEventListener("timeupdate", () => updateProgress());
