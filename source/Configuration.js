@@ -18,8 +18,6 @@ file.then((resp) =>
                 var settingValue = catSets[j];
                 var indexer = `${category}.${setting}`;
 
-                console.log(formatString(indexer));
-                
                 Configuration[formatString(indexer)] = settingValue;
             }
         }
@@ -33,7 +31,6 @@ class ConfigHelper
 {
     getValue(index)
     {
-        console.log("returning: " + Configuration[formatString(index)]);
         return Configuration[formatString(index)];
     }
 
