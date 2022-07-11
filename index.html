@@ -4,14 +4,32 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <script src="./source/builder.js"></script>
+        <link rel="stylesheet" href="./source/index.css"/>
+        <script src="./source/Configuration.js"></script>
         <title>Basic Music Player</title>
     </head>
     <body>
-        <script src="./source/Configuration.js"></script>
-        <script src="./source/Main.js"></script>
-        <script src="./source/musicPlayer.js"></script>
-        <script src="./source/timeBar.js"></script>
-        <script src="./source/SettingsPage.js"></script>
+
+        <!-- page content -->
+        <div class="outer">
+            <div id="mainDiv">
+                <button type="button" onclick="play()">play</button>
+
+                <!-- audio -->
+                <audio id="audioPlayer" preload="auto"></audio>
+            </div>
+        </div>
+
+        <script>
+            function play()
+            {
+                //move to a file, stays here for now
+                var audioPlayer = document.getElementById("audioPlayer");
+                audioPlayer.src = "./Fight_or_flight.mp3";
+                audioPlayer.load();
+                audioPlayer.play();
+                audioPlayer.loop = true;
+            }
+        </script>
     </body>
 </html>
