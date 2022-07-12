@@ -9,6 +9,11 @@
         <title>Basic Music Player</title>
     </head>
     <body>
+        <div id="settingsSidePanel" class="settingspanel">
+            <p id="closeSettingsSidePanel" class="closesettingspanelbtn" onclick="closeSettingsPanel()">X</p>
+
+            <h1 style="margin-left: 1rem;">Settings</h1>
+        </div>
 
         <!-- page content -->
         <div class="outer">
@@ -30,6 +35,8 @@
                 <!-- time bar -->
                 <div id="timeProgress"> <div id="timeBar"> </div> </div>
 
+                <button type="button" onclick="openSettingsPanel()" style="margin-top: 1rem;">settings</button>
+
                 <!-- audio -->
                 <audio id="audioPlayer" preload="auto"></audio>
             </div>
@@ -38,5 +45,6 @@
         <script src="./source/musicPlayer.js"></script>
         <script src="./source/timeHandler.js"></script>
         <script src="./source/timeBar.js"></script>
+        <script src="./source/settingsPanel.js"></script>
     </body>
 </html>
