@@ -44,11 +44,20 @@ var daHelper = new ConfigHelper();
 
 function setupStuff()
 {
-    styles.setStyle("timeProgress", "background-color: rgb(" +  daHelper.getValue("TimeBar.backgroundColor").toString() + ")");
-    styles.setStyle("timeBar", "background-color: rgb(" +  daHelper.getValue("TimeBar.Color").toString() + ")");
+    var timeProgBackColor = "background-color: rgb(" +  daHelper.getValue("TimeBar.backgroundColor").toString() + "); ";
+    var timeProgWidth = "width: " + daHelper.getValue("TimeBar.Width") + "%;";
 
-    styles.setStyle("timeProgress", "width: " + daHelper.getValue("TimeBar.Width") + "%");
-    styles.setStyle("timeBar", "height: " + daHelper.getValue("TimeBar.Height") + "px");
+    var timeBarBackColor = "background-color: rgb(" +  daHelper.getValue("TimeBar.Color").toString() + ");";
+    var timeBarHeight = "height: " + daHelper.getValue("TimeBar.Height") + "px;";
+
+    var timeProgStyle = document.createElement("style");
+    timeProgStyle.innerHTML = `#timeProgress { ${timeProgBackColor} ${timeProgWidth} }`;
+    document.head.appendChild(timeProgStyle);
+
+    var timeBarStyle = document.createElement("style");
+    timeBarStyle.innerHTML = `#timeBar { ${timeBarBackColor} ${timeBarHeight} }`;
+    document.head.appendChild(timeBarStyle);
+
     setProgress(0);
 }
 

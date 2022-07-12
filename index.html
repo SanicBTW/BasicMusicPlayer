@@ -13,23 +13,30 @@
         <!-- page content -->
         <div class="outer">
             <div id="mainDiv">
-                <button type="button" onclick="play()">play</button>
+                <!-- music controls -->
+                <div>
+                    <button type="button" onclick="setState('play')">play</button>
+                    <button type="button" onclick="setState('stop')">stop</button>
+                    <button type="button" onclick="setState('resume')">resume</button>
+                    <select id="playbackRates">
+                        <option value="1" selected="true">Playback rate: 1x</option>
+                        <option value="1.5">Playback rate: 1.5x</option>
+                        <option value="2">Playback rate: 2x</option>
+                    </select>
+                </div>
+
+                <h1 id="audioTime"></h1>
+
+                <!-- time bar -->
+                <div id="timeProgress"> <div id="timeBar"> </div> </div>
 
                 <!-- audio -->
                 <audio id="audioPlayer" preload="auto"></audio>
             </div>
         </div>
 
-        <script>
-            function play()
-            {
-                //move to a file, stays here for now
-                var audioPlayer = document.getElementById("audioPlayer");
-                audioPlayer.src = "./Fight_or_flight.mp3";
-                audioPlayer.load();
-                audioPlayer.play();
-                audioPlayer.loop = true;
-            }
-        </script>
+        <script src="./source/musicPlayer.js"></script>
+        <script src="./source/timeHandler.js"></script>
+        <script src="./source/timeBar.js"></script>
     </body>
 </html>
