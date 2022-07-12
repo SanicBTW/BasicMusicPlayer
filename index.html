@@ -4,15 +4,25 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+        <script>eruda.init();</script>
         <link rel="stylesheet" href="./source/index.css"/>
         <script src="./source/Configuration.js"></script>
         <title>Basic Music Player</title>
     </head>
     <body>
+        <!-- settings panel or side view or idk -->
         <div id="settingsSidePanel" class="settingspanel">
             <p id="closeSettingsSidePanel" class="closesettingspanelbtn" onclick="closeSettingsPanel()">X</p>
 
-            <h1 style="margin-left: 1rem;">Settings</h1>
+            <div id="settingsSidePanelContent">
+                <h1>Settings</h1>
+                <div>
+                    <p>Change time bar background color (RGB)</p>
+                    <input id="colorInput1" type="color">
+                    <button onclick="applySettings('time bar background color')">Apply</button>
+                </div>
+            </div>
         </div>
 
         <!-- page content -->

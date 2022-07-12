@@ -42,3 +42,8 @@ body
     margin-left: 50px; 
     cursor: pointer;
 }
+
+#settingsSidePanelContent
+{
+    margin-left: 1rem;
+}
