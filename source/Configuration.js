@@ -26,29 +26,24 @@ file.then((resp) =>
     });
 });
 
-//i only needed to order the imports but guess ill just leave it like this
-class ConfigHelper 
+function getValue(index)
 {
-    getValue(index)
-    {
-        return Configuration[formatString(index)];
-    }
-
-    setNewValue(index, value)
-    {
-        Configuration[formatString(index)] = value;
-    }
+    console.log("returning: "+ Configuration[formatString(index)]);
+    return Configuration[formatString(index)];
 }
 
-var daHelper = new ConfigHelper();
+function setNewValue(index, value)
+{
+    Configuration[formatString(index)] = value;
+}
 
 function setupStuff()
 {
-    var timeProgBackColor = "background-color: rgb(" +  daHelper.getValue("TimeBar.backgroundColor").toString() + "); ";
-    var timeProgWidth = "width: " + daHelper.getValue("TimeBar.Width") + "%;";
+    var timeProgBackColor = "background-color: rgb(" +  getValue("TimeBar.backgroundColor").toString() + "); ";
+    var timeProgWidth = "width: " + getValue("TimeBar.Width") + "%;";
 
-    var timeBarBackColor = "background-color: rgb(" +  daHelper.getValue("TimeBar.Color").toString() + ");";
-    var timeBarHeight = "height: " + daHelper.getValue("TimeBar.Height") + "px;";
+    var timeBarBackColor = "background-color: rgb(" +  getValue("TimeBar.Color").toString() + ");";
+    var timeBarHeight = "height: " + getValue("TimeBar.Height") + "px;";
 
     var timeProgStyle = document.createElement("style");
     timeProgStyle.innerHTML = `#timeProgress { ${timeProgBackColor} ${timeProgWidth} }`;

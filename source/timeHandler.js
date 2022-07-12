@@ -1,4 +1,3 @@
-var config = new ConfigHelper();
 var audioPlayer = document.getElementById("audioPlayer");
 var audioTime = document.getElementById("audioTime");
 
@@ -87,16 +86,16 @@ function updateProgress()
         }
     }
 
-    if(config.getValue("Window.update window title"))
+    if(getValue("Window.update window title"))
     {
         var newTitle = "";
-        if(config.getValue("Window.display song name"))
+        if(getValue("Window.display song name"))
         {
-            newTitle = config.getValue("fileName");
+            newTitle = getValue("fileName");
         }
-        if(config.getValue("Window.display time left"))
+        if(getValue("Window.display time left"))
         {
-            if(config.getValue("Window.display song name")) 
+            if(getValue("Window.display song name")) 
             {
                 newTitle += " - " + minLeft + ":" + secsLeft;
             }
@@ -108,7 +107,7 @@ function updateProgress()
         window.document.title = newTitle;
     }
 
-    if(config.getValue("timedisplay.display time left instead of cur time"))
+    if(getValue("timedisplay.display time left instead of cur time"))
     {
         audioTime.innerText = minLeft + ":" + secsLeft + "/" + lengthMin + ":" + lengthSecs;
     }
@@ -117,7 +116,7 @@ function updateProgress()
         audioTime.innerText = curMin + ":" + curSecs + "/" + lengthMin + ":" + lengthSecs;
     }
 
-    if(config.getValue("TimeBar.display time left instead of cur time"))
+    if(getValue("TimeBar.display time left instead of cur time"))
     {
         setProgress(100 - (songPercent * 100));
     }

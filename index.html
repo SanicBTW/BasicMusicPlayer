@@ -11,16 +11,22 @@
         <title>Basic Music Player</title>
     </head>
     <body>
-        <!-- settings panel or side view or idk -->
+        <!-- settings panel or side view or idk, might need to replace the names and stuff -->
         <div id="settingsSidePanel" class="settingspanel">
             <p id="closeSettingsSidePanel" class="closesettingspanelbtn" onclick="closeSettingsPanel()">X</p>
 
             <div id="settingsSidePanelContent">
                 <h1>Settings</h1>
                 <div>
-                    <p>Change time bar background color (RGB)</p>
-                    <input id="colorInput1" type="color">
-                    <button onclick="applySettings('time bar background color')">Apply</button>
+                    <p id="backColorCatInfo">Change time bar background color</p>
+
+                    <label for="backColorInputR">R</label>
+                    <input id="backColorInputR" type="text" class="ColorInput" placeholder="255" value="255">
+                    <label for="backColorInputG">G</label>
+                    <input id="backColorInputG" type="text" class="ColorInput" placeholder="255" value="255">
+                    <label for="backColorInputB">B</label>
+                    <input id="backColorInputB" type="text" class="ColorInput" placeholder="255" value="255">
+                    <button onclick="applyNewBackColor()">Apply background color</button>
                 </div>
             </div>
         </div>

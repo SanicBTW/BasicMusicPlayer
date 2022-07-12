@@ -1,4 +1,3 @@
-var config = new ConfigHelper();
 var audioPlayer = document.getElementById("audioPlayer");
 var daRatings = document.getElementById('playbackRates');
 
