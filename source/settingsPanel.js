@@ -56,10 +56,24 @@ function applyNewTimeBarBackColor()
     setNewValue("changed timebar background color", true);
 }
 
+function applyNewTimeBarColor()
+{
+    var daInfoHeader = document.getElementById("timeBarColorInfo");
+    var r = document.getElementById("timeBarColorInputR").value;
+    var g = document.getElementById("timeBarColorInputG").value;
+    var b = document.getElementById("timeBarColorInputB").value;
+
+    daBar.style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";
+    daInfoHeader.innerText = "Change time bar color - New color applied!";
+
+    setTimeout(function() 
+    {
+        daInfoHeader.innerText = "Change time bar color";
+    }, 1500);
+    setNewValue("changed timebar color", true);
+}
+
 //dumb ass way to get some simple values lol
-//FINALLY AFTER 2 HOURSSSSSSSSS, THIS LOOKS LIKE SHIT BUT AT LEAST ITS WORKING
-//WAIT ITS ACTUALLY USELESS FUCK
-//I FOUND A USAGE FOR IT LETS GOO
 function formatRGBString(toFormat)
 {
     var toReturn = null;
