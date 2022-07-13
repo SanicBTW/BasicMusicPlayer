@@ -1,5 +1,5 @@
 {
-    "categories": ["TimeBar", "TimeDisplay", "Window"],
+    "categories": ["TimeBar", "TimeDisplay", "Window", "General"],
     "configuration":
     {
         "TimeBar":
@@ -19,6 +19,10 @@
             "update window title": false,
             "display song name": true,
             "display time left": true
+        },
+        "General":
+        {
+            "sound effects on hovering": true
         }
     }
 }

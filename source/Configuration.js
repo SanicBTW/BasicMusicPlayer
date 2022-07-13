@@ -23,11 +23,14 @@ file.then((resp) =>
         }
         //works here
         setupStuff();
+        console.table(Configuration)
     });
 });
 
 function getValue(index)
 {
+    console.log(formatString(index));
+    console.log("returnin: " + Configuration[formatString(index)])
     return Configuration[formatString(index)];
 }
 
