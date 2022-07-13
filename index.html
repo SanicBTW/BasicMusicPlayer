@@ -17,53 +17,62 @@
 
             <div id="settingsSidePanelContent">
                 <h1>Settings</h1>
-                <div>
-                    <p id="timeBarBackColorInfo">Change time bar background color</p>
+                <fieldset class="timeBarSettingsField" style="width: 300px;">
+                    <legend>Time Bar Settings</legend>
+                    <div>
+                        <p id="timeBarBackColorInfo">Change time bar background color</p>
 
-                    <label for="timeBarBackColorInputR" style="color: red;">R</label>
-                    <input id="timeBarBackColorInputR" type="text" placeholder="255" value="112">
-                    <label for="timeBarBackColorInputG" style="color: green;">G</label>
-                    <input id="timeBarBackColorInputG" type="text" placeholder="255" value="128">
-                    <label for="timeBarBackColorInputB" style="color: blue;">B</label>
-                    <input id="timeBarBackColorInputB" type="text" placeholder="255" value="144">
-                    <button onclick="applyNewTimeBarBackColor()">Apply</button>
-                </div>
-                <div>
-                    <p id="timeBarColorInfo">Change time bar color</p>
+                        <label for="timeBarBackColorInputR" style="color: red;">R</label>
+                        <input id="timeBarBackColorInputR" type="text" placeholder="255" value="112">
+                        <label for="timeBarBackColorInputG" style="color: green;">G</label>
+                        <input id="timeBarBackColorInputG" type="text" placeholder="255" value="128">
+                        <label for="timeBarBackColorInputB" style="color: blue;">B</label>
+                        <input id="timeBarBackColorInputB" type="text" placeholder="255" value="144">
+                        <button onclick="applyNewTimeBarBackColor()">Apply</button>
+                    </div>
+                    <div>
+                        <p id="timeBarColorInfo">Change time bar color</p>
 
-                    <label for="timeBarColorInputR" style="color: red;">R</label>
-                    <input id="timeBarColorInputR" type="text" placeholder="255" value="30">
-                    <label for="timeBarColorInputG" style="color: green;">G</label>
-                    <input id="timeBarColorInputG" type="text" placeholder="255" value="144">
-                    <label for="timeBarColorInputB" style="color: blue;">B</label>
-                    <input id="timeBarColorInputB" type="text" placeholder="255" value="255">
-                    <button onclick="applyNewTimeBarColor()">Apply</button>
-                </div>
-                <div>
-                    <p id="timeBarWidthInfo">Change time bar width</p>
+                        <label for="timeBarColorInputR" style="color: red;">R</label>
+                        <input id="timeBarColorInputR" type="text" placeholder="255" value="30">
+                        <label for="timeBarColorInputG" style="color: green;">G</label>
+                        <input id="timeBarColorInputG" type="text" placeholder="255" value="144">
+                        <label for="timeBarColorInputB" style="color: blue;">B</label>
+                        <input id="timeBarColorInputB" type="text" placeholder="255" value="255">
+                        <button onclick="applyNewTimeBarColor()">Apply</button>
+                    </div>
+                    <div>
+                        <p id="timeBarWidthInfo">Change time bar width</p>
 
-                    <input id="timeBarWidthInput" type="text" placeholder="100" value="100">
-                    <label for="timeBarWidthInput">%</label>
-                    <button onclick="applyNewTimeBarWidth()">Apply</button>
-                </div>
-                <div>
-                    <p id="timeBarHeightInfo">Change time bar height</p>
+                        <input id="timeBarWidthInput" type="text" placeholder="100" value="100">
+                        <label for="timeBarWidthInput">%</label>
+                        <button onclick="applyNewTimeBarWidth()">Apply</button>
+                    </div>
+                    <div>
+                        <p id="timeBarHeightInfo">Change time bar height</p>
 
-                    <input id="timeBarHeightInput" type="text" placeholder="15" value="15">
-                    <label for="timeBarHeightInput">px</label>
-                    <button onclick="applyNewTimeBarHeight()">Apply</button>
-                </div>
-                <div>
-                    <p id="timeBarDisplayModeInfo">Time bar display mode</p>
+                        <input id="timeBarHeightInput" type="text" placeholder="15" value="15">
+                        <label for="timeBarHeightInput">px</label>
+                        <button onclick="applyNewTimeBarHeight()">Apply</button>
+                    </div>
+                    <div>
+                        <p id="timeBarDisplayModeInfo">Time bar display mode</p>
 
-                    <input id="timeBarDisplayTimeLeft" type="radio" onchange=" document.getElementById('timeBarDisplayTimeCur').checked = false; ">
-                    <label for="timeBarDisplayTimeLeft">Time left instead of current time</label>
-                    <br>
-                    <input id="timeBarDisplayTimeCur" type="radio" checked="true" onchange=" document.getElementById('timeBarDisplayTimeLeft').checked = false; ">
-                    <label for="timeBarDisplayTimeCur">Current time instead of time left</label>
-                    <br>
-                    <button onclick="applyNewTimeBarDisplayMode()">Apply</button>
-                </div>
+                        <input id="timeBarDisplayTimeLeft" type="radio" onchange=" document.getElementById('timeBarDisplayTimeCur').checked = false; ">
+                        <label for="timeBarDisplayTimeLeft">Time left instead of current time</label>
+                        <br>
+                        <input id="timeBarDisplayTimeCur" type="radio" checked="true" onchange=" document.getElementById('timeBarDisplayTimeLeft').checked = false; ">
+                        <label for="timeBarDisplayTimeCur">Current time instead of time left</label>
+                        <br>
+                        <button onclick="applyNewTimeBarDisplayMode()">Apply</button>
+                    </div>
+                </fieldset>
+                <fieldset class="timeDisplaySettingsField" style="width: 300px;">
+                    <legend>Time Display Settings</legend>
+                </fieldset>
+                <fieldset class="windowSettingsField" style="width: 300px;">
+                    <legend>Window Settings</legend>
+                </fieldset>
             </div>
         </div>
 

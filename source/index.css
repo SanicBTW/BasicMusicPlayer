@@ -49,6 +49,9 @@ body
     margin-left: 1rem;
     opacity: 0;
     transition: opacity 0.25s;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
 }
 
 input
@@ -78,4 +81,19 @@ button:hover
 button:active
 {
     background-color: blue;
+}
+
+.timeBarSettingsField
+{
+    grid-column: 1;
+}
+
+.timeDisplaySettingsField
+{
+    grid-column: 2;
+}
+
+.windowSettingsField
+{
+    grid-column: 3;
 }
