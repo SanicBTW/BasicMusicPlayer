@@ -7,7 +7,6 @@
         <script src="//cdn.jsdelivr.net/npm/eruda"></script>
         <script>eruda.init();</script>
         <link rel="stylesheet" href="./source/index.css"/>
-        <link rel="preload" href="./assets/scrollMenu.ogg" as="audio">
         <script src="./source/Configuration.js"></script>
         <title>Basic Music Player</title>
     </head>
@@ -48,9 +47,9 @@
             <div id="mainDiv">
                 <!-- music controls -->
                 <div>
-                    <button type="button" onmouseover="playHover()" onclick="setState('play')">Play</button>
-                    <button type="button" onmouseover="playHover()" onclick="setState('stop')">Stop</button>
-                    <button type="button" onmouseover="playHover()" onclick="setState('resume')">Resume</button>
+                    <button type="button" onclick="setState('play')">Play</button>
+                    <button type="button" onclick="setState('stop')">Stop</button>
+                    <button type="button" onclick="setState('resume')">Resume</button>
                     <select id="playbackRates">
                         <option value="1" selected="true">Playback rate: 1x</option>
                         <option value="1.5">Playback rate: 1.5x</option>
@@ -63,13 +62,10 @@
                 <!-- time bar -->
                 <div id="timeProgress"> <div id="timeBar"> </div> </div>
 
-                <button type="button" onmouseover="playHover()" onclick="openSettingsPanel()" style="margin-top: 1rem;">Settings</button>
+                <button type="button" onclick="openSettingsPanel()" style="margin-top: 1rem;">Settings</button>
 
                 <!-- audio -->
                 <audio id="audioPlayer" preload="auto"></audio>
-
-                <!-- sfx -->
-                <audio id="sfxHover" preload="auto" src="./assets/scrollMenu.ogg" loop="false"></audio>
             </div>
         </div>
 
@@ -77,6 +73,5 @@
         <script src="./source/timeHandler.js"></script>
         <script src="./source/timeBar.js"></script>
         <script src="./source/settingsPanel.js"></script>
-        <script src="./source/buttonSFX.js"></script>
     </body>
 </html>

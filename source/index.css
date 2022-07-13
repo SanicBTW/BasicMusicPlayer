@@ -70,3 +70,8 @@ button:hover
 {
     background-color: dodgerblue;
 }
+
+button:active
+{
+    background-color: blue;
+}
