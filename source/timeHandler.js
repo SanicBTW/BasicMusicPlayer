@@ -91,7 +91,7 @@ function updateProgress()
         var newTitle = "";
         if(getValue("Window.display song name"))
         {
-            newTitle = getValue("fileName");
+            newTitle = "not found";
         }
         if(getValue("Window.display time left"))
         {

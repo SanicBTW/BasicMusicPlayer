@@ -28,7 +28,7 @@ body
     top: 0; 
     left: 0; 
     background-color: #111; 
-    overflow-x: hidden; 
+    overflow-x: auto; 
     padding-top: 60px; 
     transition: 0.5s;
 }
@@ -50,7 +50,7 @@ body
     opacity: 0;
     transition: opacity 0.25s;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
 }
 
@@ -83,17 +83,10 @@ button:active
     background-color: blue;
 }
 
-.timeBarSettingsField
+code
 {
-    grid-column: 1;
-}
-
-.timeDisplaySettingsField
-{
-    grid-column: 2;
-}
-
-.windowSettingsField
-{
-    grid-column: 3;
+    background-color: rgb(25, 25, 25);
+    border-radius: 3px;
+    padding: 0 3px;
+    font-family: 'Courier New', Courier, monospace;
 }

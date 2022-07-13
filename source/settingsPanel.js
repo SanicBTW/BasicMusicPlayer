@@ -31,84 +31,176 @@ document.body.addEventListener("keydown", (key) =>
 
 function applyNewTimeBarBackColor()
 {
-    var daInfoHeader = document.getElementById("timeBarBackColorInfo");
     var r = document.getElementById("timeBarBackColorInputR").value;
     var g = document.getElementById("timeBarBackColorInputG").value;
     var b = document.getElementById("timeBarBackColorInputB").value;
 
     daProg.style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";
-    daInfoHeader.innerText = "Change time bar background color - New color applied!";
-
-    setTimeout(function() 
-    {
-        daInfoHeader.innerText = "Change time bar background color";
-    }, 1500);
 }
 
 function applyNewTimeBarColor()
 {
-    var daInfoHeader = document.getElementById("timeBarColorInfo");
     var r = document.getElementById("timeBarColorInputR").value;
     var g = document.getElementById("timeBarColorInputG").value;
     var b = document.getElementById("timeBarColorInputB").value;
 
     daBar.style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";
-    daInfoHeader.innerText = "Change time bar color - New color applied!";
-
-    setTimeout(function() 
-    {
-        daInfoHeader.innerText = "Change time bar color";
-    }, 1500);
 }
 
 function applyNewTimeBarWidth()
 {
-    var daInfoHeader = document.getElementById("timeBarWidthInfo");
     var daNew = document.getElementById("timeBarWidthInput").value;
 
     daProg.style.width = daNew + "%";
-    daInfoHeader.innerText = "Change time bar width - New width applied!";
-
-    setTimeout(function() 
-    {
-        daInfoHeader.innerText = "Change time bar width";
-    }, 1500);
 }
 
 function applyNewTimeBarHeight()
 {
-    var daInfoHeader = document.getElementById("timeBarHeightInfo");
     var daNew = document.getElementById("timeBarHeightInput").value;
 
     daBar.style.height = daNew + "px";
-    daInfoHeader.innerText = "Change time bar height - New height applied!";
-
-    setTimeout(function() 
-    {
-        daInfoHeader.innerText = "Change time bar height";
-    }, 1500);
 }
 
-function applyNewTimeBarDisplayMode()
+function exportSettings()
 {
-    var displayTimeLeft = document.getElementById('timeBarDisplayTimeLeft').checked;
-    var daInfoHeader = document.getElementById("timeBarDisplayModeInfo");
+    //time bar
+    var timeBarBackColorR = parseInt(document.getElementById("timeBarBackColorInputR").value);
+    var timeBarBackColorG = parseInt(document.getElementById("timeBarBackColorInputG").value);
+    var timeBarBackColorB = parseInt(document.getElementById("timeBarBackColorInputB").value);
 
-    if(displayTimeLeft)
-    {
-        setNewValue("timebar.display time left instead of cur time", true);
+    var timeBarColorR = parseInt(document.getElementById("timeBarColorInputR").value);
+    var timeBarColorG = parseInt(document.getElementById("timeBarColorInputG").value);
+    var timeBarColorB = parseInt(document.getElementById("timeBarColorInputB").value);
+
+    var timeBarWidth = parseInt(document.getElementById("timeBarWidthInput").value);
+    var timeBarHeight = parseInt(document.getElementById("timeBarHeightInput").value);
+
+    var timeBarDisplayTimeLeft = document.getElementById('timeBarDisplayTimeLeft').checked;
+
+    //time display
+    var timedisplayDisplayTimeLeft = document.getElementById("timedisplayDisplayTimeLeft").checked;
+
+    //window
+    var windowUpdateWindowTitle = document.getElementById('windowUpdateWindowTitle').checked;
+    var windowDisplaySongName = document.getElementById('windowDisplaySongName').checked;
+    var windowDisplayTimeLeft = document.getElementById('windowDisplayTimeLeft').checked;
+
+    var toExport = {
+        "categories": ["TimeBar", "TimeDisplay", "Window"],
+        "configuration": 
+        {
+            "TimeBar": 
+            {
+                "backgroundColor": [timeBarBackColorR, timeBarBackColorG, timeBarBackColorB],
+                "Color": [timeBarColorR, timeBarColorG, timeBarColorB],
+                "Width": timeBarWidth,
+                "Height": timeBarHeight,
+                "display time left instead of cur time": timeBarDisplayTimeLeft
+            },
+            "TimeDisplay":
+            {
+                "display time left instead of cur time": timedisplayDisplayTimeLeft
+            },
+            "Window":
+            {
+                "update window title": windowUpdateWindowTitle,
+                "display song name": windowDisplaySongName,
+                "display time left": windowDisplayTimeLeft
+            }
+        }
     }
-    else
-    {
-        setNewValue("timebar.display time left instead of cur time", false);
-    }
 
-    daInfoHeader.innerText = "Time bar display mode - Applied!";
+    var haha = JSON.stringify(toExport, null, 4);
 
-    setTimeout(function() 
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(haha));
+    element.setAttribute('download', "exportedSettings.json");
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
+}
+
+function applyAll()
+{
+    applyNewTimeBarBackColor();
+    applyNewTimeBarColor();
+    applyNewTimeBarWidth();
+    applyNewTimeBarHeight();
+    setNewValue("timebar.display time left instead of cur time", document.getElementById('timeBarDisplayTimeLeft').checked);
+    setNewValue("timedisplay.display time left instead of cur time", document.getElementById("timedisplayDisplayTimeLeft").checked);
+    setNewValue("Window.update window title", document.getElementById('windowUpdateWindowTitle').checked);
+    setNewValue("Window.display song name", document.getElementById('windowDisplaySongName').checked);
+    setNewValue("Window.display time left", document.getElementById('windowDisplayTimeLeft').checked);
+    alert("Applied!");
+}
+
+function loadSettings()
+{
+    var input = document.createElement("input");
+    input.type = 'file';
+    input.accept = 'application/json';
+    input.click();
+
+    input.addEventListener("change", (e) => 
     {
-        daInfoHeader.innerText = "Time bar display mode";
-    }, 1500);
+        var file = e.target.files[0];
+
+        var reader = new FileReader();
+        reader.readAsText(file, 'UTF-8');
+
+        reader.addEventListener("load", (readerEvent) => 
+        {
+            var content = readerEvent.target.result;
+            var daParsedText = JSON.parse(content);
+            var availCats = daParsedText.categories;
+            for(var i in availCats)
+            {
+                var category = availCats[i];
+                var catSets = daParsedText.configuration[category];
+                for(var j in catSets)
+                {
+                    var setting = j;
+                    var settingValue = catSets[j];
+                    var indexer = `${category}.${setting}`;
+
+                    setNewValue(indexer, settingValue);
+                    //document.getElementById("loadSettingsBtn").disabled = true;
+                }
+            }
+            refreshValues();
+        });
+    });
+}
+
+function refreshValues()
+{
+    //time bar
+    document.getElementById("timeBarBackColorInputR").value = getValue("timebar.backgroundcolor").toString().split(",")[0];
+    document.getElementById("timeBarBackColorInputG").value = getValue("timebar.backgroundcolor").toString().split(",")[1];
+    document.getElementById("timeBarBackColorInputB").value = getValue("timebar.backgroundcolor").toString().split(",")[2];
+
+    document.getElementById("timeBarColorInputR").value = getValue("timebar.color").toString().split(",")[0];
+    document.getElementById("timeBarColorInputG").value = getValue("timebar.color").toString().split(",")[1];
+    document.getElementById("timeBarColorInputB").value = getValue("timebar.color").toString().split(",")[2];
+
+    document.getElementById("timeBarWidthInput").value = getValue("timebar.width");
+    document.getElementById("timeBarHeightInput").value = getValue("timebar.height");
+
+    document.getElementById('timeBarDisplayTimeLeft').checked = getValue("timebar.display time left instead of cur time");
+
+    //time display
+    document.getElementById("timedisplayDisplayTimeLeft").checked = getValue("timedisplay.display time left instead of cur time");
+
+    //window
+    document.getElementById('windowUpdateWindowTitle').checked = getValue("window.update window title");
+    document.getElementById('windowDisplaySongName').checked = getValue("window.display song name");
+    document.getElementById('windowDisplayTimeLeft').checked = getValue("window.display time left");
+
+    applyAll();
 }
 
 //dumb ass way to get some simple values lol

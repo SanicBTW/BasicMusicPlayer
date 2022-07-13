@@ -23,7 +23,6 @@ file.then((resp) =>
         }
         //works here
         setupStuff();
-        console.table(Configuration)
     });
 });
 
