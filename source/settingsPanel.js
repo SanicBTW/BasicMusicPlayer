@@ -9,10 +9,18 @@ var colors = ["red", "green", "blue"];
 
 function openSettingsPanel()
 {
-    document.getElementById("backColorInputR").value = getValue("timebar.backgroundcolor").toString().split(",")[0];
-    document.getElementById("backColorInputG").value = getValue("timebar.backgroundcolor").toString().split(",")[1];
-    document.getElementById("backColorInputB").value = getValue("timebar.backgroundcolor").toString().split(",")[2];
-
+    if(!getValue("changed timebar background color"))
+    {
+        document.getElementById("backColorInputR").value = getValue("timebar.backgroundcolor").toString().split(",")[0];
+        document.getElementById("backColorInputG").value = getValue("timebar.backgroundcolor").toString().split(",")[1];
+        document.getElementById("backColorInputB").value = getValue("timebar.backgroundcolor").toString().split(",")[2];
+    }
+    else
+    {
+        document.getElementById("backColorInputR").value = formatRGBString(daProg.style.backgroundColor)[colors[0]].toString().split(",").join("");
+        document.getElementById("backColorInputG").value = formatRGBString(daProg.style.backgroundColor)[colors[1]].toString().split(",").join("");
+        document.getElementById("backColorInputB").value = formatRGBString(daProg.style.backgroundColor)[colors[2]].toString().split(",").join("");
+    }
     daSettingsPanel.style.width = "100%";
     daSettingsPanelContent.style.opacity = "1";
 }
@@ -45,20 +53,13 @@ function applyNewBackColor()
     {
         daInfoHeader.innerText = "Change time bar background color";
     }, 1500);
-
-    var the = formatRGBString(daProg.style.backgroundColor);
-    var newRed = the[colors[0]].toString().split(",").join("");
-    var newGreen = the[colors[1]].toString().split(",").join("");
-    var newBlue = the[colors[2]].toString().split(",").join("");
-
-    console.log(newRed);
-    console.log(newGreen);
-    console.log(newBlue);
+    setNewValue("changed timebar background color", true);
 }
 
 //dumb ass way to get some simple values lol
 //FINALLY AFTER 2 HOURSSSSSSSSS, THIS LOOKS LIKE SHIT BUT AT LEAST ITS WORKING
 //WAIT ITS ACTUALLY USELESS FUCK
+//I FOUND A USAGE FOR IT LETS GOO
 function formatRGBString(toFormat)
 {
     var toReturn = null;
