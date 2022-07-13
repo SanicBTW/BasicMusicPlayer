@@ -51,9 +51,13 @@ body
     transition: opacity 0.25s;
 }
 
-.ColorInput
+input
 {
     width: 25px;
+    background-color: transparent;
+    border-width: 0px;
+    outline: 0px;
+    color: white;
 }
 
 button

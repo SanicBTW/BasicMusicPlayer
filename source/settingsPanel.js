@@ -9,7 +9,6 @@ var colors = ["red", "green", "blue"];
 
 function openSettingsPanel()
 {
-    setupValues();
     daSettingsPanel.style.width = "100%";
     daSettingsPanelContent.style.opacity = "1";
     window.document.title = "Basic Music Player - Settings";
@@ -44,7 +43,6 @@ function applyNewTimeBarBackColor()
     {
         daInfoHeader.innerText = "Change time bar background color";
     }, 1500);
-    setNewValue("changed timebar background color", true);
 }
 
 function applyNewTimeBarColor()
@@ -61,7 +59,34 @@ function applyNewTimeBarColor()
     {
         daInfoHeader.innerText = "Change time bar color";
     }, 1500);
-    setNewValue("changed timebar color", true);
+}
+
+function applyNewTimeBarWidth()
+{
+    var daInfoHeader = document.getElementById("timeBarWidthInfo");
+    var daNew = document.getElementById("timeBarWidthInput").value;
+
+    daProg.style.width = daNew + "%";
+    daInfoHeader.innerText = "Change time bar width - New width applied!";
+
+    setTimeout(function() 
+    {
+        daInfoHeader.innerText = "Change time bar width";
+    }, 1500);
+}
+
+function applyNewTimeBarHeight()
+{
+    var daInfoHeader = document.getElementById("timeBarHeightInfo");
+    var daNew = document.getElementById("timeBarHeightInput").value;
+
+    daBar.style.height = daNew + "px";
+    daInfoHeader.innerText = "Change time bar height - New height applied!";
+
+    setTimeout(function() 
+    {
+        daInfoHeader.innerText = "Change time bar height";
+    }, 1500);
 }
 
 //dumb ass way to get some simple values lol
@@ -127,33 +152,4 @@ function formatRGBString(toFormat)
 
     toReturn = final;
     return toReturn;
-}
-
-function setupValues()
-{
-    if(!getValue("changed timebar background color"))
-    {
-        document.getElementById("timeBarBackColorInputR").value = getValue("timebar.backgroundcolor").toString().split(",")[0];
-        document.getElementById("timeBarBackColorInputG").value = getValue("timebar.backgroundcolor").toString().split(",")[1];
-        document.getElementById("timeBarBackColorInputB").value = getValue("timebar.backgroundcolor").toString().split(",")[2];
-    }
-    else
-    {
-        document.getElementById("timeBarBackColorInputR").value = formatRGBString(daProg.style.backgroundColor)[colors[0]].toString().split(",").join("");
-        document.getElementById("timeBarBackColorInputG").value = formatRGBString(daProg.style.backgroundColor)[colors[1]].toString().split(",").join("");
-        document.getElementById("timeBarBackColorInputB").value = formatRGBString(daProg.style.backgroundColor)[colors[2]].toString().split(",").join("");
-    }
-
-    if(!getValue("changed timebar color"))
-    {
-        document.getElementById("timeBarColorInputR").value = getValue("timebar.color").toString().split(",")[0];
-        document.getElementById("timeBarColorInputG").value = getValue("timebar.color").toString().split(",")[1];
-        document.getElementById("timeBarColorInputB").value = getValue("timebar.color").toString().split(",")[2];
-    }
-    else
-    {
-        document.getElementById("timeBarColorInputR").value = formatRGBString(daBar.style.backgroundColor)[colors[0]].toString().split(",").join("");
-        document.getElementById("timeBarColorInputG").value = formatRGBString(daBar.style.backgroundColor)[colors[1]].toString().split(",").join("");
-        document.getElementById("timeBarColorInputB").value = formatRGBString(daBar.style.backgroundColor)[colors[2]].toString().split(",").join("");
-    }
 }
