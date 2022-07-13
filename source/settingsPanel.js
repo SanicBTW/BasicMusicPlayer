@@ -11,15 +11,15 @@ function openSettingsPanel()
 {
     if(!getValue("changed timebar background color"))
     {
-        document.getElementById("backColorInputR").value = getValue("timebar.backgroundcolor").toString().split(",")[0];
-        document.getElementById("backColorInputG").value = getValue("timebar.backgroundcolor").toString().split(",")[1];
-        document.getElementById("backColorInputB").value = getValue("timebar.backgroundcolor").toString().split(",")[2];
+        document.getElementById("timeBarBackColorInputR").value = getValue("timebar.backgroundcolor").toString().split(",")[0];
+        document.getElementById("timeBarBackColorInputG").value = getValue("timebar.backgroundcolor").toString().split(",")[1];
+        document.getElementById("timeBarBackColorInputB").value = getValue("timebar.backgroundcolor").toString().split(",")[2];
     }
     else
     {
-        document.getElementById("backColorInputR").value = formatRGBString(daProg.style.backgroundColor)[colors[0]].toString().split(",").join("");
-        document.getElementById("backColorInputG").value = formatRGBString(daProg.style.backgroundColor)[colors[1]].toString().split(",").join("");
-        document.getElementById("backColorInputB").value = formatRGBString(daProg.style.backgroundColor)[colors[2]].toString().split(",").join("");
+        document.getElementById("timeBarBackColorInputR").value = formatRGBString(daProg.style.backgroundColor)[colors[0]].toString().split(",").join("");
+        document.getElementById("timeBarBackColorInputG").value = formatRGBString(daProg.style.backgroundColor)[colors[1]].toString().split(",").join("");
+        document.getElementById("timeBarBackColorInputB").value = formatRGBString(daProg.style.backgroundColor)[colors[2]].toString().split(",").join("");
     }
     daSettingsPanel.style.width = "100%";
     daSettingsPanelContent.style.opacity = "1";
@@ -39,12 +39,12 @@ document.body.addEventListener("keydown", (key) =>
     }
 });
 
-function applyNewBackColor()
+function applyNewTimeBarBackColor()
 {
-    var daInfoHeader = document.getElementById("backColorCatInfo");
-    var r = document.getElementById("backColorInputR").value;
-    var g = document.getElementById("backColorInputG").value;
-    var b = document.getElementById("backColorInputB").value;
+    var daInfoHeader = document.getElementById("timeBarBackColorInfo");
+    var r = document.getElementById("timeBarBackColorInputR").value;
+    var g = document.getElementById("timeBarBackColorInputG").value;
+    var b = document.getElementById("timeBarBackColorInputB").value;
 
     daProg.style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";
     daInfoHeader.innerText = "Change time bar background color - New color applied!";
