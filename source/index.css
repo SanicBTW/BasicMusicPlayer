@@ -55,3 +55,17 @@ body
 {
     width: 25px;
 }
+
+button
+{
+    background-color: transparent;
+    border-width: 0px;
+    outline: 0px;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover
+{
+    background-color: dodgerblue;
+}

@@ -28,7 +28,6 @@ file.then((resp) =>
 
 function getValue(index)
 {
-    console.log("returning: "+ Configuration[formatString(index)]);
     return Configuration[formatString(index)];
 }
 
