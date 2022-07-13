@@ -49,9 +49,20 @@
                 <div>
                     <p id="timeBarHeightInfo">Change time bar height</p>
 
-                    <input id="timeBarHeightInput" type="text" placeholder="50" value="15">
+                    <input id="timeBarHeightInput" type="text" placeholder="15" value="15">
                     <label for="timeBarHeightInput">px</label>
                     <button onclick="applyNewTimeBarHeight()">Apply</button>
+                </div>
+                <div>
+                    <p id="timeBarDisplayModeInfo">Time bar display mode</p>
+
+                    <input id="timeBarDisplayTimeLeft" type="radio" onchange=" document.getElementById('timeBarDisplayTimeCur').checked = false; ">
+                    <label for="timeBarDisplayTimeLeft">Time left instead of current time</label>
+                    <br>
+                    <input id="timeBarDisplayTimeCur" type="radio" checked="true" onchange=" document.getElementById('timeBarDisplayTimeLeft').checked = false; ">
+                    <label for="timeBarDisplayTimeCur">Current time instead of time left</label>
+                    <br>
+                    <button onclick="applyNewTimeBarDisplayMode()">Apply</button>
                 </div>
             </div>
         </div>

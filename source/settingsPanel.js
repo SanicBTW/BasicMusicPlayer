@@ -89,6 +89,28 @@ function applyNewTimeBarHeight()
     }, 1500);
 }
 
+function applyNewTimeBarDisplayMode()
+{
+    var displayTimeLeft = document.getElementById('timeBarDisplayTimeLeft').checked;
+    var daInfoHeader = document.getElementById("timeBarDisplayModeInfo");
+
+    if(displayTimeLeft)
+    {
+        setNewValue("timebar.display time left instead of cur time", true);
+    }
+    else
+    {
+        setNewValue("timebar.display time left instead of cur time", false);
+    }
+
+    daInfoHeader.innerText = "Time bar display mode - Applied!";
+
+    setTimeout(function() 
+    {
+        daInfoHeader.innerText = "Time bar display mode";
+    }, 1500);
+}
+
 //dumb ass way to get some simple values lol
 function formatRGBString(toFormat)
 {
