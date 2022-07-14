@@ -50,7 +50,7 @@ body
     opacity: 0;
     transition: opacity 0.25s;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 }
 
@@ -89,4 +89,17 @@ code
     border-radius: 3px;
     padding: 0 3px;
     font-family: 'Courier New', Courier, monospace;
+}
+
+.thefuny 
+{
+    height: 100%; 
+    width: 0%; 
+    position: fixed; 
+    z-index: 1; 
+    top: 0; 
+    left: 0; 
+    background-color: #111; 
+    overflow-x: auto; 
+    transition: 0.5s;
 }

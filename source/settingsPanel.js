@@ -23,7 +23,7 @@ function closeSettingsPanel()
 
 document.body.addEventListener("keydown", (key) => 
 {
-    if(key.key == "Escape")
+    if(key.key == "Escape" && daSettingsPanel.style.width == "100%")
     {
         closeSettingsPanel();
     }

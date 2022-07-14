@@ -12,7 +12,22 @@
     </head>
     <body onload="
         if(window.location.hash == '#StartOnSettings') { openSettingsPanel(); }
+        if(window.location.hash == '#fuckyou') { document.getElementById('thefunny').style.width = '100%' }
     ">
+
+        <canvas id="thefunny" class="thefuny" onmouseenter="
+            window.document.title = 'fuck you';
+            window.location.hash = '#fuckyou';
+            var v = document.getElementById('funny');
+            var ctx = document.getElementById('thefunny').getContext('2d');
+            var i;
+            
+            v.play();
+
+            v.addEventListener('play',function() {i=window.setInterval(function() {ctx.drawImage(v, -20, 0, 500, 150)},50);},false);
+            v.addEventListener('pause',function() {window.clearInterval(i);},false);
+            v.addEventListener('ended',function() {clearInterval(i);},false);
+        "></canvas>
         <!-- maybe there are some design flaws but nahh -->
         <!-- settings panel or side view or idk -->
         <div id="settingsSidePanel" class="settingspanel">
@@ -98,7 +113,19 @@
                         <button type="button" style="font-size: 20px; text-align: left; margin-top: 1rem;" onclick="exportSettings()">Export settings</button>
                         <button type="button" style="font-size: 20px; text-align: left; margin-top: 1rem;" onclick="loadSettings()" id="loadSettingsBtn">Load settings file</button>  
                         <button type="button" style="font-size: 20px; text-align: left; margin-top: 1rem;" onclick="window.location.assign('./JSONStructure.html')">JSON Structure</button>
-                        <!--<progress value="0.5"></progress> might move to a progress bar instead of a progress bar made with divs, idk-->
+                    </div>
+                </fieldset>
+                <fieldset style="width: 100%; grid-column: 1;">
+                    <legend>?????</legend>
+                    <div style="height: 120px;">
+                        <label for="thefunnyactivator">dont</label>
+                        <input type="checkbox" id="thefunnyactivator" onchange="
+                            document.getElementById('thefunny').style.width = '100%'; 
+                            var the = setTimeout(() => {
+                                closeSettingsPanel(); 
+                                clearTimeout(the);
+                            }, 550);
+                        ">
                     </div>
                 </fieldset>
             </div>
@@ -106,6 +133,7 @@
 
         <!-- page content -->
         <div class="outer">
+            <video id="funny" src="./assets/funny.mp4" preload="auto" loop hidden></video>
             <div id="mainDiv">
                 <!-- music controls -->
                 <div>
@@ -125,10 +153,9 @@
                 <div id="timeProgress"> <div id="timeBar"> </div> </div>
 
                 <button type="button" onclick="openSettingsPanel()" style="margin-top: 1rem;">Settings</button>
-
-                <!-- audio -->
-                <audio id="audioPlayer" preload="auto"></audio>
             </div>
+            <!-- audio -->
+            <audio id="audioPlayer" preload="auto"></audio>
         </div>
 
         <script src="./source/musicPlayer.js"></script>
