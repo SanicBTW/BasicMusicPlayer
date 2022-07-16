@@ -4,20 +4,16 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <script src="//cdn.jsdelivr.net/npm/eruda"></script>
-        <script>eruda.init();</script>
+        <!--<script src="//cdn.jsdelivr.net/npm/eruda"></script>
+        <script>eruda.init();</script>-->
         <link rel="stylesheet" href="./index.css"/>
-        <script src="./source/Configuration.js"></script>
+        <script src="./source/Utils.js"></script>
+        <script src="./source/setupConfig.js"></script>
         <title>Basic Music Player</title>
     </head>
-    <body onload="
-        if(window.location.hash == '#StartOnSettings') { openSettingsPanel(); }
-        if(window.location.hash == '#fuckyou') { document.getElementById('thefunny').style.width = '100%' }
-    ">
-
+    <body onload="onLoad()">
         <canvas id="thefunny" class="thefuny" onmouseenter="
             window.document.title = 'fuck you';
-            window.location.hash = '#fuckyou';
             var v = document.getElementById('funny');
             var ctx = document.getElementById('thefunny').getContext('2d');
             var i;
@@ -28,104 +24,112 @@
             v.addEventListener('pause',function() {window.clearInterval(i);},false);
             v.addEventListener('ended',function() {clearInterval(i);},false);
         "></canvas>
-        <!-- maybe there are some design flaws but nahh -->
+        <video id="funny" preload="auto" loop hidden></video>
+        <div id="creditsSidePanel">
+            <div id="creditsSidePanelContent">
+                <h1>Credits</h1>
+                <fieldset style="grid-column: 1;">
+                    <legend>Huge thanks to</legend>
+                    <div>
+                        <h2>Bonndubz</h2>
+                        <p>Helped me with the project and some of the code</p>
+                        <p>and gave me a lot of ideas</p>
+                    </div>
+                    <div>
+                        <h2>Dulce <3</h2>
+                        <p>For helping me with my mental health</p>
+                    </div>
+                </fieldset>
+                <fieldset style="grid-column: 2;">
+                    <legend>Honorable mentions</legend>
+                    <div>
+                        <h2>Vodafone</h2>
+                        <p>For shutting down my connection for 2 days</p>
+                    </div>
+                </fieldset>
+                <button type="button" style="font-size: 24px; text-align: left; grid-column: 3;" onclick="closeCreditsPanel()">Close</button>
+            </div>
+        </div>
+        <!-- maybe there are some design flaws but nahh, too lazy to fix them lol -->
         <!-- settings panel or side view or idk -->
-        <div id="settingsSidePanel" class="settingspanel">
-            <p id="closeSettingsSidePanel" class="closesettingspanelbtn" onclick="closeSettingsPanel()">X</p>
-
+        <div id="settingsSidePanel" class="sidePanel">
             <div id="settingsSidePanelContent">
                 <h1>Settings</h1>
-                <!-- hardcoded values, following default settings values -->
-                <!-- might change the style and stuff -->
                 <fieldset style="width: 300px; grid-column: 1;">
                     <legend>Time Bar Settings</legend>
                     <div>
                         <p id="timeBarBackColorInfo">Change time bar background color</p>
 
                         <label for="timeBarBackColorInputR" style="color: red;">R</label>
-                        <input id="timeBarBackColorInputR" type="text" placeholder="255" value="112">
+                        <input id="timeBarBackColorInputR" class="applyOnChange" type="text" placeholder="255">
                         <label for="timeBarBackColorInputG" style="color: green;">G</label>
-                        <input id="timeBarBackColorInputG" type="text" placeholder="255" value="128">
+                        <input id="timeBarBackColorInputG" class="applyOnChange" type="text" placeholder="255">
                         <label for="timeBarBackColorInputB" style="color: blue;">B</label>
-                        <input id="timeBarBackColorInputB" type="text" placeholder="255" value="144">
+                        <input id="timeBarBackColorInputB" class="applyOnChange" type="text" placeholder="255">
                     </div>
                     <div>
                         <p id="timeBarColorInfo">Change time bar color</p>
 
                         <label for="timeBarColorInputR" style="color: red;">R</label>
-                        <input id="timeBarColorInputR" type="text" placeholder="255" value="30">
+                        <input id="timeBarColorInputR" class="applyOnChange" type="text" placeholder="255">
                         <label for="timeBarColorInputG" style="color: green;">G</label>
-                        <input id="timeBarColorInputG" type="text" placeholder="255" value="144">
+                        <input id="timeBarColorInputG" class="applyOnChange" type="text" placeholder="255">
                         <label for="timeBarColorInputB" style="color: blue;">B</label>
-                        <input id="timeBarColorInputB" type="text" placeholder="255" value="255">
+                        <input id="timeBarColorInputB" class="applyOnChange" type="text" placeholder="255">
                     </div>
                     <div>
                         <p id="timeBarWidthInfo">Change time bar width</p>
 
-                        <input id="timeBarWidthInput" type="text" placeholder="100" value="100">
+                        <input id="timeBarWidthInput" class="applyOnChange" type="text" placeholder="100">
                         <label for="timeBarWidthInput">%</label>
                     </div>
                     <div>
                         <p id="timeBarHeightInfo">Change time bar height</p>
 
-                        <input id="timeBarHeightInput" type="text" placeholder="15" value="15">
+                        <input id="timeBarHeightInput" class="applyOnChange" type="text" placeholder="15">
                         <label for="timeBarHeightInput">px</label>
                     </div>
                     <div>
                         <label for="timeBarDisplayTimeLeft">Time left instead of current time</label>
-                        <input id="timeBarDisplayTimeLeft" type="checkbox" style="margin-top: 1rem;">
+                        <input id="timeBarDisplayTimeLeft" class="applyOnChange" type="checkbox" style="margin-top: 1rem;">
                     </div>
                 </fieldset>
                 <fieldset style="width: 300px; grid-column: 2;">
                     <legend>Time Display Settings</legend>
                     <div>
                         <label>Time left instead of current time</label>
-                        <input type="checkbox" id="timedisplayDisplayTimeLeft" checked>
+                        <input type="checkbox" id="timedisplayDisplayTimeLeft" class="applyOnChange">
+                    </div>
+                    <div>
+                        <label>Show both times</label>
+                        <input type="checkbox" id="timedisplayDisplayBothTimes" class="applyOnChange">
                     </div>
                 </fieldset>
                 <fieldset style="width: 300px; grid-column: 3;">
                     <legend>Window Settings</legend>
                     <div>
                         <label for="windowUpdateWindowTitle">Update Window Title</label>
-                        <input type="checkbox" id="windowUpdateWindowTitle" onchange=" if(document.getElementById('windowUpdateWindowTitle').checked)
-                        {
-                            document.getElementById('windowDisplaySongName').disabled = false;
-                            document.getElementById('windowDisplayTimeLeft').disabled = false;
-                        }
-                        else
-                        {
-                            document.getElementById('windowDisplaySongName').disabled = true;
-                            document.getElementById('windowDisplayTimeLeft').disabled = true;
-                        }">
+                        <input type="checkbox" id="windowUpdateWindowTitle" class="applyOnChange">
                         <br>
                         <label for="windowDisplaySongName">Display song name</label>
-                        <input type="checkbox" id="windowDisplaySongName" disabled checked style="margin-top: 1rem;">
+                        <input type="checkbox" id="windowDisplaySongName" style="margin-top: 1rem;" class="applyOnChange"> 
                         <br>
                         <label for="windowDisplayTimeLeft">Display time left</label>
-                        <input type="checkbox" id="windowDisplayTimeLeft" disabled checked style="margin-top: 1rem;">
+                        <input type="checkbox" id="windowDisplayTimeLeft" style="margin-top: 1rem;" class="applyOnChange">
                     </div>
                 </fieldset>
                 <fieldset style="width: 300px; grid-column: 4;">
-                    <legend>Settings Management</legend>
+                    <legend>Settings Management - broken</legend>
                     <div>
-                        <button type="button" style="font-size: 20px; text-align: left;" onclick="applyAll()">Apply settings</button>
-                        <br>
                         <button type="button" style="font-size: 20px; text-align: left; margin-top: 1rem;" onclick="exportSettings()">Export settings</button>
-                        <button type="button" style="font-size: 20px; text-align: left; margin-top: 1rem;" onclick="loadSettings()" id="loadSettingsBtn">Load settings file</button>  
-                        <button type="button" style="font-size: 20px; text-align: left; margin-top: 1rem;" onclick="window.location.assign('./JSONStructure.html')">JSON Structure</button>
+                        <button type="button" style="font-size: 20px; text-align: left; margin-top: 1rem;" onclick="loadSettings()">Load settings file</button> 
+                        <button type="button" style="font-size: 20px; text-align: left; margin-top: 1rem;" onclick="resetSettings()">Reset settings</button> 
                     </div>
                 </fieldset>
                 <fieldset style="width: 100%; grid-column: 1;">
-                    <legend>?????</legend>
                     <div style="height: 120px;">
-                        <label for="thefunnyactivator">dont</label>
-                        <input type="checkbox" id="thefunnyactivator" onchange="
-                            document.getElementById('thefunny').style.width = '100%'; 
-                            var the = setTimeout(() => {
-                                closeSettingsPanel(); 
-                                clearTimeout(the);
-                            }, 550);
-                        ">
+                        <button type="button" onclick="openTheFunny('./assets/funny.mp4', 'fuckyou1')">dont 1</button>
+                        <button type="button" onclick="openTheFunny('./assets/bangerrr.mp4', 'fuckyou2')">dont 2</button>
                     </div>
                 </fieldset>
             </div>
@@ -133,7 +137,6 @@
 
         <!-- page content -->
         <div class="outer">
-            <video id="funny" src="./assets/funny.mp4" preload="auto" loop hidden></video>
             <div id="mainDiv">
                 <!-- music controls -->
                 <div>
@@ -153,6 +156,7 @@
                 <div id="timeProgress"> <div id="timeBar"> </div> </div>
 
                 <button type="button" onclick="openSettingsPanel()" style="margin-top: 1rem;">Settings</button>
+                <button type="button" onclick="openCreditsPanel()" style="margin-top: 1rem;">Credits</button>
             </div>
             <!-- audio -->
             <audio id="audioPlayer" preload="auto"></audio>
@@ -162,5 +166,6 @@
         <script src="./source/timeHandler.js"></script>
         <script src="./source/timeBar.js"></script>
         <script src="./source/settingsPanel.js"></script>
+        <script src="./source/pageLoad.js"></script>
     </body>
 </html>

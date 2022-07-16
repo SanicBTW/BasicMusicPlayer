@@ -5,8 +5,6 @@ var daSettingsPanelContent = document.getElementById("settingsSidePanelContent")
 var daProg = document.getElementById("timeProgress");
 var daBar = document.getElementById("timeBar");
 
-var colors = ["red", "green", "blue"];
-
 function openSettingsPanel()
 {
     daSettingsPanel.style.width = "100%";
@@ -28,38 +26,6 @@ document.body.addEventListener("keydown", (key) =>
         closeSettingsPanel();
     }
 });
-
-function applyNewTimeBarBackColor()
-{
-    var r = document.getElementById("timeBarBackColorInputR").value;
-    var g = document.getElementById("timeBarBackColorInputG").value;
-    var b = document.getElementById("timeBarBackColorInputB").value;
-
-    daProg.style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";
-}
-
-function applyNewTimeBarColor()
-{
-    var r = document.getElementById("timeBarColorInputR").value;
-    var g = document.getElementById("timeBarColorInputG").value;
-    var b = document.getElementById("timeBarColorInputB").value;
-
-    daBar.style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";
-}
-
-function applyNewTimeBarWidth()
-{
-    var daNew = document.getElementById("timeBarWidthInput").value;
-
-    daProg.style.width = daNew + "%";
-}
-
-function applyNewTimeBarHeight()
-{
-    var daNew = document.getElementById("timeBarHeightInput").value;
-
-    daBar.style.height = daNew + "px";
-}
 
 function exportSettings()
 {
@@ -124,20 +90,6 @@ function exportSettings()
     document.body.removeChild(element);
 }
 
-function applyAll()
-{
-    applyNewTimeBarBackColor();
-    applyNewTimeBarColor();
-    applyNewTimeBarWidth();
-    applyNewTimeBarHeight();
-    setNewValue("timebar.display time left instead of cur time", document.getElementById('timeBarDisplayTimeLeft').checked);
-    setNewValue("timedisplay.display time left instead of cur time", document.getElementById("timedisplayDisplayTimeLeft").checked);
-    setNewValue("Window.update window title", document.getElementById('windowUpdateWindowTitle').checked);
-    setNewValue("Window.display song name", document.getElementById('windowDisplaySongName').checked);
-    setNewValue("Window.display time left", document.getElementById('windowDisplayTimeLeft').checked);
-    alert("Applied!");
-}
-
 function loadSettings()
 {
     var input = document.createElement("input");
@@ -168,7 +120,6 @@ function loadSettings()
                     var indexer = `${category}.${setting}`;
 
                     setNewValue(indexer, settingValue);
-                    //document.getElementById("loadSettingsBtn").disabled = true;
                 }
             }
             refreshValues();
@@ -179,91 +130,30 @@ function loadSettings()
 function refreshValues()
 {
     //time bar
-    document.getElementById("timeBarBackColorInputR").value = getValue("timebar.backgroundcolor").toString().split(",")[0];
-    document.getElementById("timeBarBackColorInputG").value = getValue("timebar.backgroundcolor").toString().split(",")[1];
-    document.getElementById("timeBarBackColorInputB").value = getValue("timebar.backgroundcolor").toString().split(",")[2];
+    document.getElementById("timeBarBackColorInputR").value = getValue("timebar.backgroundcolor", 'rgb')[0];
+    document.getElementById("timeBarBackColorInputG").value = getValue("timebar.backgroundcolor", 'rgb')[1];
+    document.getElementById("timeBarBackColorInputB").value = getValue("timebar.backgroundcolor", 'rgb')[2];
 
-    document.getElementById("timeBarColorInputR").value = getValue("timebar.color").toString().split(",")[0];
-    document.getElementById("timeBarColorInputG").value = getValue("timebar.color").toString().split(",")[1];
-    document.getElementById("timeBarColorInputB").value = getValue("timebar.color").toString().split(",")[2];
+    document.getElementById("timeBarColorInputR").value = getValue("timebar.color", 'rgb')[0];
+    document.getElementById("timeBarColorInputG").value = getValue("timebar.color", 'rgb')[1];
+    document.getElementById("timeBarColorInputB").value = getValue("timebar.color", 'rgb')[2];
 
-    document.getElementById("timeBarWidthInput").value = getValue("timebar.width");
-    document.getElementById("timeBarHeightInput").value = getValue("timebar.height");
+    document.getElementById("timeBarWidthInput").value = getValue("timebar.width", 'int');
+    document.getElementById("timeBarHeightInput").value = getValue("timebar.height", 'int');
 
-    document.getElementById('timeBarDisplayTimeLeft').checked = getValue("timebar.display time left instead of cur time");
+    document.getElementById('timeBarDisplayTimeLeft').checked = getValue("timebar.display time left instead of cur time", 'bool');
 
     //time display
-    document.getElementById("timedisplayDisplayTimeLeft").checked = getValue("timedisplay.display time left instead of cur time");
+    document.getElementById("timedisplayDisplayTimeLeft").checked = getValue("timedisplay.display time left instead of cur time", 'bool');
 
     //window
-    document.getElementById('windowUpdateWindowTitle').checked = getValue("window.update window title");
-    document.getElementById('windowDisplaySongName').checked = getValue("window.display song name");
-    document.getElementById('windowDisplayTimeLeft').checked = getValue("window.display time left");
-
-    applyAll();
+    document.getElementById('windowUpdateWindowTitle').checked = getValue("window.update window title", 'bool');
+    document.getElementById('windowDisplaySongName').checked = getValue("window.display song name", 'bool');
+    document.getElementById('windowDisplayTimeLeft').checked = getValue("window.display time left", 'bool');
 }
 
-//dumb ass way to get some simple values lol
-function formatRGBString(toFormat)
+function resetSettings()
 {
-    var toReturn = null;
-    var the = toFormat.toLowerCase();
-    var help = [];
-    var ignore = ["r", "g", "b", "(", ","];
-    var helpAgain = [];
-    var helpmee = [];
-
-    var final = new Object();
-    var select = 0;
-    var tempArr = [];
-
-    for(var i in the)
-    {
-        help.push(the[i]);
-    }
-
-    for(var i in help)
-    {
-        for(var j in ignore)
-        {
-            if(help[i] == ignore[j])
-            {
-                help.shift();
-            }
-        }
-        if(help[help.length -1] == ")")
-        {
-            help[help.length -1] = "-";
-        }
-
-        helpAgain.push(help[i]);
-    }
-
-    //im this dumb?
-    for(var i in helpAgain)
-    {
-        if(helpAgain[i] == " ")
-        {
-            helpAgain[i] = "-";
-        }
-
-        helpmee.push(helpAgain[i]);
-    }
-
-    for(var i in helpmee)
-    {
-        if(helpmee[i] == "-")
-        {
-            select++;
-            tempArr = [];
-        }
-        if(helpmee[i] != "-")
-        {
-            tempArr.push(helpmee[i]);
-            final[colors[select]] = tempArr;
-        }
-    }
-
-    toReturn = final;
-    return toReturn;
+    localStorage.clear();
+    window.location.reload(true);
 }

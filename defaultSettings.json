@@ -12,7 +12,8 @@
         },
         "TimeDisplay":
         {
-            "display time left instead of cur time": true
+            "display time left instead of cur time": false,
+            "display both times": true
         },
         "Window":
         {

@@ -86,37 +86,44 @@ function updateProgress()
         }
     }
 
-    if(getValue("Window.update window title"))
+    if(window.document.title != "Basic Music Player - Settings" || window.document.title != "Basic Music Player - Credits")
     {
-        var newTitle = "";
-        if(getValue("Window.display song name"))
+        if(getValue("Window.update window title", 'bool'))
         {
-            newTitle = "not found";
-        }
-        if(getValue("Window.display time left"))
-        {
-            if(getValue("Window.display song name")) 
+            var newTitle = "";
+            if(getValue("Window.display song name", 'bool'))
             {
-                newTitle += " - " + minLeft + ":" + secsLeft;
+                newTitle = "not found";
             }
-            else
+            if(getValue("Window.display time left", 'bool'))
             {
-                newTitle = minLeft + ":" + secsLeft;
+                if(getValue("Window.display song name", 'bool')) 
+                {
+                    newTitle += " - " + minLeft + ":" + secsLeft;
+                }
+                else
+                {
+                    newTitle = minLeft + ":" + secsLeft;
+                }
             }
-        }
-        window.document.title = newTitle;
+            window.document.title = newTitle;
+        }    
     }
 
-    if(getValue("timedisplay.display time left instead of cur time"))
+    if(!getValue("timedisplay.display both times", 'bool') && getValue("timedisplay.display time left instead of cur time", 'bool'))
     {
-        audioTime.innerText = minLeft + ":" + secsLeft + "/" + lengthMin + ":" + lengthSecs;
+        audioTime.innerText = minLeft + ":" + secsLeft + " / " + lengthMin + ":" + lengthSecs;
     }
-    else
+    else if(!getValue("timedisplay.display both times", 'bool') && !getValue("timedisplay.display time left instead of cur time", 'bool'))
     {
-        audioTime.innerText = curMin + ":" + curSecs + "/" + lengthMin + ":" + lengthSecs;
+        audioTime.innerText = curMin + ":" + curSecs + " / " + lengthMin + ":" + lengthSecs;
+    }
+    else if(getValue("timedisplay.display both times", 'bool'))
+    {
+        audioTime.innerText = curMin + ":" + curSecs + " / -" + minLeft + ":" + secsLeft;
     }
 
-    if(getValue("TimeBar.display time left instead of cur time"))
+    if(getValue("TimeBar.display time left instead of cur time", 'bool'))
     {
         setProgress(100 - (songPercent * 100));
     }

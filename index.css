@@ -19,7 +19,7 @@ body
     width: 100%;
 }
 
-.settingspanel 
+.sidePanel 
 {
     height: 100%; 
     width: 0%; 
@@ -28,19 +28,8 @@ body
     top: 0; 
     left: 0; 
     background-color: #111; 
-    overflow-x: auto; 
-    padding-top: 60px; 
+    overflow-x: hidden; 
     transition: 0.5s;
-}
-
-.settingspanel .closesettingspanelbtn
-{
-    position: absolute; 
-    top: 0; 
-    right: 25px; 
-    font-size: 36px; 
-    margin-left: 50px; 
-    cursor: pointer;
 }
 
 #settingsSidePanelContent
@@ -51,6 +40,31 @@ body
     transition: opacity 0.25s;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+#creditsSidePanel
+{
+    height: 100%; 
+    width: 0%; 
+    position: fixed; 
+    z-index: 1; 
+    top: 0; 
+    left: 0; 
+    background-color: #111; 
+    overflow-x: hidden; 
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+#creditsSidePanelContent
+{
+    padding: 8px 8px 8px 32px;
+    margin-left: 1rem;
+    opacity: 0;
+    transition: opacity 0.25s;
+    grid-template-columns: repeat(3, 1fr);
+    display: grid;
     gap: 10px;
 }
 
@@ -80,7 +94,7 @@ button:hover
 
 button:active
 {
-    background-color: blue;
+    background-color: rgb(6, 115, 224);
 }
 
 code
