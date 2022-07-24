@@ -43,31 +43,6 @@ body
     gap: 10px;
 }
 
-#creditsSidePanel
-{
-    height: 100%; 
-    width: 0%; 
-    position: fixed; 
-    z-index: 1; 
-    top: 0; 
-    left: 0; 
-    background-color: #111; 
-    overflow-x: hidden; 
-    transition: 0.5s;
-    padding-top: 60px;
-}
-
-#creditsSidePanelContent
-{
-    padding: 8px 8px 8px 32px;
-    margin-left: 1rem;
-    opacity: 0;
-    transition: opacity 0.25s;
-    grid-template-columns: repeat(3, 1fr);
-    display: grid;
-    gap: 10px;
-}
-
 input
 {
     width: 25px;
@@ -95,25 +70,4 @@ button:hover
 button:active
 {
     background-color: rgb(6, 115, 224);
-}
-
-code
-{
-    background-color: rgb(25, 25, 25);
-    border-radius: 3px;
-    padding: 0 3px;
-    font-family: 'Courier New', Courier, monospace;
-}
-
-.thefuny 
-{
-    height: 100%; 
-    width: 0%; 
-    position: fixed; 
-    z-index: 1; 
-    top: 0; 
-    left: 0; 
-    background-color: #111; 
-    overflow-x: auto; 
-    transition: 0.5s;
 }

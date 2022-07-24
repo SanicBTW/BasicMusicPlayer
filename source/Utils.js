@@ -120,31 +120,3 @@ function formatRGBString(toFormat)
     toReturn = final;
     return toReturn;
 }
-
-function openTheFunny(videoURL, hash)
-{
-    document.getElementById("settingsSidePanelContent").style.opacity = 0;
-    document.getElementById("funny").src = videoURL;
-    window.location.hash = '#' + hash;
-    document.getElementById('thefunny').style.width = '100%'; 
-    document.getElementById("audioPlayer").pause();
-    var the = setTimeout(() => {
-        closeSettingsPanel();
-        clearTimeout(the);
-    }, 550);
-    window.document.title = 'fuck you';
-}
-
-function openCreditsPanel()
-{
-    document.getElementById("creditsSidePanel").style.width = "100%";
-    document.getElementById("creditsSidePanelContent").style.opacity = "1";
-    window.document.title = "Basic Music Player - Credits";
-}
-
-function closeCreditsPanel()
-{
-    document.getElementById("creditsSidePanelContent").style.opacity = "0";
-    document.getElementById("creditsSidePanel").style.width = "0%";
-    window.document.title = "Basic Music Player";
-}

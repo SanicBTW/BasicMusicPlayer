@@ -4,52 +4,14 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <!--<script src="//cdn.jsdelivr.net/npm/eruda"></script>
-        <script>eruda.init();</script>-->
+        <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+        <script>eruda.init();</script>
         <link rel="stylesheet" href="./index.css"/>
-        <script src="./source/Utils.js"></script>
-        <script src="./source/setupConfig.js"></script>
+        <script src="./source/Utils.js" defer></script>
+        <script src="./source/setupConfig.js" defer></script>
         <title>Basic Music Player</title>
     </head>
     <body onload="onLoad()">
-        <canvas id="thefunny" class="thefuny" onmouseenter="
-            window.document.title = 'fuck you';
-            var v = document.getElementById('funny');
-            var ctx = document.getElementById('thefunny').getContext('2d');
-            var i;
-            
-            v.play();
-
-            v.addEventListener('play',function() {i=window.setInterval(function() {ctx.drawImage(v, -20, 0, 500, 150)},50);},false);
-            v.addEventListener('pause',function() {window.clearInterval(i);},false);
-            v.addEventListener('ended',function() {clearInterval(i);},false);
-        "></canvas>
-        <video id="funny" preload="auto" loop hidden></video>
-        <div id="creditsSidePanel">
-            <div id="creditsSidePanelContent">
-                <h1>Credits</h1>
-                <fieldset style="grid-column: 1;">
-                    <legend>Huge thanks to</legend>
-                    <div>
-                        <h2>Bonndubz</h2>
-                        <p>Helped me with the project and some of the code</p>
-                        <p>and gave me a lot of ideas</p>
-                    </div>
-                    <div>
-                        <h2>Dulce <3</h2>
-                        <p>For helping me with my mental health</p>
-                    </div>
-                </fieldset>
-                <fieldset style="grid-column: 2;">
-                    <legend>Honorable mentions</legend>
-                    <div>
-                        <h2>Vodafone</h2>
-                        <p>For shutting down my connection for 2 days</p>
-                    </div>
-                </fieldset>
-                <button type="button" style="font-size: 24px; text-align: left; grid-column: 3;" onclick="closeCreditsPanel()">Close</button>
-            </div>
-        </div>
         <!-- maybe there are some design flaws but nahh, too lazy to fix them lol -->
         <!-- settings panel or side view or idk -->
         <div id="settingsSidePanel" class="sidePanel">
@@ -156,7 +118,6 @@
                 <div id="timeProgress"> <div id="timeBar"> </div> </div>
 
                 <button type="button" onclick="openSettingsPanel()" style="margin-top: 1rem;">Settings</button>
-                <button type="button" onclick="openCreditsPanel()" style="margin-top: 1rem;">Credits</button>
             </div>
             <!-- audio -->
             <audio id="audioPlayer" preload="auto"></audio>

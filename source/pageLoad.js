@@ -117,9 +117,6 @@ allInputs.forEach(daInput =>
 
 var specialURLS = [
     {requiredHash: '#StartOnSettings', do: function(){ openSettingsPanel(); }},
-    {requiredHash: '#fuckyou1', do: function(){ openTheFunny("./assets/funny.mp4", 'fuckyou1'); }},
-    {requiredHash: '#fuckyou2', do: function(){ openTheFunny('./assets/bangerrr.mp4', 'fuckyou2') }},
-    {requiredHash: '#StartOnCredits', do: function(){ openCreditsPanel(); }}
 ]
 
 function checkSpecialURL()
