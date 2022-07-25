@@ -211,62 +211,6 @@ function parseVolPercent(comingFromSettings)
     return null;
 }
 
-//goofy code, might improve it in future updates lol
-var dismissTime = 0.0;
-var increaseTimer;
-var notifying = false;
-
-function notify(text, override = false, onFinish = function(){ console.log('finished notifying'); })
-{
-    if(!notifying)
-    {
-        notifying = true;
-        document.getElementById("notificationText").innerText = text;
-        document.getElementById("notificationsPanel").style.top = "0px";
-
-        increaseTimer = setInterval(() => {
-            dismissTime += 0.1;
-            document.getElementById("dismissProgress").style.width = dismissTime + "%";
-            if(Math.floor(dismissTime) == 160)
-            {
-                closeNotification();
-                onFinish();
-            }
-        }, 2);
-    }
-    else if(notifying && override)
-    {
-        closeNotification(true, text);
-        onFinish();
-    }
-}
-
-function closeNotification(isOverriden = false, text = null)
-{
-    if(!isOverriden)
-    {
-        dismissTime = 0.0;
-        document.getElementById("dismissProgress").style.width = "0%";
-        document.getElementById("notificationsPanel").style.top = "-200px";
-        notifying = false;
-        clearInterval(increaseTimer);
-    }
-    else
-    {
-        dismissTime = 0.0;
-        document.getElementById("dismissProgress").style.width = "0%";
-        document.getElementById("notificationsPanel").style.top = "-200px";
-        document.getElementById("dismissProgress").classList.add('notransition');
-        document.getElementById("dismissProgress").offsetHeight;
-        document.getElementById("dismissProgress").classList.remove('notransition');
-        notifying = false;
-        clearInterval(increaseTimer);
-        setTimeout(() => {
-            notify(text);
-        }, 200);
-    }
-}
-
 //br
 function parsePercent(percent)
 {

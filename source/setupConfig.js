@@ -1,15 +1,28 @@
 //hardcode stuff
-var cats = ["Time Bar", "Time Display", "Volume Tray"];
-var saveVersion = "2.3";
+var cats = ["Time Bar", "Time Display", "Volume Tray", "Notifications"];
+var saveVersion = "2.4";
+var notif = new CustomNotification();
+notif.onFinish = function() {
+    localStorage.clear();
+    setupConfig();
+    window.location.reload(true);
+}
 
 if(getValue('save data version') != saveVersion)
 {
-    notify('Clearing local storage (Doesnt match version)', true, function() {
-        localStorage.clear();
-        setupConfig();
-        window.location.reload(true);
-    });
+    notif.mainText = 'Clearing local storage';
+    notif.subText = 'Version doesnt match, clearing and refreshing after finishing notification';
+    notif.notify();
 }
+
+document.addEventListener('keydown', (key) => {
+    if(key.altKey && key.key == "r")
+    {
+        notif.mainText = 'Clearing local storage';
+        notif.subText = 'This was forced, clearing and refreshing after finishing notification';
+        notif.notify();
+    }
+});
 
 if(localStorage.length <= 0)
 {
@@ -34,4 +47,8 @@ function setupConfig()
     //volume tray
     setNewValue(`${cats[2]}.bar background color`, [192, 192, 192]);
     setNewValue(`${cats[2]}.bar color`, [30, 144, 255]);
+
+    //notifications
+    setNewValue(`${cats[3]}.show`, true);
+    setNewValue(`${cats[3]}.increase with decimals`, true);
 }
