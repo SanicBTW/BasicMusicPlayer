@@ -1,6 +1,7 @@
 //totally not the old settings page
 var daSettingsPanel = document.getElementById("settingsSidePanel");
 var daSettingsPanelContent = document.getElementById("settingsSidePanelContent");
+var daBottomPanel = document.getElementById("bottomSettingsPanel");
 
 var daProg = document.getElementById("timeProgress");
 var daBar = document.getElementById("timeBar");
@@ -9,11 +10,13 @@ function openSettingsPanel()
 {
     daSettingsPanel.style.width = "100%";
     daSettingsPanelContent.style.opacity = "1";
+    daBottomPanel.style.bottom = "0px";
     window.document.title = "Basic Music Player - Settings";
 }
 
 function closeSettingsPanel()
 {
+    daBottomPanel.style.bottom = "-200px";
     daSettingsPanelContent.style.opacity = "0";
     daSettingsPanel.style.width = "0%";
     window.document.title = "Basic Music Player";

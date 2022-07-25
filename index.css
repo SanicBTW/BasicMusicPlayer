@@ -27,6 +27,7 @@ body
 {
     padding: 8px 8px 8px 32px;
     margin-left: 1rem;
+    margin-bottom: 3.5rem;
     opacity: 0;
     transition: opacity 0.25s;
     display: grid;
@@ -72,19 +73,19 @@ button:active
     top: -200px;
     background-color: rgb(32, 32, 32); 
     overflow-x: hidden; 
-    transition: 0.25s;
+    transition: 0.25s ease-in-out;
 }
 
 .notificationsPanel
 {
-    height: 12%; 
+    height: 12% fit-content; 
     width: fit-content; 
     position: fixed; 
     z-index: 3;
     top: -200px;
     background-color: rgb(32, 32, 32); 
     overflow-x: hidden; 
-    transition: 0.25s;
+    transition: 0.25s ease-in-out;
 }
 
 #closeSettingsSidePanel
@@ -92,7 +93,6 @@ button:active
     position: absolute;
     top: 0;
     right: 0;
-    font-size: 36px;
     margin-right: 2rem;
     cursor: pointer;
 }
@@ -125,6 +125,7 @@ button:active
     left: 5px;
     transform: translateY(10px);
     transition: transform .5s, color .3s;
+    font-size: 18px;
 }
 
 .materialInput:focus + .inputLabel,
@@ -139,8 +140,8 @@ button:active
 {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 50px;
+    height: 24px;
 }
 
 .switch input 
@@ -167,8 +168,8 @@ button:active
 {
     position: absolute;
     content: "";
-    height: 26px;
-    width: 26px;
+    height: 16px;
+    width: 16px;
     left: 4px;
     bottom: 4px;
     background-color: white;
@@ -209,4 +210,17 @@ input:checked + .slider:before
     -moz-transition: none !important;
     -o-transition: none !important;
     transition: none !important;
+}
+
+#bottomSettingsPanel 
+{
+    height: 6.5%; 
+    width: 100%; 
+    position: fixed; 
+    z-index: 1;
+    bottom: -200px;
+    background-color: rgb(32, 32, 32); 
+    overflow-x: hidden;
+    overflow-y: hidden;
+    transition: 1s ease-in-out;
 }

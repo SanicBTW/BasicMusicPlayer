@@ -1,21 +1,17 @@
-# V2.2 Rewrite
-
-(This update was made in almost 4 hours, lost my brain cells, proud of my work though)
-
-*Making it compatible with mobile now
+# V2.3 Rewrite
 
 Huge thanks to [Bonndubz](https://github.com/bonndevoff) for the help
 
 Changelog:
 
-Improved settings UI
+Fixed save data
 
-Added volume tray (Totally not inspired on Haxeflixel)
+Fixed notifications height (now adjusts to the text content height)
 
-Added custom notifications (Yes I did this lol)
+Fixed text boxes label font size
 
-Rewrote the settings thingy, I thought modified settings were getting overwritten so I hardcoded it I guess
+Fixed switches size
 
-And funky animations lol
+Added an info bottom panel in settings (Has issues with mobile)
 
-# Well that's everything for this update, next update will focus on bugfixes and that stuff, cya until then
+Modified transitions? (Ease in out for panels)

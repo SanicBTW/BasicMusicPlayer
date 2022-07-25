@@ -216,7 +216,7 @@ var dismissTime = 0.0;
 var increaseTimer;
 var notifying = false;
 
-function notify(text, override = false)
+function notify(text, override = false, onFinish = function(){ console.log('finished notifying'); })
 {
     if(!notifying)
     {
@@ -230,12 +230,14 @@ function notify(text, override = false)
             if(Math.floor(dismissTime) == 160)
             {
                 closeNotification();
+                onFinish();
             }
         }, 2);
     }
     else if(notifying && override)
     {
         closeNotification(true, text);
+        onFinish();
     }
 }
 

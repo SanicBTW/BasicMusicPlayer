@@ -1,7 +1,25 @@
 //hardcode stuff
 var cats = ["Time Bar", "Time Display", "Volume Tray"];
+var saveVersion = "2.3";
+
+if(getValue('save data version') != saveVersion)
+{
+    notify('Clearing local storage (Doesnt match version)', true, function() {
+        localStorage.clear();
+        setupConfig();
+        window.location.reload(true);
+    });
+}
+
 if(localStorage.length <= 0)
 {
+    setupConfig();
+}
+
+function setupConfig()
+{
+    setNewValue('save data version', saveVersion);
+
     //time bar
     setNewValue(`${cats[0]}.background color`, [112, 128, 144]);
     setNewValue(`${cats[0]}.color`, [30, 144, 255]);

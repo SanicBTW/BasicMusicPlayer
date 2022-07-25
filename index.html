@@ -14,17 +14,16 @@
     <body onload="onLoad()">
         <div id="settingsSidePanel" class="sidePanel">
             <div id="settingsSidePanelContent">
-                <p id="closeSettingsSidePanel" onclick="closeSettingsPanel()">X</p>
 
                 <h1>Settings</h1>
                 <div style="grid-column: 1; grid-row: 2;">
-                    <p>Time Bar</p>
+                    <h2>Time Bar</h2>
                     <div>
                         <div class="inputGroup">
                             <input type="text" id="timeBarBGColorInput"
                             class="materialInput" placeholder=" ">
                             <label for="timeBarBGColorInput"
-                            class="inputLabel">Background Color</label>
+                            class="inputLabel">BG Color</label>
                         </div>
                         <div class="inputGroup">
                             <input type="text" id="timeBarColorInput"
@@ -37,13 +36,13 @@
                             <input type="text" id="timeBarWidthInput"
                             class="materialInput" placeholder=" ">
                             <label for="timeBarWidthInput"
-                            class="inputLabel">Width (%)</label>
+                            class="inputLabel">Width</label>
                         </div>
                         <div class="inputGroup">
                             <input type="text" id="timeBarHeightInput"
                             class="materialInput" placeholder=" ">
                             <label for="timeBarHeightInput"
-                            class="inputLabel">Height (px)</label>
+                            class="inputLabel">Height</label>
                         </div>
                         <!--thanks w3 schools-->
                         <div style="margin-top: 1rem;">
@@ -51,101 +50,53 @@
                                 <input type="checkbox" id="timeBarDisplayTimeLeft">
                                 <span class="slider round"></span>
                             </label>
-                            <label style="margin-left: 10px; font-size: 20px; margin-top: 4px; position: absolute;">Display time left</label>
+                            <label style="margin-left: 10px; margin-top: 2px; position: absolute;">Display time left</label>
                         </div>
                     </div>
                 </div>
                 <div style="grid-column: 1; grid-row: 3;">
-                    <p>Time Display</p>
+                    <h2>Time Display</h2>
                     <div>
                         <div >
                             <label class="switch">
                                 <input type="checkbox" id="timeDisplayTimeLeft">
                                 <span class="slider round"></span>
                             </label>
-                            <label style="margin-left: 10px; font-size: 20px; margin-top: 4px; position: absolute;">Display time left</label>
+                            <label style="margin-left: 10px; margin-top: 2px; position: absolute;">Display time left</label>
                         </div>
                         <div style="margin-top: 1rem;">
                             <label class="switch">
                                 <input type="checkbox" id="timeDisplayBothTimes">
                                 <span class="slider round"></span>
                             </label>
-                            <label style="margin-left: 10px; font-size: 20px; margin-top: 4px; position: absolute;">Display both times</label>
+                            <label style="margin-left: 10px; margin-top: 2px; position: absolute;">Display both times</label>
                         </div>
                     </div>
                 </div>
                 <div style="grid-column: 1; grid-row: 4;">
-                    <p>Volume tray</p>
+                    <h2>Volume tray</h2>
                     <div>
                         <div class="inputGroup">
                             <input type="text" id="volumeBarBGColorInput"
                             class="materialInput" placeholder=" ">
                             <label for="volumeBarBGColorInput"
-                            class="inputLabel">Background Color</label>
+                            class="inputLabel">Bar BG Color</label>
                         </div>
                         <div class="inputGroup">
                             <input type="text" id="volumeBarColorInput"
                             class="materialInput" placeholder=" ">
                             <label for="volumeBarColorInput"
-                            class="inputLabel">Color</label>
+                            class="inputLabel">Bar Color</label>
                         </div>
                     </div>
                 </div>
-                <div style="grid-column: 1; grid-row: 5;">
-                    <p>Management</p>
-                    <div>
-                        <h1>WIP</h1>
-                        <p>Sorry I didn't have enough time, will arrive in the next update don't worry</p>
-                    </div>
+            </div>
+            <!--has issues with mobile-->
+            <div id="bottomSettingsPanel">
+                <div style="margin-left: 1rem;">
+                    <p id="closeSettingsSidePanel" onclick="closeSettingsPanel()">X</p>
+                    <p>Format: Colors: RGB (NOTHING ELSE) | Width: percent | Height: px </p>
                 </div>
-                <div style="grid-column: 1; grid-row: 6;">
-                    <p>QUICK FIX</p>
-                    <div>
-                        <h1>2.2 Issue lol</h1>
-                        <p>if you used this before this update you will need to clear local storage</p>
-                        <button type="button" onclick="localStorage.clear();">clear</button>
-                    </div>
-                </div>
-
-                <!--<fieldset style="width: 300px; grid-column: 1;">
-                    <legend>Time Bar Settings</legend>
-                    <div>
-                        <label for="timeBarDisplayTimeLeft">Time left instead of current time</label>
-                        <input id="timeBarDisplayTimeLeft" class="applyOnChange" type="checkbox" style="margin-top: 1rem;">
-                    </div>
-                </fieldset>-->
-                <!--<fieldset style="width: 300px; grid-column: 2;">
-                    <legend>Time Display Settings</legend>
-                    <div>
-                        <label>Time left instead of current time</label>
-                        <input type="checkbox" id="timedisplayDisplayTimeLeft" class="applyOnChange">
-                    </div>
-                    <div>
-                        <label>Show both times</label>
-                        <input type="checkbox" id="timedisplayDisplayBothTimes" class="applyOnChange">
-                    </div>
-                </fieldset>-->
-                <!--<fieldset style="width: 300px; grid-column: 3;">
-                    <legend>Window Settings</legend>
-                    <div>
-                        <label for="windowUpdateWindowTitle">Update Window Title</label>
-                        <input type="checkbox" id="windowUpdateWindowTitle" class="applyOnChange">
-                        <br>
-                        <label for="windowDisplaySongName">Display song name</label>
-                        <input type="checkbox" id="windowDisplaySongName" style="margin-top: 1rem;" class="applyOnChange"> 
-                        <br>
-                        <label for="windowDisplayTimeLeft">Display time left</label>
-                        <input type="checkbox" id="windowDisplayTimeLeft" style="margin-top: 1rem;" class="applyOnChange">
-                    </div>
-                </fieldset>-->
-                <!--<fieldset style="width: 300px; grid-column: 4;">
-                    <legend>Settings Management - broken</legend>
-                    <div>
-                        <button type="button" style="font-size: 20px; text-align: left; margin-top: 1rem;" onclick="exportSettings()">Export settings</button>
-                        <button type="button" style="font-size: 20px; text-align: left; margin-top: 1rem;" onclick="loadSettings()">Load settings file</button> 
-                        <button type="button" style="font-size: 20px; text-align: left; margin-top: 1rem;" onclick="resetSettings()">Reset settings</button> 
-                    </div>
-                </fieldset>-->
             </div>
         </div>
 
