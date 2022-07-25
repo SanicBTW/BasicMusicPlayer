@@ -1,6 +1,5 @@
 //hardcode stuff
 var cats = ["Time Bar", "Time Display", "Volume Tray"];
-//localStorage.clear();
 if(localStorage.length <= 0)
 {
     //time bar
