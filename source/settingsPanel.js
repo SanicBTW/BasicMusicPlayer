@@ -27,133 +27,73 @@ document.body.addEventListener("keydown", (key) =>
     }
 });
 
-function exportSettings()
-{
-    //time bar
-    var timeBarBackColorR = parseInt(document.getElementById("timeBarBackColorInputR").value);
-    var timeBarBackColorG = parseInt(document.getElementById("timeBarBackColorInputG").value);
-    var timeBarBackColorB = parseInt(document.getElementById("timeBarBackColorInputB").value);
-
-    var timeBarColorR = parseInt(document.getElementById("timeBarColorInputR").value);
-    var timeBarColorG = parseInt(document.getElementById("timeBarColorInputG").value);
-    var timeBarColorB = parseInt(document.getElementById("timeBarColorInputB").value);
-
-    var timeBarWidth = parseInt(document.getElementById("timeBarWidthInput").value);
-    var timeBarHeight = parseInt(document.getElementById("timeBarHeightInput").value);
-
-    var timeBarDisplayTimeLeft = document.getElementById('timeBarDisplayTimeLeft').checked;
-
-    //time display
-    var timedisplayDisplayTimeLeft = document.getElementById("timedisplayDisplayTimeLeft").checked;
-
-    //window
-    var windowUpdateWindowTitle = document.getElementById('windowUpdateWindowTitle').checked;
-    var windowDisplaySongName = document.getElementById('windowDisplaySongName').checked;
-    var windowDisplayTimeLeft = document.getElementById('windowDisplayTimeLeft').checked;
-
-    var toExport = {
-        "categories": ["TimeBar", "TimeDisplay", "Window"],
-        "configuration": 
-        {
-            "TimeBar": 
-            {
-                "backgroundColor": [timeBarBackColorR, timeBarBackColorG, timeBarBackColorB],
-                "Color": [timeBarColorR, timeBarColorG, timeBarColorB],
-                "Width": timeBarWidth,
-                "Height": timeBarHeight,
-                "display time left instead of cur time": timeBarDisplayTimeLeft
-            },
-            "TimeDisplay":
-            {
-                "display time left instead of cur time": timedisplayDisplayTimeLeft
-            },
-            "Window":
-            {
-                "update window title": windowUpdateWindowTitle,
-                "display song name": windowDisplaySongName,
-                "display time left": windowDisplayTimeLeft
-            }
-        }
-    }
-
-    var haha = JSON.stringify(toExport, null, 4);
-
-    var element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(haha));
-    element.setAttribute('download', "exportedSettings.json");
-
-    element.style.display = 'none';
-    document.body.appendChild(element);
-
-    element.click();
-
-    document.body.removeChild(element);
-}
-
-function loadSettings()
-{
-    var input = document.createElement("input");
-    input.type = 'file';
-    input.accept = 'application/json';
-    input.click();
-
-    input.addEventListener("change", (e) => 
+//add if vol keys are pressed dont get input
+document.getElementById("timeBarBGColorInput").addEventListener("keydown", (key) => {
+    if(key.key == "Enter")
     {
-        var file = e.target.files[0];
+        setNewValue('time bar.background color', document.getElementById("timeBarBGColorInput").value);
+        document.getElementById("timeProgress").style.backgroundColor = "rgb(" + getValue('time bar.background color').toString() + ")";
+        notify('Applied new background color!', true);
+    }
+});
 
-        var reader = new FileReader();
-        reader.readAsText(file, 'UTF-8');
+document.getElementById("timeBarColorInput").addEventListener("keydown", (key) => {
+    if(key.key == "Enter")
+    {
+        setNewValue('time bar.color', document.getElementById("timeBarColorInput").value);
+        document.getElementById("timeBar").style.backgroundColor = "rgb(" + getValue('time bar.color').toString() + ")";
+        notify('Applied new color!', true);
+    }
+});
 
-        reader.addEventListener("load", (readerEvent) => 
-        {
-            var content = readerEvent.target.result;
-            var daParsedText = JSON.parse(content);
-            var availCats = daParsedText.categories;
-            for(var i in availCats)
-            {
-                var category = availCats[i];
-                var catSets = daParsedText.configuration[category];
-                for(var j in catSets)
-                {
-                    var setting = j;
-                    var settingValue = catSets[j];
-                    var indexer = `${category}.${setting}`;
+document.getElementById("timeBarWidthInput").addEventListener("keydown", (key) => {
+    if(key.key == "Enter")
+    {
+        setNewValue('time bar.width', document.getElementById("timeBarWidthInput").value);
+        document.getElementById("timeProgress").style.width = getValue('time bar.width', 'int') + "%";
+        notify('Applied new width!', true);
+    }
+});
 
-                    setNewValue(indexer, settingValue);
-                }
-            }
-            refreshValues();
-        });
-    });
-}
+document.getElementById("timeBarHeightInput").addEventListener("keydown", (key) => {
+    if(key.key == "Enter")
+    {
+        setNewValue('time bar.height', document.getElementById("timeBarHeightInput").value);
+        document.getElementById("timeBar").style.height = getValue('time bar.height', 'int') + "px";
+        notify('Applied new height!', true);
+    }
+});
 
-function refreshValues()
-{
-    //time bar
-    document.getElementById("timeBarBackColorInputR").value = getValue("timebar.backgroundcolor", 'rgb')[0];
-    document.getElementById("timeBarBackColorInputG").value = getValue("timebar.backgroundcolor", 'rgb')[1];
-    document.getElementById("timeBarBackColorInputB").value = getValue("timebar.backgroundcolor", 'rgb')[2];
+document.getElementById("timeBarDisplayTimeLeft").addEventListener('change', () => {
+    setNewValue('time bar.time left', document.getElementById("timeBarDisplayTimeLeft").checked);
+    if(getValue('time bar.time left', 'bool')){ notify('Time bar displays time left', true); }
+    else{ notify('Time bar displays current time', true); }
+});
+document.getElementById("timeDisplayTimeLeft").addEventListener('change', () => {
+    setNewValue('time display.time left', document.getElementById("timeDisplayTimeLeft").checked);
+    document.getElementById('timeDisplayBothTimes').checked = false;
+    setNewValue('time display.both times', document.getElementById('timeDisplayBothTimes').checked);
+    //add notify for next update
+});
+document.getElementById("timeDisplayBothTimes").addEventListener('change', () => {
+    setNewValue('time display.both times', document.getElementById('timeDisplayBothTimes').checked);
+    //add notify for next update
+});
 
-    document.getElementById("timeBarColorInputR").value = getValue("timebar.color", 'rgb')[0];
-    document.getElementById("timeBarColorInputG").value = getValue("timebar.color", 'rgb')[1];
-    document.getElementById("timeBarColorInputB").value = getValue("timebar.color", 'rgb')[2];
+document.getElementById("volumeBarBGColorInput").addEventListener("keydown", (key) => {
+    if(key.key == "Enter")
+    {
+        setNewValue('volume tray.bar background color', document.getElementById("volumeBarBGColorInput").value);
+        document.getElementById("volProgress").style.backgroundColor = "rgb(" + getValue('volume tray.bar background color').toString() + ")";
+        notify('Applied new volume bar background color!', true);
+    }
+});
 
-    document.getElementById("timeBarWidthInput").value = getValue("timebar.width", 'int');
-    document.getElementById("timeBarHeightInput").value = getValue("timebar.height", 'int');
-
-    document.getElementById('timeBarDisplayTimeLeft').checked = getValue("timebar.display time left instead of cur time", 'bool');
-
-    //time display
-    document.getElementById("timedisplayDisplayTimeLeft").checked = getValue("timedisplay.display time left instead of cur time", 'bool');
-
-    //window
-    document.getElementById('windowUpdateWindowTitle').checked = getValue("window.update window title", 'bool');
-    document.getElementById('windowDisplaySongName').checked = getValue("window.display song name", 'bool');
-    document.getElementById('windowDisplayTimeLeft').checked = getValue("window.display time left", 'bool');
-}
-
-function resetSettings()
-{
-    localStorage.clear();
-    window.location.reload(true);
-}
+document.getElementById("volumeBarColorInput").addEventListener("keydown", (key) => {
+    if(key.key == "Enter")
+    {
+        setNewValue('volume tray.bar color', document.getElementById("volumeBarColorInput").value);
+        document.getElementById("volBar").style.backgroundColor = "rgb(" + getValue('volume tray.bar color').toString() + ")";
+        notify('Applied new volume bar color!', true);
+    }
+});

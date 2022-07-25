@@ -5,15 +5,6 @@ body
     color: white;
 }
 
-.outer
-{
-    width: 100%;
-    height: 97.9vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 #mainDiv
 {
     width: 100%;
@@ -70,4 +61,152 @@ button:hover
 button:active
 {
     background-color: rgb(6, 115, 224);
+}
+
+.topPanel 
+{
+    height: 12%; 
+    width: 20%; 
+    position: fixed; 
+    z-index: 2;
+    top: -200px;
+    background-color: rgb(32, 32, 32); 
+    overflow-x: hidden; 
+    transition: 0.25s;
+}
+
+.notificationsPanel
+{
+    height: 12%; 
+    width: fit-content; 
+    position: fixed; 
+    z-index: 3;
+    top: -200px;
+    background-color: rgb(32, 32, 32); 
+    overflow-x: hidden; 
+    transition: 0.25s;
+}
+
+#closeSettingsSidePanel
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 36px;
+    margin-right: 2rem;
+    cursor: pointer;
+}
+
+.inputGroup
+{
+    position: relative;
+    --color: #ffffffcf;
+    margin-top: 2rem;
+}
+
+.materialInput
+{
+    width: 100%;
+    font-family: inherit;
+    font-size: 1rem;
+    color: #ffffffcf;
+    padding: .6em .3em;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid var(--color);
+}
+
+.inputLabel
+{
+    color: var(--color);
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 5px;
+    transform: translateY(10px);
+    transition: transform .5s, color .3s;
+}
+
+.materialInput:focus + .inputLabel,
+.materialInput:not(:placeholder-shown) + .inputLabel
+{
+    transform: translateY(-12px) scale(.7);
+    transform-origin: top left;
+    --color: #527dff;
+}
+
+.switch 
+{
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input 
+{
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider 
+{
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before 
+{
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider 
+{
+    background-color: #2196F3;
+}
+
+input:focus + .slider 
+{
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before 
+{
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+.slider.round 
+{
+    border-radius: 34px;
+}
+
+.slider.round:before 
+{
+    border-radius: 50%;
+}
+
+.notransition 
+{
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
 }

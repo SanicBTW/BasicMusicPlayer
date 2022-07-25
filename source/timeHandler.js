@@ -4,10 +4,8 @@ var audioTime = document.getElementById("audioTime");
 audioPlayer.addEventListener("durationchange", () => setProgress(0));
 audioPlayer.addEventListener("timeupdate", () => updateProgress());
 
-//this one was too much work, not changing it lol
 function updateProgress()
 {
-    //thanks psych engine for the time stuff lmaoo
     var lengthMin = Math.floor(audioPlayer.duration / 60);
     if(lengthMin >= 10)
     {
@@ -86,44 +84,20 @@ function updateProgress()
         }
     }
 
-    if(window.document.title != "Basic Music Player - Settings" || window.document.title != "Basic Music Player - Credits")
-    {
-        if(getValue("Window.update window title", 'bool'))
-        {
-            var newTitle = "";
-            if(getValue("Window.display song name", 'bool'))
-            {
-                newTitle = "not found";
-            }
-            if(getValue("Window.display time left", 'bool'))
-            {
-                if(getValue("Window.display song name", 'bool')) 
-                {
-                    newTitle += " - " + minLeft + ":" + secsLeft;
-                }
-                else
-                {
-                    newTitle = minLeft + ":" + secsLeft;
-                }
-            }
-            window.document.title = newTitle;
-        }    
-    }
-
-    if(!getValue("timedisplay.display both times", 'bool') && getValue("timedisplay.display time left instead of cur time", 'bool'))
+    if(!getValue("time display.both times", 'bool') && getValue("time display.time left", 'bool'))
     {
         audioTime.innerText = minLeft + ":" + secsLeft + " / " + lengthMin + ":" + lengthSecs;
     }
-    else if(!getValue("timedisplay.display both times", 'bool') && !getValue("timedisplay.display time left instead of cur time", 'bool'))
+    else if(!getValue("time display.both times", 'bool') && !getValue("time display.time left", 'bool'))
     {
         audioTime.innerText = curMin + ":" + curSecs + " / " + lengthMin + ":" + lengthSecs;
     }
-    else if(getValue("timedisplay.display both times", 'bool'))
+    else if(getValue("time display.both times", 'bool'))
     {
         audioTime.innerText = curMin + ":" + curSecs + " / -" + minLeft + ":" + secsLeft;
     }
 
-    if(getValue("TimeBar.display time left instead of cur time", 'bool'))
+    if(getValue("time bar.time left", 'bool'))
     {
         setProgress(100 - (songPercent * 100));
     }

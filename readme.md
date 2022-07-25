@@ -1,23 +1,21 @@
-# V2.0 Rewrite
+# V2.2 Rewrite
 
-Not compatible with mobile for a lot of reasons lol
+(This update was made in almost 4 hours, lost my brain cells, proud of my work though)
+
+*Making it compatible with mobile now
 
 Huge thanks to [Bonndubz](https://github.com/bonndevoff) for the help
 
 Changelog:
 
-Improved everything (UI, Code, etc..)
+Improved settings UI
 
-Managed to delete any mobile compatibility (forgot lol)
+Added volume tray (Totally not inspired on Haxeflixel)
 
-Added Time Bar
+Added custom notifications (Yes I did this lol)
 
-Added customizing
+Rewrote the settings thingy, I thought modified settings were getting overwritten so I hardcoded it I guess
 
-Added settings (Uses local storage)
+And funky animations lol
 
-Easter eggs? Nah they are really accessible so not easter eggs I guess
-
-Settings and credits page (Panels)
-
-It's missing the server feature and that stuff, I might end up improving everything soon again lol
+# Well that's everything for this update, next update will focus on bugfixes and that stuff, cya until then

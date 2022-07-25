@@ -12,13 +12,10 @@ function setState(newState)
             audioPlayer.loop = true;
             break;
         case "stop":
-            //we set the playback rate at 0 to not lose the cache or preload lol
-            audioPlayer.playbackRate = 0.0;
+            audioPlayer.pause();
             break;
         case "resume":
-            //we set the playback rate at 1x to continue playing it
-            audioPlayer.playbackRate = 1.0;
-            daRatings.selectedIndex = 0;
+            audioPlayer.play();
             break;
     }
 }

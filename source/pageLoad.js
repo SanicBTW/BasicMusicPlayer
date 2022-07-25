@@ -1,119 +1,63 @@
 //bruh bruh bruhuhuhuhuh
 function onLoad()
 {
+    const detectDeviceType = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    ? 'Mobile'
+    : 'Desktop';
+
     checkSpecialURL();
 
-    var daProg = document.getElementById("timeProgress");
-    var daBar = document.getElementById("timeBar");
+    if(window.location.search.startsWith("?sendNotif="))
+    {
+        notify(formatSpaces(window.location.search.replace("?sendNotif=", " ")));
+    }
 
-    daProg.style.backgroundColor = 'rgb(' + getValue("timebar.backgroundcolor").toString() + ")";
-    daProg.style.width = getValue("timebar.width", "int") + "%";
+    var outerStyle = document.createElement("style");
+    if(detectDeviceType() == "Desktop")
+    {
+        outerStyle.innerHTML = `.outer { 
+            width: 100%; height: 97.9vh; display: flex; justify-content: center; align-items: center;
+        }`;
+    }
+    else
+    {
+        outerStyle.innerHTML = `.outer { 
+            width: 100%; height: 90vh; display: flex; justify-content: center; align-items: center;
+        }`;
+    }
+    document.head.appendChild(outerStyle);
 
-    daBar.style.backgroundColor = 'rgb(' + getValue("timebar.color").toString() + ")";
-    daBar.style.height = getValue("timebar.height", "int") + "px";
+    var timeProg = document.getElementById("timeProgress");
+    var timeBar = document.getElementById("timeBar");
 
-    //time bar
-    document.getElementById("timeBarBackColorInputR").value = getValue("timebar.backgroundcolor", 'rgb')[0];
-    document.getElementById("timeBarBackColorInputG").value = getValue("timebar.backgroundcolor", 'rgb')[1];
-    document.getElementById("timeBarBackColorInputB").value = getValue("timebar.backgroundcolor", 'rgb')[2];
+    var volumeProg = document.getElementById("volProgress");
+    var volumeBar = document.getElementById("volBar");
 
-    document.getElementById("timeBarColorInputR").value = getValue("timebar.color", 'rgb')[0];
-    document.getElementById("timeBarColorInputG").value = getValue("timebar.color", 'rgb')[1];
-    document.getElementById("timeBarColorInputB").value = getValue("timebar.color", 'rgb')[2];
+    timeProg.style.backgroundColor = 'rgb(' + getValue("time bar.background color").toString() + ")";
+    timeProg.style.width = getValue("time bar.width", "int") + "%";
 
-    document.getElementById("timeBarWidthInput").value = getValue("timebar.width", 'int');
-    document.getElementById("timeBarHeightInput").value = getValue("timebar.height", 'int');
+    timeBar.style.backgroundColor = 'rgb(' + getValue("time bar.color").toString() + ")";
+    timeBar.style.height = getValue("time bar.height", "int") + "px";
 
-    document.getElementById('timeBarDisplayTimeLeft').checked = getValue("timebar.display time left instead of cur time", 'bool');
+    volumeProg.style.backgroundColor = 'rgb(' + getValue("volume tray.bar background color").toString() + ")";
+    volumeBar.style.backgroundColor = 'rgb(' + getValue('volume tray.bar color').toString() + ")";
 
-    //time display
-    document.getElementById("timedisplayDisplayTimeLeft").checked = getValue("timedisplay.display time left instead of cur time", 'bool');
-    document.getElementById("timedisplayDisplayBothTimes").checked = getValue("timedisplay.display both times", 'bool');
+    document.getElementById("timeBarBGColorInput").value = getValue('time bar.background color', 'rgb');
+    document.getElementById("timeBarColorInput").value = getValue('time bar.color', 'rgb');
 
-    //window
-    document.getElementById('windowUpdateWindowTitle').checked = getValue("window.update window title", 'bool');
-    document.getElementById('windowDisplaySongName').checked = getValue("window.display song name", 'bool');
-    document.getElementById('windowDisplayTimeLeft').checked = getValue("window.display time left", 'bool');
+    document.getElementById('timeBarWidthInput').value = getValue('time bar.width', 'int');
+    document.getElementById("timeBarHeightInput").value = getValue('time bar.height', 'int');
+
+    document.getElementById("timeBarDisplayTimeLeft").checked = getValue('time bar.time left', 'bool');
+
+    document.getElementById("timeDisplayTimeLeft").checked = getValue('time display.time left', 'bool');
+    document.getElementById("timeDisplayBothTimes").checked = getValue('time display.both times', 'bool');
+
+    document.getElementById("volumeBarBGColorInput").value = getValue('volume tray.bar background color', 'rgb');
+    document.getElementById("volumeBarColorInput").value = getValue('volume tray.bar color', 'rgb');
 
     setProgress(0);
 }
-
-var allInputs = document.querySelectorAll(".applyOnChange");
-
-var checkBoxes = [
-    {id: "timeBarDisplayTimeLeft", prop: 'timebar.display time left instead of cur time'},
-    {id: "timedisplayDisplayTimeLeft", prop: 'timedisplay.display time left instead of cur time'},
-    {id: "windowUpdateWindowTitle", prop: 'window.update window title'},
-    {id: "windowDisplaySongName", prop: 'window.display song name'},
-    {id: "windowDisplayTimeLeft", prop: 'window.display time left'},
-    {id: "timedisplayDisplayBothTimes", prop: 'timedisplay.display both times'}
-]
-
-var textBoxes = [
-    {id: "timeBarBackColorInputR"},
-    {id: "timeBarBackColorInputG"},
-    {id: "timeBarBackColorInputB"},
-    {id: "timeBarColorInputR"},
-    {id: "timeBarColorInputG"},
-    {id: "timeBarColorInputB"},
-    {id: "timeBarWidthInput"},
-    {id: "timeBarHeightInput"},
-]
-
-allInputs.forEach(daInput => 
-{
-    daInput.addEventListener("change", function(event) 
-    {
-        if(daInput.type == "checkbox")
-        {
-            for(const checkBox of checkBoxes)
-            {
-                if(checkBox.id == daInput.id)
-                {
-                    var the = Reflect.get(document.getElementById(checkBox.id), 'checked');
-                    setNewValue(checkBox.prop, the);
-                }
-            }
-        }
-        else if(daInput.type == "text")
-        {
-            for(const textBox of textBoxes)
-            {
-                if(textBox.id == daInput.id)
-                {
-                    if(textBox.id.startsWith("timeBarBackColorInput"))
-                    {
-                        var r = Reflect.get(document.getElementById("timeBarBackColorInputR"), 'value');
-                        var g = Reflect.get(document.getElementById("timeBarBackColorInputG"), 'value');
-                        var b = Reflect.get(document.getElementById("timeBarBackColorInputB"), 'value');
-                        document.getElementById("timeProgress").style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";
-                        setNewValue('timebar.backgroundcolor', [r, g, b]);
-                    }
-                    if(textBox.id.startsWith("timeBarColorInput"))
-                    {
-                        var r = Reflect.get(document.getElementById("timeBarColorInputR"), 'value');
-                        var g = Reflect.get(document.getElementById("timeBarColorInputG"), 'value');
-                        var b = Reflect.get(document.getElementById("timeBarColorInputB"), 'value');
-                        document.getElementById("timeBar").style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";
-                        setNewValue('timebar.color', [r, g, b]);
-                    }
-                    if(textBox.id == "timeBarWidthInput")
-                    {
-                        var danew = Reflect.get(document.getElementById(textBox.id), 'value');
-                        document.getElementById("timeProgress").style.width = danew + "%";
-                        setNewValue('timebar.width', danew);
-                    }
-                    if(textBox.id == "timeBarHeightInput")
-                    {
-                        var danew = Reflect.get(document.getElementById(textBox.id), 'value');
-                        document.getElementById("timeBar").style.height = danew + "px";
-                        setNewValue('timebar.height', danew);
-                    }
-                }
-            }
-        }
-    });
-});
 
 var specialURLS = [
     {requiredHash: '#StartOnSettings', do: function(){ openSettingsPanel(); }},
@@ -127,5 +71,99 @@ function checkSpecialURL()
         {
             special.do();
         }
+    }
+}
+
+//might improve it
+var openedVol = false;
+var holdTime = 0.0;
+var curkey;
+
+//only allows a keypress once
+document.addEventListener('keydown', (key) => {
+    curkey = key.key;
+
+    if(curkey == "-" && holdTime == 0.0)
+    {
+        holdTime += 0.1;
+
+        document.getElementById("volumeTray").style.top = '0px';
+        openedVol = true;
+        volCheck(curkey);
+    }
+
+    if(curkey == "+" && holdTime == 0.0)
+    {
+        holdTime += 0.1;
+
+        document.getElementById("volumeTray").style.top = '0px';
+        openedVol = true;
+        volCheck(curkey);
+    }
+});
+
+document.addEventListener('keyup', () => {
+    curkey = null;
+    holdTime = 0.0;
+});
+
+document.getElementById("volBar").addEventListener("transitionend", () => {
+    closeVolPanel();
+});
+
+function closeVolPanel(fromVolLimit = false)
+{
+    if(fromVolLimit)
+    {
+        if(openedVol == true)
+        {
+            var the = setTimeout(() => {
+                document.getElementById("volumeTray").style.top = '-200px'; //-200
+                clearTimeout(the);
+                openedVol = false;
+            }, 1000);
+        }
+    }
+    else
+    {
+        if(openedVol == true)
+        {
+            var the = setTimeout(() => {
+                document.getElementById("volumeTray").style.top = '-200px'; //-200
+                clearTimeout(the);
+                openedVol = false;
+            }, 500);
+        }
+    }
+}
+
+function volCheck(keyPressed)
+{
+    switch(keyPressed)
+    {
+        case "+":
+            if(parseVol() != 1.0)
+            {
+                document.getElementById("audioPlayer").volume += 0.1;
+                document.getElementById("volBar").style.width = parseVolPercent();
+                document.getElementById("volP").innerText = parseVolPercent();
+            }
+            else
+            {
+                closeVolPanel(true);
+            }
+            break;
+        case "-":
+            if(parseVol() != 0)
+            {
+                document.getElementById("audioPlayer").volume -= 0.1
+                document.getElementById("volBar").style.width = parseVolPercent();
+                document.getElementById("volP").innerText = parseVolPercent();
+            }
+            else
+            {
+                closeVolPanel(true);
+            }
+            break;
     }
 }
