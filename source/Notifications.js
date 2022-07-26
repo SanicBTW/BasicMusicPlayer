@@ -13,32 +13,29 @@ class CustomNotification
 {
     notify()
     {
-        if(getValue('notifications.show', 'bool'))
+        if(!notifying)
         {
-            if(!notifying)
-            {
-                notifying = true;
-                header.innerText = this.mainText;
-                subHeader.innerText = this.subText;
-                notifPanel.style.top = "0px";
-    
-                increaseTimer = setInterval(() => {
-                    if(getValue('notifications.increase with decimals', 'bool')){ dismissTime += 0.1; }
-                    else{ dismissTime += 1; }
-    
-                    dismissProgress.style.width = dismissTime + "%";
-    
-                    if(getValue('notifications.increase with decimals') ? Math.floor(dismissTime) == 160 : dismissTime == 460)
-                    {
-                        this.#closeNotification();
-                        this.onFinish();
-                    }
-                }, 2);
-            }
-            else
-            {
-                this.#closeNotification(true);
-            }
+            notifying = true;
+            header.innerText = this.mainText;
+            subHeader.innerText = this.subText;
+            notifPanel.style.top = "0px";
+
+            increaseTimer = setInterval(() => {
+                if(getValue('notifications.slower progress', 'bool')){ dismissTime += 0.1; }
+                else{ dismissTime += 1; }
+
+                dismissProgress.style.width = dismissTime + "%";
+
+                if(getValue('notifications.slower progress', 'bool') ? Math.floor(dismissTime) == 160 : dismissTime == 460)
+                {
+                    this.#closeNotification();
+                    this.onFinish();
+                }
+            }, 2);
+        }
+        else
+        {
+            this.#closeNotification(true);
         }
     }
 
@@ -70,13 +67,6 @@ class CustomNotification
     }
 
     onFinish = function(){
-        /*
-        var notificationDetails = {
-            "Header / Text": args[0],
-            "Subtext": args[1],
-            "Shown?": getValue('notifications.show', 'bool'),
-            "Increase method": getValue('notifications.increase with decimals', 'bool')
-        }*/
         console.log('Finished Notifying');
     }
 

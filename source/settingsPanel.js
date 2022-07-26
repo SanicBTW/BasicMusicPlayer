@@ -7,7 +7,6 @@ var daProg = document.getElementById("timeProgress");
 var daBar = document.getElementById("timeBar");
 
 var optionsNotif = new CustomNotification();
-optionsNotif.mainText = 'Applied!';
 
 function openSettingsPanel()
 {
@@ -33,49 +32,65 @@ document.addEventListener("keydown", (key) =>
     }
 });
 
-//add if vol keys are pressed dont get input
-document.getElementById("timeBarBGColorInput").addEventListener("keydown", (key) => {
-    if(key.key == "-" || key.key == "+"){ return; }
-    if(key.key == "Enter")
+//For inputs stuff
+class SettingsApplier
+{
+    constructor(type)
     {
-        setNewValue('time bar.background color', document.getElementById("timeBarBGColorInput").value);
-        document.getElementById("timeProgress").style.backgroundColor = "rgb(" + getValue('time bar.background color').toString() + ")";
-        optionsNotif.subText = "New time bar background color";
-        optionsNotif.notify();
+        switch(type)
+        {
+            case "timebarbgcolor":
+                setNewValue('time bar.background color', document.getElementById("timeBarBGColorInput").value);
+                document.getElementById("timeProgress").style.backgroundColor = "rgb(" + getValue('time bar.background color').toString() + ")";
+                optionsNotif.mainText = 'Applied!';
+                optionsNotif.subText = "New time bar background color";
+                optionsNotif.notify();
+                break;
+            case "timebarcolor":
+                setNewValue('time bar.color', document.getElementById("timeBarColorInput").value);
+                document.getElementById("timeBar").style.backgroundColor = "rgb(" + getValue('time bar.color').toString() + ")";
+                optionsNotif.mainText = 'Applied!';
+                optionsNotif.subText = "New time bar color";
+                optionsNotif.notify();
+                break;
+            case 'timebarwidth':
+                setNewValue('time bar.width', document.getElementById("timeBarWidthInput").value);
+                document.getElementById("timeProgress").style.width = getValue('time bar.width', 'int') + "%";
+                optionsNotif.mainText = 'Applied!';
+                optionsNotif.subText = "New time bar width";
+                optionsNotif.notify();
+                break;
+            case "timebarheight":
+                setNewValue('time bar.height', document.getElementById("timeBarHeightInput").value);
+                document.getElementById("timeBar").style.height = getValue('time bar.height', 'int') + "px";
+                optionsNotif.mainText = 'Applied!';
+                optionsNotif.subText = "New time bar height";
+                optionsNotif.notify();
+                break;
+            case "volumebarbgcolor":
+                setNewValue('volume tray.bar background color', document.getElementById("volumeBarBGColorInput").value);
+                document.getElementById("volProgress").style.backgroundColor = "rgb(" + getValue('volume tray.bar background color').toString() + ")";
+                optionsNotif.mainText = 'Applied!';
+                optionsNotif.subText = 'New volume bar background color';
+                optionsNotif.notify();
+                break;
+            case "volumebarcolor":
+                setNewValue('volume tray.bar color', document.getElementById("volumeBarColorInput").value);
+                document.getElementById("volBar").style.backgroundColor = "rgb(" + getValue('volume tray.bar color').toString() + ")";
+                optionsNotif.mainText = 'Applied!';
+                optionsNotif.subText = 'New volume bar color';
+                optionsNotif.notify();
+                break;
+        }
     }
-});
+}
 
-document.getElementById("timeBarColorInput").addEventListener("keydown", (key) => {
-    if(key.key == "-" || key.key == "+"){ return; }
-    if(key.key == "Enter")
-    {
-        setNewValue('time bar.color', document.getElementById("timeBarColorInput").value);
-        document.getElementById("timeBar").style.backgroundColor = "rgb(" + getValue('time bar.color').toString() + ")";
-        optionsNotif.subText = "New time bar color";
-        optionsNotif.notify();
-    }
-});
+var blockInputs = document.querySelectorAll('.materialInput');
 
-document.getElementById("timeBarWidthInput").addEventListener("keydown", (key) => {
-    if(key.key == "-" || key.key == "+"){ return; }
-    if(key.key == "Enter")
-    {
-        setNewValue('time bar.width', document.getElementById("timeBarWidthInput").value);
-        document.getElementById("timeProgress").style.width = getValue('time bar.width', 'int') + "%";
-        optionsNotif.subText = "New time bar width";
-        optionsNotif.notify();
-    }
-});
-
-document.getElementById("timeBarHeightInput").addEventListener("keydown", (key) => {
-    if(key.key == "-" || key.key == "+"){ return; }
-    if(key.key == "Enter")
-    {
-        setNewValue('time bar.height', document.getElementById("timeBarHeightInput").value);
-        document.getElementById("timeBar").style.height = getValue('time bar.height', 'int') + "px";
-        optionsNotif.subText = "New time bar height";
-        optionsNotif.notify();
-    }
+blockInputs.forEach(daInput => {
+    daInput.addEventListener('keydown', (key) => {
+        return (key.key != "-" || key.key != "+");
+    });
 });
 
 document.getElementById("timeBarDisplayTimeLeft").addEventListener('change', () => {
@@ -137,24 +152,20 @@ document.getElementById("timeDisplayBothTimes").addEventListener('change', () =>
     }
 });
 
-document.getElementById("volumeBarBGColorInput").addEventListener("keydown", (key) => {
-    if(key.key == "-" || key.key == "+"){ return; }
-    if(key.key == "Enter")
+//might change it
+document.getElementById('notificationsSlowerProgress').addEventListener('change', () => {
+    setNewValue('notifications.slower progress', document.getElementById('notificationsSlowerProgress').checked);
+    if(getValue('notifications.slower progress', 'bool'))
     {
-        setNewValue('volume tray.bar background color', document.getElementById("volumeBarBGColorInput").value);
-        document.getElementById("volProgress").style.backgroundColor = "rgb(" + getValue('volume tray.bar background color').toString() + ")";
-        optionsNotif.subText = 'New volume bar background color';
+        optionsNotif.mainText = "Dismiss notification timer";
+        optionsNotif.subText = 'Progress will increase slower';
         optionsNotif.notify();
     }
-});
+    else
+    {
+        optionsNotif.mainText = "Dismiss notification timer";
+        optionsNotif.subText = 'Progress will increase faster';
+        optionsNotif.notify();
+    }
 
-document.getElementById("volumeBarColorInput").addEventListener("keydown", (key) => {
-    if(key.key == "-" || key.key == "+"){ return; }
-    if(key.key == "Enter")
-    {
-        setNewValue('volume tray.bar color', document.getElementById("volumeBarColorInput").value);
-        document.getElementById("volBar").style.backgroundColor = "rgb(" + getValue('volume tray.bar color').toString() + ")";
-        optionsNotif.subText = 'New volume bar color';
-        optionsNotif.notify();
-    }
 });

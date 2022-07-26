@@ -25,12 +25,18 @@
                             <label for="timeBarBGColorInput"
                             class="inputLabel">BG Color</label>
                         </div>
+                        <button onclick="
+                            new SettingsApplier('timebarbgcolor');
+                        ">Apply</button>
                         <div class="inputGroup">
                             <input type="text" id="timeBarColorInput"
                             class="materialInput" placeholder=" ">
                             <label for="timeBarColorInput"
                             class="inputLabel">Color</label>
                         </div>
+                        <button onclick="
+                            new SettingsApplier('timebarcolor');
+                        ">Apply</button>
 
                         <div class="inputGroup">
                             <input type="text" id="timeBarWidthInput"
@@ -38,12 +44,20 @@
                             <label for="timeBarWidthInput"
                             class="inputLabel">Width</label>
                         </div>
+                        <button onclick="
+                            new SettingsApplier('timebarwidth');
+                        ">Apply</button>
+
                         <div class="inputGroup">
                             <input type="text" id="timeBarHeightInput"
                             class="materialInput" placeholder=" ">
                             <label for="timeBarHeightInput"
                             class="inputLabel">Height</label>
                         </div>
+                        <button onclick="
+                            new SettingsApplier('timebarheight');
+                        ">Apply</button>
+
                         <!--thanks w3 schools-->
                         <div style="margin-top: 1rem;">
                             <label class="switch">
@@ -82,11 +96,31 @@
                             <label for="volumeBarBGColorInput"
                             class="inputLabel">Bar BG Color</label>
                         </div>
+                        <button onclick="
+                            new SettingsApplier('volumebarbgcolor');
+                        ">Apply</button>
+
                         <div class="inputGroup">
                             <input type="text" id="volumeBarColorInput"
                             class="materialInput" placeholder=" ">
                             <label for="volumeBarColorInput"
                             class="inputLabel">Bar Color</label>
+                        </div>
+                        <button onclick="
+                            new SettingsApplier('volumebarcolor');
+                        ">Apply</button>
+
+                    </div>
+                </div>
+                <div style="grid-column: 1; grid-row: 5;">
+                    <h2>Notifications</h2>
+                    <div>
+                        <div style="margin-top: 1rem;">
+                            <label class="switch">
+                                <input type="checkbox" id="notificationsSlowerProgress">
+                                <span class="slider round"></span>
+                            </label>
+                            <label style="margin-left: 10px; margin-top: 2px; position: absolute;">Slow timer</label>
                         </div>
                     </div>
                 </div>
@@ -136,9 +170,8 @@
         </div>
 
         <script src="./source/Notifications.js"></script>
-        <script src="./source/musicPlayer.js"></script>
+        <script src="./source/index.js"></script>
         <script src="./source/timeHandler.js"></script>
-        <script src="./source/timeBar.js"></script>
         <script src="./source/settingsPanel.js"></script>
         <script src="./source/pageLoad.js"></script>
     </body>

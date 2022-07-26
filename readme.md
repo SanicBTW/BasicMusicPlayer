@@ -1,9 +1,13 @@
-# V2.4 Rewrite
+# V2.5 Rewrite
 
 Huge thanks to [Bonndubz](https://github.com/bonndevoff) for the help
 
 Changelog:
 
-Improved the notifications code
+Added 1 new setting
 
-Added notifications settings (Not added them to the settings panel)
+Tried to clean the settings code? Kinda
+
+Mobile UI is still broken lol
+
+Settings are now applied by pressing the apply button

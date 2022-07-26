@@ -22,3 +22,11 @@ function setState(newState)
 
 //add an event listener to the selection box and change the playback rate to that speed
 daRatings.addEventListener("change", (selected) => { audioPlayer.playbackRate = selected.target.value; });
+
+var daProg = document.getElementById("timeProgress");
+var daBar = document.getElementById("timeBar");
+
+function setProgress(amount)
+{
+    daBar.style.width = amount + "%";
+}

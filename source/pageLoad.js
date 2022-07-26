@@ -56,6 +56,8 @@ function onLoad()
     document.getElementById("volumeBarBGColorInput").value = getValue('volume tray.bar background color', 'rgb');
     document.getElementById("volumeBarColorInput").value = getValue('volume tray.bar color', 'rgb');
 
+    document.getElementById('notificationsSlowerProgress').checked = getValue('notifications.slower progress', 'bool')
+
     setProgress(0);
 }
 

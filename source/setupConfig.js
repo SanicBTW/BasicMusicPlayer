@@ -1,6 +1,6 @@
 //hardcode stuff
 var cats = ["Time Bar", "Time Display", "Volume Tray", "Notifications"];
-var saveVersion = "2.4";
+var saveVersion = "2.5";
 var notif = new CustomNotification();
 notif.onFinish = function() {
     localStorage.clear();
@@ -49,6 +49,5 @@ function setupConfig()
     setNewValue(`${cats[2]}.bar color`, [30, 144, 255]);
 
     //notifications
-    setNewValue(`${cats[3]}.show`, true);
-    setNewValue(`${cats[3]}.increase with decimals`, true);
+    setNewValue(`${cats[3]}.slower progress`, false);
 }
