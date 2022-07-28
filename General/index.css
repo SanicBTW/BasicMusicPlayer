@@ -1,0 +1,49 @@
+.sidePanel 
+{
+    height: 100%; 
+    width: 0%; 
+    position: fixed; 
+    z-index: 1; 
+    top: 0; 
+    left: 0; 
+    background-color: #111; 
+    overflow-x: hidden; 
+    transition: 0.5s;
+    color: white;
+}
+
+#sideMainMenu
+{
+    height: fit-content; 
+    width: 0%; 
+    position: fixed; 
+    z-index: 1; 
+    top: 0; 
+    left: 0; 
+    background-color: #111; 
+    overflow-x: hidden; 
+    transition: 0.5s;
+    color: white;
+}
+
+#sideMainMenuContent
+{
+    opacity: 0;
+    transition: opacity 0.25s;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px
+}
+
+#mainContent
+{
+    transition: opacity 1s;
+}
+
+.notransition 
+{
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+}

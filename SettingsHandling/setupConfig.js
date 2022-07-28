@@ -1,26 +1,20 @@
 //hardcode stuff
-var cats = ["Time Bar", "Time Display", "Volume Tray", "Notifications"];
-var saveVersion = "2.5";
-var notif = new CustomNotification();
-notif.onFinish = function() {
+var cats = ["Time Bar"];
+var saveVersion = "3.0 EARLY RELEASE";
+
+if(getValue('save data version') != saveVersion)
+{
     localStorage.clear();
     setupConfig();
     window.location.reload(true);
 }
 
-if(getValue('save data version') != saveVersion)
-{
-    notif.mainText = 'Clearing local storage';
-    notif.subText = 'Version doesnt match, clearing and refreshing after finishing notification';
-    notif.notify();
-}
-
 document.addEventListener('keydown', (key) => {
     if(key.altKey && key.key == "r")
     {
-        notif.mainText = 'Clearing local storage';
-        notif.subText = 'This was forced, clearing and refreshing after finishing notification';
-        notif.notify();
+        localStorage.clear();
+        setupConfig();
+        window.location.reload(true);
     }
 });
 
@@ -36,18 +30,5 @@ function setupConfig()
     //time bar
     setNewValue(`${cats[0]}.background color`, [112, 128, 144]);
     setNewValue(`${cats[0]}.color`, [30, 144, 255]);
-    setNewValue(`${cats[0]}.width`, 100);
-    setNewValue(`${cats[0]}.height`, 15);
     setNewValue(`${cats[0]}.time left`, false);
-
-    //time display
-    setNewValue(`${cats[1]}.time left`, false);
-    setNewValue(`${cats[1]}.both times`, true);
-
-    //volume tray
-    setNewValue(`${cats[2]}.bar background color`, [192, 192, 192]);
-    setNewValue(`${cats[2]}.bar color`, [30, 144, 255]);
-
-    //notifications
-    setNewValue(`${cats[3]}.slower progress`, false);
 }

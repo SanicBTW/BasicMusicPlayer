@@ -2,6 +2,8 @@ const client = new PocketBase("https://0d0b-81-61-195-120.eu.ngrok.io/");
 
 var fileNameInput = document.getElementById("fileNameInput");
 var musicList = document.getElementById('uploadedMusicList');
+var input = document.createElement("input");
+var openedSelection = false;
 
 async function fileNameAlert() {
     const alert = document.createElement('ion-alert');
@@ -16,36 +18,66 @@ async function fileNameAlert() {
 
     document.body.appendChild(alert);
     await alert.present();
+}
 
-    return await alert.onDidDismiss();
+async function fileAlert() {
+    const alert = document.createElement('ion-alert');
+    alert.header = 'Error';
+    alert.subHeader = 'File required';
+    alert.message = 'Provided file wasnt valid or detected';
+    alert.buttons = [
+        {
+            text: 'OK',
+            role: 'confirm'
+        }];
+
+    document.body.appendChild(alert);
+    await alert.present();
 }
 
 function openFileSelection()
 {
-    var formData = new FormData();
-    var input = document.createElement("input");
     input.type = 'file';
-    input.accept = "audio/mpeg";
+    input.accept = "audio/*";
     input.click();
+}
 
-    input.addEventListener('change', (e) => {
-        var file = e.target.files[0];
+input.addEventListener('click', () => {
+    openedSelection = true;
+});
+
+function uploadFile()
+{
+    var check1 = false;
+    var check2 = false;
+    var formData = new FormData();
+
+    if(openedSelection && input.files != null)
+    {
+        var file = input.files[0];
+        check1 = true;
         if(fileNameInput.value.length < 1)
         {
-            fileNameAlert().then(async(e) => {
-                if(e.role === "confirm"){ window.location.reload(true); }
-            })
+            fileNameAlert();
         }
         else
         {
+            check2 = true;
+        }
+        if(check1 && check2)
+        {
             formData.append("music_file", file);
             formData.append("music_name", fileNameInput.value);
-
+    
             client.Records.create("music", formData).then(() => {
                 window.location.reload(true);
             });
         }
-    });
+    }
+    else
+    {
+        fileAlert();
+    }
 }
 
 //get file url after finishing list creation

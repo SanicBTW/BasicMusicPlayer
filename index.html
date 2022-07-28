@@ -4,175 +4,104 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <!--<script src="//cdn.jsdelivr.net/npm/eruda"></script>
-        <script>eruda.init();</script>-->
-        <link rel="stylesheet" href="./index.css"/>
+
+        <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+        <script>eruda.init();</script>
+
+        <script src="https://cdn.jsdelivr.net/npm/pocketbase@0.2.2/dist/pocketbase.umd.js"></script>
+
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+        <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+        <link rel="stylesheet" href="./General/variables.css">
+
+        <link rel="stylesheet" href="./General/index.css">
+
         <script src="./General/Utils.js" defer></script>
         <script src="./SettingsHandling/setupConfig.js" defer></script>
+        <script src="./General/pageLoad.js" defer></script>
+
+        <script src="./General/timeHandler.js" defer></script>
+
         <title>Basic Music Player</title>
     </head>
-    <body onload="onLoad()">
-        <div id="settingsSidePanel" class="sidePanel">
-            <div id="settingsSidePanelContent">
-
-                <h1>Settings</h1>
-                <div style="grid-column: 1; grid-row: 2;">
-                    <h2>Time Bar</h2>
-                    <div>
-                        <div class="inputGroup">
-                            <input type="text" id="timeBarBGColorInput"
-                            class="materialInput" placeholder=" ">
-                            <label for="timeBarBGColorInput"
-                            class="inputLabel">BG Color</label>
-                        </div>
-                        <button onclick="
-                            new SettingsApplier('timebarbgcolor');
-                        ">Apply</button>
-                        <div class="inputGroup">
-                            <input type="text" id="timeBarColorInput"
-                            class="materialInput" placeholder=" ">
-                            <label for="timeBarColorInput"
-                            class="inputLabel">Color</label>
-                        </div>
-                        <button onclick="
-                            new SettingsApplier('timebarcolor');
-                        ">Apply</button>
-
-                        <div class="inputGroup">
-                            <input type="text" id="timeBarWidthInput"
-                            class="materialInput" placeholder=" ">
-                            <label for="timeBarWidthInput"
-                            class="inputLabel">Width</label>
-                        </div>
-                        <button onclick="
-                            new SettingsApplier('timebarwidth');
-                        ">Apply</button>
-
-                        <div class="inputGroup">
-                            <input type="text" id="timeBarHeightInput"
-                            class="materialInput" placeholder=" ">
-                            <label for="timeBarHeightInput"
-                            class="inputLabel">Height</label>
-                        </div>
-                        <button onclick="
-                            new SettingsApplier('timebarheight');
-                        ">Apply</button>
-
-                        <!--thanks w3 schools-->
-                        <div style="margin-top: 1rem;">
-                            <label class="switch">
-                                <input type="checkbox" id="timeBarDisplayTimeLeft">
-                                <span class="slider round"></span>
-                            </label>
-                            <label style="margin-left: 10px; margin-top: 2px; position: absolute;">Display time left</label>
-                        </div>
-                    </div>
-                </div>
-                <div style="grid-column: 1; grid-row: 3;">
-                    <h2>Time Display</h2>
-                    <div>
-                        <div >
-                            <label class="switch">
-                                <input type="checkbox" id="timeDisplayTimeLeft">
-                                <span class="slider round"></span>
-                            </label>
-                            <label style="margin-left: 10px; margin-top: 2px; position: absolute;">Display time left</label>
-                        </div>
-                        <div style="margin-top: 1rem;">
-                            <label class="switch">
-                                <input type="checkbox" id="timeDisplayBothTimes">
-                                <span class="slider round"></span>
-                            </label>
-                            <label style="margin-left: 10px; margin-top: 2px; position: absolute;">Display both times</label>
-                        </div>
-                    </div>
-                </div>
-                <div style="grid-column: 1; grid-row: 4;">
-                    <h2>Volume tray</h2>
-                    <div>
-                        <div class="inputGroup">
-                            <input type="text" id="volumeBarBGColorInput"
-                            class="materialInput" placeholder=" ">
-                            <label for="volumeBarBGColorInput"
-                            class="inputLabel">Bar BG Color</label>
-                        </div>
-                        <button onclick="
-                            new SettingsApplier('volumebarbgcolor');
-                        ">Apply</button>
-
-                        <div class="inputGroup">
-                            <input type="text" id="volumeBarColorInput"
-                            class="materialInput" placeholder=" ">
-                            <label for="volumeBarColorInput"
-                            class="inputLabel">Bar Color</label>
-                        </div>
-                        <button onclick="
-                            new SettingsApplier('volumebarcolor');
-                        ">Apply</button>
-
-                    </div>
-                </div>
-                <div style="grid-column: 1; grid-row: 5;">
-                    <h2>Notifications</h2>
-                    <div>
-                        <div style="margin-top: 1rem;">
-                            <label class="switch">
-                                <input type="checkbox" id="notificationsSlowerProgress">
-                                <span class="slider round"></span>
-                            </label>
-                            <label style="margin-left: 10px; margin-top: 2px; position: absolute;">Slow timer</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--has issues with mobile-->
-            <div id="bottomSettingsPanel">
-                <div style="margin-left: 1rem;">
-                    <p id="closeSettingsSidePanel" onclick="closeSettingsPanel()">X</p>
-                    <p>Format: Colors: RGB (NOTHING ELSE) | Width: percent | Height: px </p>
-                </div>
-            </div>
-        </div>
-
+    <body onload="onLoad()" class="dark">
         <div class="outer">
-            <div id="notificationsPanel" class="notificationsPanel">
-                <div style="margin-left: 1rem; margin-right: 1rem;">
-                    <h1 id="notificationText"></h1>
-                    <p id="notificationSubText"></p>
-                </div>
-                <div style="background-color: dimgray; width: 100%;"> <div id="dismissProgress" style="width: 0%; height: 5px; transition: 1s; background-color: aqua;"> </div> </div>
-            </div>
-            <div id="volumeTray" class="topPanel">
-                <div style="margin-left: 1rem; margin-right: 1rem;">
-                    <p>Volume</p>
-                    <p id="volP" style="position: absolute; right: 0; top: 0; margin-right: 1rem;">100%</p>
-                    <div id="volProgress" style="width: 100%"> <div id="volBar" style="width: 100%; height: 15px; transition: 1s;"></div> </div>
+            <div id="sideSettings" class="sidePanel">
+                <div id="sideSettingsContent">
+                    <progress></progress>
                 </div>
             </div>
-            <div id="mainDiv">
-                <div>
-                    <button type="button" onclick="setState('play')">Play</button>
-                    <button type="button" onclick="setState('stop')">Stop</button>
-                    <button type="button" onclick="setState('resume')">Resume</button>
-                    <select id="playbackRates">
-                        <option value="1" selected="true">Playback rate: 1x</option>
-                        <option value="1.5">Playback rate: 1.5x</option>
-                        <option value="2">Playback rate: 2x</option>
-                    </select>
-                    <button type="button" onclick="openSettingsPanel()">Settings</button>
+            <div id="sideMainMenu">
+                <div id="sideMainMenuContent">
+                    <ion-button style="grid-row: 1;">Open Settings</ion-button>
+                    <ion-button style="grid-row: 2;" onclick="window.location.assign('./MusicUploading')">Upload song</ion-button>
+                    <ion-button style="grid-row: 3;" onclick="closeMainMenu()">Close Main Menu</ion-button>
                 </div>
-
-                <h1 id="audioTime"></h1>
-
-                <div id="timeProgress"> <div id="timeBar" style="transition: 1.2s;"> </div> </div>
             </div>
-            <audio id="audioPlayer" preload="auto"></audio>
         </div>
 
-        <script src="./General/Notifications.js"></script>
-        <script src="./MusicHandling/main.js"></script>
-        <script src="./MusicHandling/timeHandler.js"></script>
-        <script src="./SettingsHandling/settingsPanel.js"></script>
-        <script src="./General/pageLoad.js"></script>
+        <ion-app id="mainContent">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-buttons slot="start">
+                        <ion-menu-button auto-hide="false" onclick="openMainMenu()"></ion-menu-button>
+                    </ion-buttons>
+                    <ion-title>v3.0</ion-title>
+                    <ion-title slot="end" id="serverStatusHeader"></ion-title>
+                </ion-toolbar>
+            </ion-header>
+
+            <ion-content>
+                <ion-grid>
+                    <ion-list style="position: absolute; top: 0; left: 0; right: 0; margin: 1rem;">
+                        <ion-row>
+                            <ion-col>
+                                <ion-list id="uploadedMusicList" style="color: white;">
+    
+                                </ion-list>
+                            </ion-col>
+                        </ion-row>
+                    </ion-list>
+                    <ion-row style="position: absolute; bottom: 0; left: 0; right: 0; margin: 1rem;">
+                        <ion-col style="align-items: center; align-content: center; width: 100%; text-align: center;">
+                            <ion-button onclick="
+                                var audioPlayer = document.getElementById('audioPlayer');
+                                audioPlayer.load();
+                                audioPlayer.play();
+                            ">Play</ion-button>
+                            <ion-button onclick="
+                                var audioPlayer = document.getElementById('audioPlayer');
+                                audioPlayer.pause();
+                            ">Stop</ion-button>
+                            <ion-button onclick="
+                                var audioPlayer = document.getElementById('audioPlayer');
+                                audioPlayer.play();
+                            ">Resume</ion-button>
+                            <!-- this fr took me an hour lol -->
+                            <div style="margin-top: 1rem;">
+                                <ion-label style="margin-right: 5px;">Loop</ion-label>
+                                <ion-toggle style="position: absolute; bottom: 0px;" id="loopToggle"></ion-toggle>
+                            </div>
+                        </ion-col>
+                        <div id="timeProgress" style="width: 100%;"> <div id="timeBar" style="transition: 1.2s; height: 15px;"> </div> </div>
+                        <ion-col>
+                            <h1 style="text-align: left; width: 100%;" id="currentTime">00:00</h1>
+                        </ion-col>
+                        <ion-col>
+                            <h1 style="text-align: right; width: 100%;" id="timeLeft">00:00</h1>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-content>
+        </ion-app>
+        <audio id="audioPlayer" preload="auto"></audio>
     </body>
 </html>
+
+
+<!--im gonna miss you, this was actually really good :Pensive: <script src="./General/Notifications.js"></script>-->
+<!--<script src="./MusicHandling/main.js"></script>
+<script src="./MusicHandling/timeHandler.js"></script>-->

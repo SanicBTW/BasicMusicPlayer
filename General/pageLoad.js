@@ -1,16 +1,26 @@
 //bruh bruh bruhuhuhuhuh
+
+var serverStatusHeader = document.getElementById("serverStatusHeader");
+
+const detectDeviceType = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+? 'Mobile'
+: 'Desktop';
+
+var timeProg = document.getElementById("timeProgress");
+var timeBar = document.getElementById("timeBar");
+
+var musicList = document.getElementById("uploadedMusicList");
+
+var audioPlayer = document.getElementById("audioPlayer");
+
+var loopToggle = document.getElementById("loopToggle");
+
+loopToggle.addEventListener('ionChange', (e) => {
+    audioPlayer.loop = e.target.checked;
+});
+
 function onLoad()
 {
-    const detectDeviceType = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-    ? 'Mobile'
-    : 'Desktop';
-
-    checkSpecialURL();
-
-    if(window.location.search.startsWith("?sendNotif="))
-    {
-        notify(formatSpaces(window.location.search.replace("?sendNotif=", " ")));
-    }
 
     var outerStyle = document.createElement("style");
     if(detectDeviceType() == "Desktop")
@@ -27,6 +37,36 @@ function onLoad()
     }
     document.head.appendChild(outerStyle);
 
+    axios.get('https://0d0b-81-61-195-120.eu.ngrok.io/api/collections/music/records')
+    .then((resp) => {
+        if(resp.status == 200)
+        {
+            serverStatusHeader.innerText = "Server status: Online";
+        }
+        if(resp.status == 400)
+        {
+            serverStatusHeader.innerText = "Server status: Offline (400)";
+        }
+        if(resp.status == 0)
+        {
+            serverStatusHeader.innerText = "Server status: Offline (0)";
+        }
+        if(resp.status == 404)
+        {
+            serverStatusHeader.innerText = "Server status: Not found (404)";
+        }
+    }).catch((e) => {
+        serverStatusHeader.innerText = "Server status: Get Error, check URL";
+    });
+
+    timeProg.style.backgroundColor = 'rgb(' + getValue("time bar.background color").toString() + ")";
+
+    timeBar.style.backgroundColor = 'rgb(' + getValue("time bar.color").toString() + ")";
+
+    setProgress(0);
+
+    setupSongList();
+    /*
     var timeProg = document.getElementById("timeProgress");
     var timeBar = document.getElementById("timeBar");
 
@@ -58,25 +98,56 @@ function onLoad()
 
     document.getElementById('notificationsSlowerProgress').checked = getValue('notifications.slower progress', 'bool')
 
-    setProgress(0);
+    setProgress(0);*/
 }
 
-var specialURLS = [
-    {requiredHash: '#StartOnSettings', do: function(){ openSettingsPanel(); }},
-]
-
-function checkSpecialURL()
+//yes its a copy from my other code from song upload
+function setupSongList()
 {
-    for(const special of specialURLS)
-    {
-        if(special.requiredHash == window.location.hash)
+    axios.get('https://0d0b-81-61-195-120.eu.ngrok.io/api/collections/music/records').then((resp) => {
+        var musicItems = resp.data.items;
+        for(var i in musicItems)
         {
-            special.do();
+            addMusicItem(musicItems[i].music_name, musicItems[i].music_file, musicItems[i].id);
         }
-    }
+    });
 }
 
-//might improve it
+function addMusicItem(musicName, musicFile, id)
+{
+    var fixedPath = 'https://0d0b-81-61-195-120.eu.ngrok.io/api/files/music/' + id + "/" + musicFile;
+
+    sessionStorage.setItem(musicName, fixedPath);
+
+    var newMusicItem = document.createElement('ion-item');
+
+    var musicItemLabel = document.createElement('ion-label');
+    musicItemLabel.innerText = musicName;
+
+    var musicPlayButton = document.createElement('ion-button');
+    musicPlayButton.innerText = "Select";
+    musicPlayButton.id = musicName + "_btn";
+    musicPlayButton.setAttribute('slot', 'end');
+
+    musicPlayButton.addEventListener('click', (e) => {
+        var songName = musicPlayButton.id.replace("_btn", "");
+        var songURL = sessionStorage.getItem(songName);
+
+        var timeBar = document.getElementById("timeBar");
+        timeBar.classList.add('notransition');
+        setProgress(0);
+        timeBar.offsetHeight;
+        timeBar.classList.remove('notransition');
+
+        audioPlayer.src = songURL;
+    });
+
+    newMusicItem.appendChild(musicItemLabel);
+    newMusicItem.appendChild(musicPlayButton);
+    musicList.appendChild(newMusicItem);
+}
+
+/*
 var openedVol = false;
 var holdTime = 0.0;
 var curkey;
@@ -168,4 +239,4 @@ function volCheck(keyPressed)
             }
             break;
     }
-}
+}*/

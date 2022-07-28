@@ -1,13 +1,27 @@
-# V2.6 Rewrite
+# V3.0 (EARLY RELEASE) Rewrite
+
+## Beware of bugs
 
 Huge thanks to [Bonndubz](https://github.com/bonndevoff) for the help
 
 Changelog:
 
-Finally added the key feature - custom music (even better)
+Rewrite the main page, using Ionic
 
-Uses Pocket Base as the file hoster
+Implement custom songs feature
 
-Added a music uploading page, uses Ionic (might even rewrite the main page)
+UI is subject to change
 
-This feature hasn't been implemented to the player yet
+Code is subject to change
+
+No settings implemented yet
+
+Notifications gone (For now, will add them again with Ionic design I guess, maybe not)
+
+Volume bar gone too, will add it in the full release
+
+# Issues
+
+Song list might be under the player controls, might move them to the main menu (idk how to fix ui lol)
+
+Pending some fixes to the song bar and that stuff

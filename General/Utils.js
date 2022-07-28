@@ -1,3 +1,11 @@
+var daProg = document.getElementById("timeProgress");
+var daBar = document.getElementById("timeBar");
+
+function setProgress(amount)
+{
+    daBar.style.width = amount + "%";
+}
+
 /**
  * 
  * @param {string} index Index to get value from
@@ -55,195 +63,56 @@ function parseBool(parse)
     return undefined;
 }
 
-var colors = ["red", "green", "blue"];
-
-function formatRGBString(toFormat)
-{
-    var toReturn = null;
-    var the = toFormat.toLowerCase();
-    var help = [];
-    var ignore = ["r", "g", "b", "(", ","];
-    var helpAgain = [];
-    var helpmee = [];
-
-    var final = new Object();
-    var select = 0;
-    var tempArr = [];
-
-    for(var i in the)
-    {
-        help.push(the[i]);
-    }
-
-    for(var i in help)
-    {
-        for(var j in ignore)
-        {
-            if(help[i] == ignore[j])
-            {
-                help.shift();
-            }
-        }
-        if(help[help.length -1] == ")")
-        {
-            help[help.length -1] = "-";
-        }
-
-        helpAgain.push(help[i]);
-    }
-
-    //im this dumb?
-    for(var i in helpAgain)
-    {
-        if(helpAgain[i] == " ")
-        {
-            helpAgain[i] = "-";
-        }
-
-        helpmee.push(helpAgain[i]);
-    }
-
-    for(var i in helpmee)
-    {
-        if(helpmee[i] == "-")
-        {
-            select++;
-            tempArr = [];
-        }
-        if(helpmee[i] != "-")
-        {
-            tempArr.push(helpmee[i]);
-            final[colors[select]] = tempArr;
-        }
-    }
-
-    toReturn = final;
-    return toReturn;
-}
-
-function parseVol(comingFromSettings = false)
+function parseVol()
 {
     var vol = document.getElementById("audioPlayer").volume;
-    if(comingFromSettings)
+    switch(vol)
     {
-        switch(vol)
-        {
-            case 1:
-                return 1;
-            case 0.9:
-                return 0.9;
-            case 0.8:
-                return 0.8;
-            case 0.7:
-                return 0.7;
-            case 0.6:
-                return 0.6;
-            case 0.5:
-                return 0.5;
-            case 0.4:
-                return 0.4;
-            case 0.3:
-                return 0.3;
-            case 0.2:
-                return 0.2;
-            case 0.1:
-                return 0.1;
-        }
-    }
-    else
-    {
-        switch(vol)
-        {
-            case 1:
-                return 1;
-            case 0.9:
-                return 0.9;
-            case 0.8:
-                return 0.8;
-            case 0.7000000000000001:
-                return 0.7;
-            case 0.6000000000000001:
-                return 0.6;
-            case 0.5000000000000001:
-                return 0.5;
-            case 0.40000000000000013:
-                return 0.4;
-            case 0.30000000000000016:
-                return 0.3;
-            case 0.20000000000000015:
-                return 0.2;
-            case 0.10000000000000014:
-                return 0.1;
-        }
+        case 1:
+            return 1;
+        case 0.9:
+            return 0.9;
+        case 0.8:
+            return 0.8;
+        case 0.7000000000000001:
+            return 0.7;
+        case 0.6000000000000001:
+            return 0.6;
+        case 0.5000000000000001:
+            return 0.5;
+        case 0.40000000000000013:
+            return 0.4;
+        case 0.30000000000000016:
+            return 0.3;
+        case 0.20000000000000015:
+            return 0.2;
+        case 0.10000000000000014:
+            return 0.1;
     }
     return 0.0;
 }
 
-function parseVolPercent(comingFromSettings)
+var sideMainMenu = document.getElementById('sideMainMenu');
+var sideMainMenuContent = document.getElementById('sideMainMenuContent');
+var mainContent = document.getElementById('mainContent');
+
+function openMainMenu()
 {
-    var vol = parseVol(comingFromSettings);
-    var fixedReturn = "0%";
-    switch(vol)
+    mainContent.style.opacity = "0.25";
+    if(detectDeviceType() == "Desktop")
     {
-        case 1:
-            return fixedReturn = "100%";
-        case 0.9:
-            return fixedReturn = "90%";
-        case 0.8:
-            return fixedReturn = "80%";
-        case 0.7:
-            return fixedReturn = "70%";
-        case 0.6:
-            return fixedReturn = "60%";
-        case 0.5:
-            return fixedReturn = "50%";
-        case 0.4:
-            return fixedReturn = "40%";
-        case 0.3:
-            return fixedReturn = "30%";
-        case 0.2:
-            return fixedReturn = "20%";
-        case 0.1:
-            return fixedReturn = "10%";
-        case 0.0:
-            return fixedReturn = "0%";
+        sideMainMenu.style.width = "25%";
     }
-    return null;
+    else
+    {
+        sideMainMenu.style.width = "50%";
+    }
+    sideMainMenuContent.style.opacity = "1";
 }
 
-//br
-function parsePercent(percent)
+function closeMainMenu()
 {
-    switch(percent)
-    {
-        case 1:
-            return 100;
-        case 0.9:
-            return 90;
-        case 0.8:
-            return 80;
-        case 0.7:
-            return 70;
-        case 0.6:
-            return 60;
-        case 0.5:
-            return 50;
-        case 0.4:
-            return 40;
-        case 0.3:
-            return 30;
-        case 0.2:
-            return 20;
-        case 0.1:
-            return 10;
-        case 0.0:
-            return 0;
-    }
-    return 0;
-}
-
-//only supports spaces lol, formats query argument on search
-function formatSpaces(toFormat)
-{
-    return toFormat.split("%20").join(" ");
+    sideMainMenuContent.style.opacity = "0";
+    sideMainMenu.style.width = "0%";
+    mainContent.style.opacity = "1";
 }
