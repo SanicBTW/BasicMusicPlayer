@@ -1,20 +1,22 @@
-# V3.0 (EARLY RELEASE) Rewrite
+# V3.0 Rewrite
 
-## Beware of bugs
+## Early developer preview 2 (EDPR 2)
 
-Huge thanks to [Bonndubz](https://github.com/bonndevoff) for the help
+### Beware of bugs
 
-Changelog:
+# Changelog
 
-Rewrite the main page, using Ionic
+Moved the song list to main menu
 
-Implement custom songs feature
+Added a current playing header for music name
 
-UI is subject to change
+Added prev and next song buttons
 
-Code is subject to change
+Modified loop to be a button
 
-No settings implemented yet
+When finishing the current song it will go to the next one
+
+# Still not added
 
 Notifications gone (For now, will add them again with Ionic design I guess, maybe not)
 
@@ -22,6 +24,8 @@ Volume bar gone too, will add it in the full release
 
 # Issues
 
-Song list might be under the player controls, might move them to the main menu (idk how to fix ui lol)
+Eh dunno
 
-Pending some fixes to the song bar and that stuff
+# Credits
+
+Huge thanks to [Bonndubz](https://github.com/bonndevoff) for the help

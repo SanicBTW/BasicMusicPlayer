@@ -13,15 +13,10 @@ var musicList = document.getElementById("uploadedMusicList");
 
 var audioPlayer = document.getElementById("audioPlayer");
 
-var loopToggle = document.getElementById("loopToggle");
-
-loopToggle.addEventListener('ionChange', (e) => {
-    audioPlayer.loop = e.target.checked;
-});
+var curIndex = 0;
 
 function onLoad()
 {
-
     var outerStyle = document.createElement("style");
     if(detectDeviceType() == "Desktop")
     {
@@ -66,39 +61,6 @@ function onLoad()
     setProgress(0);
 
     setupSongList();
-    /*
-    var timeProg = document.getElementById("timeProgress");
-    var timeBar = document.getElementById("timeBar");
-
-    var volumeProg = document.getElementById("volProgress");
-    var volumeBar = document.getElementById("volBar");
-
-    timeProg.style.backgroundColor = 'rgb(' + getValue("time bar.background color").toString() + ")";
-    timeProg.style.width = getValue("time bar.width", "int") + "%";
-
-    timeBar.style.backgroundColor = 'rgb(' + getValue("time bar.color").toString() + ")";
-    timeBar.style.height = getValue("time bar.height", "int") + "px";
-
-    volumeProg.style.backgroundColor = 'rgb(' + getValue("volume tray.bar background color").toString() + ")";
-    volumeBar.style.backgroundColor = 'rgb(' + getValue('volume tray.bar color').toString() + ")";
-
-    document.getElementById("timeBarBGColorInput").value = getValue('time bar.background color', 'rgb');
-    document.getElementById("timeBarColorInput").value = getValue('time bar.color', 'rgb');
-
-    document.getElementById('timeBarWidthInput').value = getValue('time bar.width', 'int');
-    document.getElementById("timeBarHeightInput").value = getValue('time bar.height', 'int');
-
-    document.getElementById("timeBarDisplayTimeLeft").checked = getValue('time bar.time left', 'bool');
-
-    document.getElementById("timeDisplayTimeLeft").checked = getValue('time display.time left', 'bool');
-    document.getElementById("timeDisplayBothTimes").checked = getValue('time display.both times', 'bool');
-
-    document.getElementById("volumeBarBGColorInput").value = getValue('volume tray.bar background color', 'rgb');
-    document.getElementById("volumeBarColorInput").value = getValue('volume tray.bar color', 'rgb');
-
-    document.getElementById('notificationsSlowerProgress').checked = getValue('notifications.slower progress', 'bool')
-
-    setProgress(0);*/
 }
 
 //yes its a copy from my other code from song upload
@@ -108,12 +70,12 @@ function setupSongList()
         var musicItems = resp.data.items;
         for(var i in musicItems)
         {
-            addMusicItem(musicItems[i].music_name, musicItems[i].music_file, musicItems[i].id);
+            addMusicItem(musicItems[i].music_name, musicItems[i].music_file, musicItems[i].id, i);
         }
     });
 }
 
-function addMusicItem(musicName, musicFile, id)
+function addMusicItem(musicName, musicFile, id, itemNum)
 {
     var fixedPath = 'https://0d0b-81-61-195-120.eu.ngrok.io/api/files/music/' + id + "/" + musicFile;
 
@@ -122,10 +84,10 @@ function addMusicItem(musicName, musicFile, id)
     var newMusicItem = document.createElement('ion-item');
 
     var musicItemLabel = document.createElement('ion-label');
-    musicItemLabel.innerText = musicName;
+    musicItemLabel.innerText = musicName + " - item " + itemNum;
 
     var musicPlayButton = document.createElement('ion-button');
-    musicPlayButton.innerText = "Select";
+    musicPlayButton.innerText = "Play";
     musicPlayButton.id = musicName + "_btn";
     musicPlayButton.setAttribute('slot', 'end');
 
@@ -133,13 +95,16 @@ function addMusicItem(musicName, musicFile, id)
         var songName = musicPlayButton.id.replace("_btn", "");
         var songURL = sessionStorage.getItem(songName);
 
-        var timeBar = document.getElementById("timeBar");
-        timeBar.classList.add('notransition');
+        curIndex = itemNum;
+
         setProgress(0);
-        timeBar.offsetHeight;
-        timeBar.classList.remove('notransition');
 
         audioPlayer.src = songURL;
+        audioPlayer.load();
+        audioPlayer.play();
+        curPlaying.innerText = "Playing: " + musicName;
+
+        closeMainMenu();
     });
 
     newMusicItem.appendChild(musicItemLabel);

@@ -14,14 +14,14 @@
 
 #sideMainMenu
 {
-    height: fit-content; 
+    height: 100%; 
     width: 0%; 
     position: fixed; 
     z-index: 1; 
     top: 0; 
     left: 0; 
     background-color: #111; 
-    overflow-x: hidden; 
+    overflow-x: scroll; 
     transition: 0.5s;
     color: white;
 }

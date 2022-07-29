@@ -101,11 +101,11 @@ function openMainMenu()
     mainContent.style.opacity = "0.25";
     if(detectDeviceType() == "Desktop")
     {
-        sideMainMenu.style.width = "25%";
+        sideMainMenu.style.width = "50%";
     }
     else
     {
-        sideMainMenu.style.width = "50%";
+        sideMainMenu.style.width = "100%";
     }
     sideMainMenuContent.style.opacity = "1";
 }

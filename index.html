@@ -5,8 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        <script src="https://cdn.jsdelivr.net/npm/pocketbase@0.2.2/dist/pocketbase.umd.js"></script>
-
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
         <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
@@ -17,10 +15,8 @@
         <link rel="stylesheet" href="./General/index.css">
 
         <script src="./General/Utils.js" defer></script>
-        <script src="./SettingsHandling/setupConfig.js" defer></script>
+        <script src="./General/handling.js" defer></script>
         <script src="./General/pageLoad.js" defer></script>
-
-        <script src="./General/timeHandler.js" defer></script>
 
         <title>Basic Music Player</title>
     </head>
@@ -36,6 +32,17 @@
                     <ion-button style="grid-row: 1;">Open Settings</ion-button>
                     <ion-button style="grid-row: 2;" onclick="window.location.assign('./MusicUploading')">Upload song</ion-button>
                     <ion-button style="grid-row: 3;" onclick="closeMainMenu()">Close Main Menu</ion-button>
+
+                    <ion-grid style="width: 100%;">
+                        <ion-list >
+                            <ion-row>
+                                <ion-col>
+                                    <ion-list id="uploadedMusicList" style="color: white;">
+                                    </ion-list>
+                                </ion-col>
+                            </ion-row>
+                        </ion-list>
+                    </ion-grid>
                 </div>
             </div>
         </div>
@@ -46,29 +53,21 @@
                     <ion-buttons slot="start">
                         <ion-menu-button auto-hide="false" onclick="openMainMenu()"></ion-menu-button>
                     </ion-buttons>
-                    <ion-title>v3.0 EARLY RELEASE</ion-title>
+                    <ion-title>EDPR 2</ion-title>
                     <ion-title slot="end" id="serverStatusHeader"></ion-title>
                 </ion-toolbar>
             </ion-header>
 
             <ion-content>
                 <ion-grid>
-                    <ion-list style="position: absolute; top: 0; left: 0; right: 0; margin: 1rem;">
-                        <ion-row>
-                            <ion-col>
-                                <ion-list id="uploadedMusicList" style="color: white;">
-    
-                                </ion-list>
-                            </ion-col>
-                        </ion-row>
-                    </ion-list>
+                    <ion-row>
+                        <ion-col>
+                            <h1 id="curPlaying">Click the menu button to open the song list</h1>
+                        </ion-col>
+                    </ion-row>
                     <ion-row style="position: absolute; bottom: 0; left: 0; right: 0; margin: 1rem;">
                         <ion-col style="align-items: center; align-content: center; width: 100%; text-align: center;">
-                            <ion-button onclick="
-                                var audioPlayer = document.getElementById('audioPlayer');
-                                audioPlayer.load();
-                                audioPlayer.play();
-                            ">Play</ion-button>
+                            <ion-button onclick="prevSong()">Prev Song</ion-button>
                             <ion-button onclick="
                                 var audioPlayer = document.getElementById('audioPlayer');
                                 audioPlayer.pause();
@@ -77,13 +76,21 @@
                                 var audioPlayer = document.getElementById('audioPlayer');
                                 audioPlayer.play();
                             ">Resume</ion-button>
-                            <!-- this fr took me an hour lol -->
-                            <div style="margin-top: 1rem;">
-                                <ion-label style="margin-right: 5px;">Loop</ion-label>
-                                <ion-toggle style="position: absolute; bottom: 0px;" id="loopToggle"></ion-toggle>
-                            </div>
+                            <ion-button id="loopBtn" onclick="
+                                audioPlayer.loop = !audioPlayer.loop;
+                                switch(audioPlayer.loop)
+                                {
+                                    case true:
+                                        document.getElementById('loopBtn').innerText = 'Loop on';
+                                        break;
+                                    case false:
+                                        document.getElementById('loopBtn').innerText = 'Loop off';
+                                        break;
+                                }
+                            ">Loop off</ion-button>
+                            <ion-button onclick="nextSong()">Next song</ion-button>
                         </ion-col>
-                        <div id="timeProgress" style="width: 100%;"> <div id="timeBar" style="transition: 1.2s; height: 15px;"> </div> </div>
+                        <div id="timeProgress" style="width: 100%;"> <div id="timeBar" style="height: 15px;"> </div> </div>
                         <ion-col>
                             <h1 style="text-align: left; width: 100%;" id="currentTime">00:00</h1>
                         </ion-col>
