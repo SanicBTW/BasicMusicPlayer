@@ -1,4 +1,4 @@
-const client = new PocketBase("https://0d0b-81-61-195-120.eu.ngrok.io/");
+const client = new PocketBase("http://sancopublic.ddns.net:5430/");
 
 var fileNameInput = document.getElementById("fileNameInput");
 var musicList = document.getElementById('uploadedMusicList');
@@ -83,7 +83,7 @@ function uploadFile()
 //get file url after finishing list creation
 function onLoad()
 {
-    axios.get('https://0d0b-81-61-195-120.eu.ngrok.io/api/collections/music/records').then((resp) => {
+    axios.get('http://sancopublic.ddns.net:5430/api/collections/music/records').then((resp) => {
         var musicItems = resp.data.items;
         for(var i in musicItems)
         {
@@ -94,7 +94,7 @@ function onLoad()
 
 function addMusicItem(musicName, musicFile, id)
 {
-    var fixedPath = 'https://0d0b-81-61-195-120.eu.ngrok.io/api/files/music/' + id + "/" + musicFile; 
+    var fixedPath = 'http://sancopublic.ddns.net:5430/api/files/music/' + id + "/" + musicFile; 
     var div = document.createElement('div');
     div.style.marginTop = "1rem";
     var newMusicItem = document.createElement('p');
