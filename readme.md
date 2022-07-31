@@ -24,6 +24,8 @@ Volume bar gone too, will add it in the full release
 
 # Issues
 
+HOST WONT FUCKING WORK BECAUSE THE HOST ISNT SECURE, FUCK HTTPS AND FUCK EVERYTHING
+
 Eh dunno
 
 # Credits
