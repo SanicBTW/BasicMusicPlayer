@@ -32,7 +32,7 @@ function onLoad()
     }
     document.head.appendChild(outerStyle);
 
-    axios.get('http://sancopublic.ddns.net:5430/api/collections/music/records')
+    axios.get('https://86ee-81-61-195-120.eu.ngrok.io/api/collections/music/records')
     .then((resp) => {
         if(resp.status == 200)
         {
@@ -66,7 +66,7 @@ function onLoad()
 //yes its a copy from my other code from song upload
 function setupSongList()
 {
-    axios.get('http://sancopublic.ddns.net:5430/api/collections/music/records').then((resp) => {
+    axios.get('https://86ee-81-61-195-120.eu.ngrok.io/api/collections/music/records').then((resp) => {
         var musicItems = resp.data.items;
         for(var i in musicItems)
         {
@@ -77,7 +77,7 @@ function setupSongList()
 
 function addMusicItem(musicName, musicFile, id, itemNum)
 {
-    var fixedPath = 'http://sancopublic.ddns.net:5430/api/files/music/' + id + "/" + musicFile;
+    var fixedPath = 'https://86ee-81-61-195-120.eu.ngrok.io/api/files/music/' + id + "/" + musicFile;
 
     sessionStorage.setItem(musicName, fixedPath);
 
