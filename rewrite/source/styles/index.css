@@ -1,0 +1,41 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    user-select: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    background-color: black;
+    color: white;
+}
+
+#mainContent
+{
+    margin: 1rem;
+    transition: 0.75s all cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+audio
+{
+    display: none;
+}
+
+button
+{
+    display: block;
+    font-size: large;
+    color: black;
+    padding: 22px 16px;
+    width: 10%;
+    border: none;
+    outline: none;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover
+{
+    background-color: gray;
+}

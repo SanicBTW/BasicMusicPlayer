@@ -141,7 +141,7 @@ function updateProgress()
 function nextSong()
 {
     curIndex ++;
-    axios.get('https://86ee-81-61-195-120.eu.ngrok.io/api/collections/music/records').then((resp) => {
+    axios.get('https://pb.sancopublic.tk/api/collections/music/records').then((resp) => {
         var musicItem = resp.data.items[curIndex];
         if(musicItem != undefined)
         {
@@ -166,7 +166,7 @@ function nextSong()
 function prevSong()
 {
     curIndex --;
-    axios.get('https://86ee-81-61-195-120.eu.ngrok.io/api/collections/music/records').then((resp) => {
+    axios.get('https://pb.sancopublic.tk/api/collections/music/records').then((resp) => {
         var musicItem = resp.data.items[curIndex];
         if(musicItem != undefined)
         {
