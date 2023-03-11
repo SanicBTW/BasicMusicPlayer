@@ -13,14 +13,14 @@
     </head>
     <body ondrop="dropHandler(event)" ondragenter="document.getElementById('mainContent').style.opacity = 0.45;" ondragleave="document.getElementById('mainContent').style.opacity = 1;" ondragover="event.preventDefault();">
         <div id="mainContent">
-            <h1 id="headText">Drop a MP3 file to play</h1>
+            <h1 id="headText">Drop a MP3 or OGG file to play</h1>
             <button onclick="audio.play()">Play</button>
             <button onclick="audio.pause()">Stop</button>
             <button onclick="
                 audio.loop = !audio.loop
                 event.target.innerText = (audio.loop ? 'Loop on' : 'Loop off');
             ">Loop off</button>
-            <h2><span id="currentTime">00:00</span>/<span id="timeLeft">00:00</span></h2>
+            <h2 id="timeDisplay">00:00/00:00</h2>
 
             <div id="timeProgress" style="width: 100%;"> <div id="timeBar" style="height: 15px;"> </div> </div>
 

@@ -1,8 +1,8 @@
 const content = document.getElementById('mainContent');
 const audio = document.getElementById('player');
 const headText = document.getElementById('headText');
-const currentTimeTxt = document.getElementById("currentTime");
-const timeLeftTxt = document.getElementById("timeLeft");
+
+const supportedTypes = [".mp3", ".ogg"];
 
 function dropHandler(e)
 {
@@ -31,14 +31,16 @@ function dropHandler(e)
 
 function handleFile(file)
 {
-    if (!file.name.endsWith(".mp3") || !file.name.endsWith(".ogg"))
-        return alert("Only MP3 or OGG files allowed");
+    var fileExt = file.name.substring(file.name.indexOf("."));
+    var fileName = file.name.substring(0, file.name.indexOf(fileExt));
+    if (!supportedTypes.includes(fileExt))
+        return alert(`${fileExt} not supported`);
 
     new Response(file.stream()).blob().then((blob) =>
     {
         audio.src = URL.createObjectURL(blob);
         content.style.opacity = 1;
-        headText.innerText = file.name.substring(0, file.name.indexOf(".mp3"));
+        headText.innerText = fileName;
         document.getElementById('timeBar').style.backgroundColor = `rgb(${getRandomColor()}, ${getRandomColor()}, ${getRandomColor()})`;
     });
 }
@@ -135,8 +137,7 @@ function updateTime()
         }
     }
 
-    currentTimeTxt.innerText = curMin + ":" + curSecs;
-    timeLeftTxt.innerText = minLeft + ":" + secsLeft;
+    document.getElementById('timeDisplay').innerText = `${curMin}:${curSecs}/${minLeft}:${secsLeft}`;
 
     setProgress(songPercent * 100);
 }
