@@ -8,23 +8,33 @@
         <link rel="stylesheet" href="./source/styles/index.css">
 
         <script src="./source/scripts/index.js" defer></script>
+        <script src="./source/scripts/vol.js" defer></script>
 
         <title>Basic Music Player</title>
     </head>
     <body ondrop="dropHandler(event)" ondragenter="document.getElementById('mainContent').style.opacity = 0.45;" ondragleave="document.getElementById('mainContent').style.opacity = 1;" ondragover="event.preventDefault();">
-        <div id="mainContent">
-            <h1 id="headText">Drop a MP3 or OGG file to play</h1>
-            <button onclick="audio.play()">Play</button>
-            <button onclick="audio.pause()">Stop</button>
-            <button onclick="
-                audio.loop = !audio.loop
-                event.target.innerText = (audio.loop ? 'Loop on' : 'Loop off');
-            ">Loop off</button>
-            <h2 id="timeDisplay">00:00/00:00</h2>
-
-            <div id="timeProgress" style="width: 100%;"> <div id="timeBar" style="height: 15px;"> </div> </div>
-
-            <audio id="player"></audio>
+        <div class="center">
+            <div id="volumeTray" class="topPanel">
+                <div style="margin-left: 1rem; margin-right: 1rem;">
+                    <p>Volume</p>
+                    <p id="volP" style="position: absolute; right: 0; top: 0; margin-right: 1rem;">100%</p>
+                    <div id="volProgress" style="width: 100%"> <div id="volBar" style="width: 100%; height: 15px; transition: 0.75s all cubic-bezier(0.4, 0, 0.2, 1); background-color: rgb(255, 255, 255);"></div> </div>
+                </div>
+            </div>
+            <div id="mainContent">
+                <h1 id="headText">Drop a MP3 or OGG file to play</h1>
+                <button onclick="audio.play()">Play</button>
+                <button onclick="audio.pause()">Stop</button>
+                <button onclick="
+                    audio.loop = !audio.loop
+                    event.target.innerText = (audio.loop ? 'Loop on' : 'Loop off');
+                ">Loop off</button>
+                <h2 id="timeDisplay">00:00/00:00</h2>
+    
+                <div id="timeProgress" style="width: 100%;"> <div id="timeBar" style="height: 15px;"> </div> </div>
+    
+                <audio id="player"></audio>
+            </div>
         </div>
     </body>
 </html>

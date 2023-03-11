@@ -14,6 +14,8 @@ body {
 {
     margin: 1rem;
     transition: 0.75s all cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+    height: 100%;
 }
 
 audio
@@ -38,4 +40,26 @@ button
 button:hover
 {
     background-color: gray;
+}
+
+.center
+{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.topPanel 
+{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 12%; 
+    width: 20%; 
+    position: fixed; 
+    z-index: 2;
+    top: -200px;
+    background-color: rgb(32, 32, 32); 
+    overflow-x: hidden; 
+    transition: 0.75s all cubic-bezier(0.4, 0, 0.2, 1);
 }
