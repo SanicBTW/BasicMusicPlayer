@@ -31,8 +31,8 @@ function dropHandler(e)
 
 function handleFile(file)
 {
-    if (!file.name.endsWith(".mp3"))
-        return alert("Only MP3 files allowed");
+    if (!file.name.endsWith(".mp3") || !file.name.endsWith(".ogg"))
+        return alert("Only MP3 or OGG files allowed");
 
     new Response(file.stream()).blob().then((blob) =>
     {
