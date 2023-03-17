@@ -54,12 +54,12 @@ button:hover
 .topPanel 
 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    height: 12%; 
-    width: 20%; 
-    position: fixed; 
+    height: 12%;
+    width: 20%;
+    position: fixed;
     z-index: 2;
     top: -200px;
-    background-color: rgb(32, 32, 32); 
-    overflow-x: hidden; 
-    transition: 0.75s all cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: rgba(32, 32, 32, 0.7);
+    backdrop-filter: blur(4px);
+    overflow-x: hidden;
 }
