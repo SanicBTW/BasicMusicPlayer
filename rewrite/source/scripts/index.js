@@ -1,8 +1,12 @@
 // Funny vars
-const fpsLoop = new FramerateLoop();
+const fpsLoop = new FPSLoop();
 const content = document.getElementById('mainContent');
 const audio = document.getElementById('player');
 const headText = document.getElementById('headText');
+
+// yoo
+const boundTo = FPSLoop.boundTo;
+const lerp = FPSLoop.lerp;
 
 // Volume tray vars
 const volTray = document.getElementById('volumeTray');
@@ -90,7 +94,7 @@ function dropHandler(e)
 // Handles file
 function handleFile(file)
 {
-    var fileExt = file.name.substring(file.name.indexOf("."));
+    var fileExt = file.name.substring(file.name.lastIndexOf("."));
     var fileName = file.name.substring(0, file.name.indexOf(fileExt));
     if (!supportedTypes.includes(fileExt))
         return alert(`${fileExt} not supported`);
@@ -108,9 +112,9 @@ function handleFile(file)
 audio.addEventListener('durationchange', () => timeBar.style.width = "0%");
 
 // Set the FPS Loop update
-fpsLoop.customUpdate = () =>
+fpsLoop.onUpdate.add(({elapsed}) =>
 {
-    var lerpVal = boundTo(1 - (fpsLoop.elapsed * 8.6), 0, 1);
+    var lerpVal = boundTo(1 - (elapsed * 8.6), 0, 1);
     // Volume tray Y position
     var volTY = volTray.style.top.substring(0, volTray.style.top.indexOf("px"));
     // Number of the volume bar width
@@ -121,11 +125,11 @@ fpsLoop.customUpdate = () =>
     // Funny tray position
     if (visibleTime > 0)
     {
-        visibleTime -= fpsLoop.elapsed;
+        visibleTime -= elapsed;
     }
     else if (volTY > -200)
     {
-        targetPos -= fpsLoop.elapsed * window.visualViewport.height * (window.visualViewport.width / window.visualViewport.height);
+        targetPos -= elapsed * window.visualViewport.height * (window.visualViewport.width / window.visualViewport.height);
     }
 
     // Lerps
@@ -136,7 +140,7 @@ fpsLoop.customUpdate = () =>
     // Set info
     document.getElementById("volP").innerText = `${Math.round(volTar)}%`;
     document.getElementById('timeDisplay').innerText = `${getCurrentTime()}/${getDuration()}`;
-}
+});
 
 // Helper functions
 function getRandomColor()
@@ -191,16 +195,6 @@ function getCurrentTime()
     var curSecs = Math.floor(audio.currentTime % 60) >= 10 ? Math.floor(audio.currentTime % 60) : "0" + Math.floor(audio.currentTime % 60);
 
     return `${curMin}:${curSecs}`;
-}
-
-function boundTo(value, min, max)
-{
-    return Math.max(min, Math.min(max, value));
-}
-
-function lerp(a, b, ratio)
-{
-    return a + ratio * (b - a);
 }
 
 // More listeners
